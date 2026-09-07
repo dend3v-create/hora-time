@@ -242,9 +242,12 @@ async function runMonetizationIntegritySuite() {
   const unpaidPro = getUserPlan({ plan: "pro", subscription: "pro", membership_status: "pending", membership_expires_at: futureDate });
   assert(unpaidPro === "free", "Unpaid pending pro must fall back to free");
 
-  // 3C: Lifetime master -> immune to expiry
-  const lifetimeMaster = getUserPlan({ plan: "master", subscription: "lifetime", membership_status: "active", membership_expires_at: pastDate });
-  assert(lifetimeMaster === "master", "Lifetime master must NOT be expired by past date");
+  // 3C: Master monthly plan -> expires on pastDate, active on futureDate
+  const expiredMaster = getUserPlan({ plan: "master", subscription: "master", membership_status: "active", membership_expires_at: pastDate });
+  assert(expiredMaster === "free", "Expired Master monthly must fall back to free");
+
+  const activeMaster = getUserPlan({ plan: "master", subscription: "master", membership_status: "active", membership_expires_at: futureDate });
+  assert(activeMaster === "master", "Active Master monthly must evaluate to master");
 
   // 3D: Admin role -> immune to expiry
   const adminRole = getUserPlan({ plan: "free", role: "admin", membership_expires_at: pastDate });
@@ -254,9 +257,9 @@ async function runMonetizationIntegritySuite() {
     id: 3,
     domain: "MEMBERSHIP",
     name: "Expiry & Precedence",
-    expected: "Expired->free, Inactive->free, Lifetime->master, Admin->master",
-    actual: `Expired: ${expiredPro}, Inactive: ${unpaidPro}, Lifetime: ${lifetimeMaster}, Admin: ${adminRole}`,
-    evidence: `getUserPlan() dynamic boundary evaluation across 4 test states`,
+    expected: "Expired->free, Inactive->free, ExpiredMaster->free, ActiveMaster->master, Admin->master",
+    actual: `Expired: ${expiredPro}, Inactive: ${unpaidPro}, ExpiredMaster: ${expiredMaster}, ActiveMaster: ${activeMaster}, Admin: ${adminRole}`,
+    evidence: `getUserPlan() dynamic boundary evaluation across test states`,
     status: "PASS",
     type: "Simulation",
   });

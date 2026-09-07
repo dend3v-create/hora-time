@@ -581,7 +581,7 @@ export default function PartnerPortalPage() {
               </span>
               <span className="text-[11px] text-rose-700 dark:text-pink-400/80 font-mono font-bold">฿{clawbackDebt.toFixed(2)}</span>
             </div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">รายได้รวมสะสมตลอดชีพ</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">รายได้รวมสะสมทั้งหมด</div>
             <div className="text-xl lg:text-2xl font-bold font-mono text-amber-700 dark:text-[#D9BC82] tracking-tight">
               ฿{totalEarned.toLocaleString("th-TH", { minimumFractionDigits: 2 })}
             </div>
@@ -703,7 +703,7 @@ export default function PartnerPortalPage() {
                   {referralPerformance.totalConverted.toLocaleString()}
                 </div>
                 <div className="mt-2 text-xs text-emerald-700 dark:text-emerald-300 flex items-center gap-1 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> ผูกมิตรกับบัญชีของคุณตลอดชีพ
+                  <CheckCircle2 className="w-3.5 h-3.5" /> ผูกมิตรกับบัญชีของคุณระยะยาว
                 </div>
               </div>
 

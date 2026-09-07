@@ -21,7 +21,7 @@ export const meta: MetaFunction = () => [
   {
     property: "og:description",
     content:
-      "เลือกแผนที่ใช่สำหรับคุณ เริ่มต้นฟรี หรือยกระดับสู่เครื่องมือวิเคราะห์เชิงกลยุทธ์ระดับมืออาชีพและโหราจารย์ ทุกแพ็คเกจคิดเป็นรายเดือน ไม่มีตลอดชีพ",
+      "เลือกแผนที่ใช่สำหรับคุณ เริ่มต้นฟรี หรือยกระดับสู่เครื่องมือวิเคราะห์เชิงกลยุทธ์ระดับมืออาชีพและโหราจารย์ คิดค่าบริการตามรอบบิลที่เลือก โปร่งใส ชัดเจน",
   },
   { property: "og:image", content: "https://phopephum.com/favicon.svg" },
   { name: "keywords", content: "ราคาภพภูมิ, สมัครสมาชิกภพภูมิ, PhoPePhum OS, แพ็กเกจดูดวง AI, ทรายกาลเวลา, เลข 7 ตัว 9 ฐาน" },
@@ -148,16 +148,9 @@ const ANNUAL_PLANS = [
   },
   {
     ...MONTHLY_PLANS[1],
-    id: "premium_annual",
-    name: "ยกระดับชีวิต (รายปี)",
-    subtitle: "วางแผนชีวิตและการเงินส่วนบุคคล (ประหยัด 20%)",
-    price: "850",
-    priceLabel: "850",
-    priceNote: "/ ปี (~฿70.80/ด.)",
-    ctaLabel: "เริ่มใช้ Premium รายปี ฿850/ปี",
-    ctaLoggedIn: "/dashboard/upgrade?plan=premium_annual",
-    ctaGuest: "/register?plan=premium_annual",
-    note: "* ประหยัดกว่าการจ่ายรายเดือนถึง ฿218/ปี",
+    id: "premium",
+    priceNote: "/ เดือน (รอบบิลรายเดือน)",
+    note: "* แผน Premium ให้บริการรอบบิลรายเดือน ฿89/เดือน",
   },
   {
     ...MONTHLY_PLANS[2],
@@ -175,17 +168,9 @@ const ANNUAL_PLANS = [
   },
   {
     ...MONTHLY_PLANS[3],
-    id: "master_annual",
-    name: "โหราจารย์ (รายปี)",
-    subtitle: "ปลดล็อคเครื่องมือสำหรับนักพยากรณ์ ครบเครื่องตลอดปี (ประหยัด 20%)",
-    price: "7570",
-    priceLabel: "7,570",
-    priceNote: "/ ปี (~฿630.80/ด.)",
-    tag: "Master Class",
-    ctaLabel: "เริ่มใช้ Master รายปี ฿7,570/ปี",
-    ctaLoggedIn: "/dashboard/upgrade?plan=master_annual",
-    ctaGuest: "/register?plan=master_annual",
-    note: "* ประหยัดกว่าการจ่ายรายเดือนถึง ฿1,898/ปี",
+    id: "master",
+    priceNote: "/ เดือน (รอบบิลรายเดือน)",
+    note: "* แผน Master ให้บริการรอบบิลรายเดือน ฿789/เดือน",
   },
 ] as const;
 
@@ -240,7 +225,7 @@ export default function PricingPage() {
           </h1>
           <p className="text-slate-600 dark:text-[#94A3B8] text-base max-w-lg mx-auto leading-relaxed">
             เริ่มต้นใช้งานฟรี หรือยกระดับสู่เครื่องมือวิเคราะห์เชิงกลยุทธ์ระดับมืออาชีพ<br className="hidden sm:block" />
-            ตามกำลังสัจบารมี ทุกแพ็คเกจคิดเป็นรายเดือน ไม่มีตลอดชีพ
+            ตามกำลังสัจบารมี โปร่งใส ชัดเจน และไม่มีข้อผูกมัดระยะยาว
           </p>
         </div>
 

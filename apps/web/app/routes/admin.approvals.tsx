@@ -95,9 +95,12 @@ export async function action({ request, context }: ActionFunctionArgs) {
       free: "free",
       basic: "basic",
       pro: "premium",
-      imperial: "lifetime",
+      imperial: "master",
     };
     const subscriptionTier = planMapping[req.plan] || "free";
+    const durationDays = req.plan === "pro_annual" ? 365 : 30;
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + durationDays);
 
     await supabase
       .from("profiles")
@@ -105,6 +108,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
         subscription: subscriptionTier,
         plan: req.plan,
         membership_status: "active",
+        membership_expires_at: expiresAt.toISOString(),
       })
       .eq("id", req.user_id);
   }

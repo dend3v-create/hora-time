@@ -31,10 +31,19 @@
   --color-border-gold: rgba(217, 188, 130, 0.18);
   --color-border-dim:  rgba(75, 111, 174, 0.15);
 
+  /* Brand CI v1.0 Tokens */
+  --color-phopephum-navy: #07172A;
+  --color-phopephum-dark: #0F172A;
+  --color-phopephum-gold: #D4AF37;
+  --color-phopephum-gold-warm: #F6D88C;
+  --color-phopephum-cream: #FDF8E8;
+  --color-phopephum-gray: #E2E8F0;
+
   /* Fonts */
-  --font-family-display:   "Cinzel", "Cormorant Garamond", serif;
+  --font-family-playfair:  "Playfair Display", "Cinzel", serif;
+  --font-family-display:   "Playfair Display", "Cinzel", "Cormorant Garamond", serif;
   --font-family-cormorant: "Cormorant Garamond", serif;
-  --font-family-sarabun:   "IBM Plex Sans Thai", "Sarabun", sans-serif;
+  --font-family-sarabun:   "Sarabun", "IBM Plex Sans Thai", sans-serif;
 }
 
 /* ── Semantic Theme Tokens (Dark = default, Light = override) ── */

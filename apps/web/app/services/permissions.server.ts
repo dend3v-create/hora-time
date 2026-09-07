@@ -46,10 +46,9 @@ type ProfileLike = {
 export function getUserPlan(profile: ProfileLike): CanonicalPlan {
   if (!profile) return "free";
   if (profile.role === "admin" || profile.role === "operator") return "master";
-  if (profile.subscription === "lifetime" || profile.plan === "lifetime") return "master";
   if (profile.membership_status && profile.membership_status !== "active") return "free";
   
-  // Dynamic Expiration Check
+  // Dynamic Expiration Check: all paid plans (including Master) expire when membership_expires_at < now()
   if (profile.membership_expires_at) {
     const expiresAt = new Date(profile.membership_expires_at).getTime();
     if (!isNaN(expiresAt) && expiresAt < Date.now()) {
@@ -58,7 +57,7 @@ export function getUserPlan(profile: ProfileLike): CanonicalPlan {
   }
 
   const rawPlan = (profile.plan || profile.subscription || "free").toLowerCase();
-  if (rawPlan === "master" || rawPlan === "imperial") return "master";
+  if (rawPlan === "master" || rawPlan === "imperial" || rawPlan === "lifetime") return "master";
   if (rawPlan === "pro" || rawPlan === "pro_annual" || rawPlan === "pro_monthly") return "pro";
   if (rawPlan === "premium" || rawPlan === "basic" || rawPlan === "basic_monthly") return "premium";
   return "free";

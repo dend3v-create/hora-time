@@ -50,7 +50,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
         pro: "premium",
         pro_monthly: "premium",
         pro_annual: "premium",
-        imperial: "lifetime",
+        imperial: "master",
       };
       const subscriptionTier = planMapping[planId] || "basic";
 
