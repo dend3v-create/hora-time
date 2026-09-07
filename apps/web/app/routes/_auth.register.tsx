@@ -145,11 +145,31 @@ export async function action({ request, context }: ActionFunctionArgs) {
   return redirect("/dashboard", { headers });
 }
 
+const PLAN_DISPLAY_NAMES: Record<string, string> = {
+  sands_50: "50 ละอองทราย (฿59)",
+  sands_150: "150 ละอองทราย ยอดนิยม (฿149)",
+  sands_500: "500 ละอองทราย คุ้มค่าจุใจ (฿399)",
+  free: "เริ่มทดลอง (ฟรี)",
+  premium: "Premium (฿89/เดือน)",
+  pro: "Pro (฿289/เดือน)",
+  pro_annual: "Pro รายปี (฿2,770/ปี)",
+  master: "Master (฿789/เดือน)",
+};
+
 export default function RegisterPage() {
   const { initialReferralCode, initialPlan, initialTab } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   const navigation = useNavigation();
   const isLoading = navigation.state === "submitting";
+
+  // Time picker state (Hour / Minute / Unknown)
+  const [selectedHour, setSelectedHour] = useState("09");
+  const [selectedMinute, setSelectedMinute] = useState("09");
+  const [unknownTime, setUnknownTime] = useState(false);
+
+  const formattedPlanName = initialPlan
+    ? PLAN_DISPLAY_NAMES[initialPlan.toLowerCase()] || initialPlan.toUpperCase()
+    : "";
 
   // ดึงค่าแนะนำจาก URL หรือ Loader (30-day Cookie)
   const [refParam, setRefParam] = useState(initialReferralCode || "");
@@ -174,9 +194,9 @@ export default function RegisterPage() {
         </p>
 
         {initialPlan && (
-          <div className="inline-flex items-center gap-2 mt-4 px-3.5 py-1 rounded-full bg-[#C6A96B]/10 border border-[#C6A96B]/30 text-xs text-[#C6A96B] font-semibold">
-            <span>✦</span>
-            <span>แพ็กเกจที่เลือก: <strong className="uppercase">{initialPlan}</strong> (จะพาไปชำระเงินหลังลงทะเบียน)</span>
+          <div className="inline-flex items-center gap-2 mt-4 px-4 py-1.5 rounded-full bg-[#C6A96B]/15 border border-[#C6A96B]/35 text-xs sm:text-sm text-[#F8F6F1] font-semibold shadow-sm">
+            <span className="text-[#C6A96B]">✦</span>
+            <span>แพ็กเกจที่เลือก: <strong className="text-amber-400 font-bold">{formattedPlanName}</strong> (จะพาไปชำระเงินหลังลงทะเบียน)</span>
           </div>
         )}
       </div>
@@ -242,12 +262,112 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        <Input
-          name="birthTime"
-          type="time"
-          label="เวลาเกิด"
-          placeholder="00:00"
-        />
+        {/* เวลาเกิด — หมุนเลือกชั่วโมงและนาที */}
+        <div className="flex flex-col gap-1.5">
+          <div className="flex items-center justify-between ml-1">
+            <label className="text-xs font-semibold text-[#C6B79F] uppercase tracking-wider">
+              เวลาเกิด
+            </label>
+            <label className="inline-flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-[#C6A96B] cursor-pointer transition-colors select-none">
+              <input
+                type="checkbox"
+                checked={unknownTime}
+                onChange={(e) => setUnknownTime(e.target.checked)}
+                className="w-3.5 h-3.5 rounded border-[#D9BC82]/30 text-amber-500 focus:ring-amber-500/30 bg-[#0A1628]/50"
+              />
+              <span>ไม่ทราบเวลาเกิดแน่นอน</span>
+            </label>
+          </div>
+
+          <input
+            type="hidden"
+            name="birthTime"
+            value={unknownTime ? "12:00" : `${selectedHour}:${selectedMinute}`}
+          />
+
+          {unknownTime ? (
+            <div className="p-3.5 rounded-xl border border-[#D9BC82]/20 bg-[#0A1628]/40 text-xs sm:text-sm text-[#C6B79F] flex items-center justify-between font-sarabun">
+              <span>✦ ใช้เวลามาตรฐานสากล: <strong className="text-[#F8F6F1]">12:00 น. (เที่ยงวัน)</strong></span>
+              <span className="text-[11px] text-amber-400/90 font-medium">คำนวณตำแหน่งดาวระดับวัน</span>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <div className="grid grid-cols-2 gap-2.5">
+                {/* หมุนเลือกชั่วโมง */}
+                <div className="relative">
+                  <select
+                    value={selectedHour}
+                    onChange={(e) => setSelectedHour(e.target.value)}
+                    className="w-full bg-[#0A1628]/50 border border-[#D9BC82]/20 rounded-xl px-3.5 py-2.5 text-sm text-[#F8F6F1] font-mono focus:outline-none focus:border-[#D9BC82]/50 appearance-none cursor-pointer"
+                  >
+                    {Array.from({ length: 24 }, (_, i) => {
+                      const h = String(i).padStart(2, "0");
+                      const period = i < 6 ? "ดึก" : i < 12 ? "เช้า" : i < 18 ? "บ่าย" : "ค่ำ";
+                      return (
+                        <option key={h} value={h} className="bg-[#0A1628] text-[#F8F6F1]">
+                          {h} นาฬิกา ({period})
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-[#C6A96B]">
+                    ▼
+                  </div>
+                </div>
+
+                {/* หมุนเลือกนาที */}
+                <div className="relative">
+                  <select
+                    value={selectedMinute}
+                    onChange={(e) => setSelectedMinute(e.target.value)}
+                    className="w-full bg-[#0A1628]/50 border border-[#D9BC82]/20 rounded-xl px-3.5 py-2.5 text-sm text-[#F8F6F1] font-mono focus:outline-none focus:border-[#D9BC82]/50 appearance-none cursor-pointer"
+                  >
+                    {Array.from({ length: 60 }, (_, i) => {
+                      const m = String(i).padStart(2, "0");
+                      return (
+                        <option key={m} value={m} className="bg-[#0A1628] text-[#F8F6F1]">
+                          {m} นาที
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-[#C6A96B]">
+                    ▼
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Preset Buttons */}
+              <div className="flex items-center gap-1.5 pt-0.5 overflow-x-auto no-scrollbar">
+                <span className="text-[11px] text-[#94A3B8] shrink-0 font-sarabun">เวลายอดนิยม:</span>
+                {[
+                  { label: "06:09 เช้า", h: "06", m: "09" },
+                  { label: "09:09 มงคล", h: "09", m: "09" },
+                  { label: "12:00 เที่ยง", h: "12", m: "00" },
+                  { label: "15:30 บ่าย", h: "15", m: "30" },
+                  { label: "18:00 เย็น", h: "18", m: "00" },
+                  { label: "21:00 ค่ำ", h: "21", m: "00" },
+                ].map((preset) => (
+                  <button
+                    key={preset.label}
+                    type="button"
+                    onClick={() => {
+                      setSelectedHour(preset.h);
+                      setSelectedMinute(preset.m);
+                    }}
+                    className={`px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-sarabun transition-all shrink-0 ${
+                      selectedHour === preset.h && selectedMinute === preset.m
+                        ? "bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] font-bold shadow-xs"
+                        : "bg-[#0A1628]/40 border border-[#D9BC82]/15 text-[#C6B79F] hover:border-[#D9BC82]/40"
+                    }`}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
 
         <Input
           name="birthPlace"

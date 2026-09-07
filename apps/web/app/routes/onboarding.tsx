@@ -83,6 +83,8 @@ export default function Onboarding() {
 
   const [gender, setGender] = useState<string>("");
   const [unknownTime, setUnknownTime] = useState<boolean>(false);
+  const [selectedHour, setSelectedHour] = useState<string>("09");
+  const [selectedMinute, setSelectedMinute] = useState<string>("09");
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
@@ -231,44 +233,112 @@ export default function Onboarding() {
           </div>
 
           {/* 4. เวลาเกิด */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-[#C6B79F] text-[11px] uppercase tracking-wider block font-bold">
-                ✦ เวลาเกิด
-              </label>
-              <input
-                name="birthTime"
-                type="time"
-                disabled={unknownTime}
-                className="w-full bg-[#020617]/70 border border-[#C6A96B]/20 focus:border-gold-liquid text-text-primary rounded-xl px-3 py-2.5 text-xs focus:outline-none transition-colors disabled:opacity-30 disabled:border-white/5"
-              />
-            </div>
-            
-            <div className="space-y-1.5">
-              <label className="text-[#C6B79F] text-[11px] uppercase tracking-wider block font-bold">
-                ✦ จังหวัดเกิด
-              </label>
-              <input
-                name="birthPlace"
-                type="text"
-                placeholder="เช่น กรุงเทพฯ"
-                className="w-full bg-[#020617]/70 border border-[#C6A96B]/20 focus:border-gold-liquid text-text-primary placeholder:text-text-muted/40 rounded-xl px-3 py-2.5 text-xs focus:outline-none transition-colors"
-              />
-            </div>
-          </div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-[#C6B79F] text-[11px] uppercase tracking-wider block font-bold">
+                    ✦ เวลาเกิด
+                  </label>
+                  <label className="inline-flex items-center gap-1.5 cursor-pointer text-[11px] text-text-muted">
+                    <input
+                      id="unknownTimeCheckbox"
+                      type="checkbox"
+                      checked={unknownTime}
+                      onChange={(e) => setUnknownTime(e.target.checked)}
+                      className="w-3.5 h-3.5 rounded border-white/10 bg-[#020617]/70 text-gold-500 focus:ring-0"
+                    />
+                    <span>ไม่ทราบเวลา</span>
+                  </label>
+                </div>
 
-          {/* 5. ไม่ทราบเวลาเกิด */}
-          <div className="flex items-center gap-2 pt-1">
-            <input
-              id="unknownTimeCheckbox"
-              type="checkbox"
-              checked={unknownTime}
-              onChange={(e) => setUnknownTime(e.target.checked)}
-              className="w-4 h-4 rounded border-white/10 bg-[#020617]/70 text-gold-500 focus:ring-0 focus:ring-offset-0"
-            />
-            <label htmlFor="unknownTimeCheckbox" className="text-xs text-text-muted cursor-pointer font-sans-thai select-none">
-              ไม่ทราบเวลาเกิดที่แน่นอน
-            </label>
+                {!unknownTime ? (
+                  <div className="space-y-2">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <span className="text-[10px] text-text-muted/60 mb-0.5 block">ชั่วโมง</span>
+                        <select
+                          value={selectedHour}
+                          onChange={(e) => setSelectedHour(e.target.value)}
+                          className="w-full bg-[#020617]/70 border border-[#C6A96B]/20 focus:border-gold-liquid text-text-primary rounded-xl px-2.5 py-2 text-xs focus:outline-none transition-colors font-sans"
+                        >
+                          {Array.from({ length: 24 }, (_, i) => {
+                            const val = String(i).padStart(2, "0");
+                            return (
+                              <option key={val} value={val} className="bg-[#020617] text-white">
+                                {val} น.
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-text-muted/60 mb-0.5 block">นาที</span>
+                        <select
+                          value={selectedMinute}
+                          onChange={(e) => setSelectedMinute(e.target.value)}
+                          className="w-full bg-[#020617]/70 border border-[#C6A96B]/20 focus:border-gold-liquid text-text-primary rounded-xl px-2.5 py-2 text-xs focus:outline-none transition-colors font-sans"
+                        >
+                          {Array.from({ length: 60 }, (_, i) => {
+                            const val = String(i).padStart(2, "0");
+                            return (
+                              <option key={val} value={val} className="bg-[#020617] text-white">
+                                {val} นาที
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Quick Presets */}
+                    <div className="flex flex-wrap items-center gap-1 pt-0.5">
+                      <span className="text-[10px] text-text-muted/50">ลัด:</span>
+                      {[
+                        { label: "06:00", h: "06", m: "00" },
+                        { label: "09:00", h: "09", m: "00" },
+                        { label: "12:00", h: "12", m: "00" },
+                        { label: "18:00", h: "18", m: "00" },
+                      ].map((preset) => (
+                        <button
+                          key={preset.label}
+                          type="button"
+                          onClick={() => {
+                            setSelectedHour(preset.h);
+                            setSelectedMinute(preset.m);
+                          }}
+                          className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-text-muted hover:text-white"
+                        >
+                          {preset.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-2.5 rounded-xl border border-dashed border-[#C6A96B]/30 bg-gold-500/5 text-[11px] text-gold-300">
+                    ระบบจะใช้เวลามาตรฐาน 06:00 น. (ย่ำรุ่งวันเกิด)
+                  </div>
+                )}
+
+                <input
+                  type="hidden"
+                  name="birthTime"
+                  value={unknownTime ? "" : `${selectedHour.padStart(2, "0")}:${selectedMinute.padStart(2, "0")}`}
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[#C6B79F] text-[11px] uppercase tracking-wider block font-bold">
+                  ✦ จังหวัดเกิด
+                </label>
+                <input
+                  name="birthPlace"
+                  type="text"
+                  placeholder="เช่น กรุงเทพฯ"
+                  className="w-full bg-[#020617]/70 border border-[#C6A96B]/20 focus:border-gold-liquid text-text-primary placeholder:text-text-muted/40 rounded-xl px-3 py-2 text-xs focus:outline-none transition-colors"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Submit button */}

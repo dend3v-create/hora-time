@@ -33,6 +33,7 @@ import { DEFAULT_TIMING_REMINDER_SETTINGS } from "@phopephum/types";
 import { Input } from "~/components/ui/Input";
 import { Button } from "~/components/ui/Button";
 import { Card } from "~/components/ui/Card";
+import { AstralIcon, type AstralIconName } from "~/components/ui/AstralIcon";
 import type { Env } from "~/env.server";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -317,59 +318,64 @@ export async function action({ request, context }: ActionFunctionArgs) {
   return json({ error: "Invalid action" }, { status: 400 });
 }
 
-const INTENT_META: Record<string, { label: string; emoji: string; color: string }> = {
-  all:          { label: "ทั้งหมด", emoji: "✦", color: "text-[#C6A96B] border-[#C6A96B]/40 bg-[#C6A96B]/10" },
-  timing:       { label: "จังหวะเวลา", emoji: "✈️", color: "text-amber-400 border-amber-400/30 bg-amber-400/10" },
-  finance:      { label: "การเงิน",  emoji: "💰", color: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10" },
-  relationship: { label: "ความรัก",      emoji: "💛", color: "text-rose-400 border-rose-400/30 bg-rose-400/10" },
-  lost:         { label: "ค้นหาของ",     emoji: "🔍", color: "text-sky-400 border-sky-400/30 bg-sky-400/10" },
-  career:       { label: "การงาน",    emoji: "💼", color: "text-indigo-400 border-indigo-400/30 bg-indigo-400/10" },
-  health:       { label: "สุขภาพ", emoji: "🌿", color: "text-teal-400 border-teal-400/30 bg-teal-400/10" },
-  general:      { label: "ทั่วไป",      emoji: "✦",  color: "text-[#C6A96B] border-[#C6A96B]/30 bg-[#C6A96B]/10" },
+const INTENT_META: Record<string, { label: string; iconName: AstralIconName; emoji: string; color: string }> = {
+  all:          { label: "ทั้งหมด", iconName: "spark", emoji: "✦", color: "text-[#8C6D2D] dark:text-[#C6A96B] border-[#C6A96B]/40 bg-amber-500/10" },
+  timing:       { label: "จังหวะเวลา", iconName: "clock", emoji: "⏱️", color: "text-amber-700 dark:text-amber-400 border-amber-500/30 bg-amber-500/10" },
+  finance:      { label: "การเงิน",  iconName: "gem", emoji: "💎", color: "text-emerald-700 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10" },
+  relationship: { label: "ความรัก",      iconName: "star", emoji: "✨", color: "text-rose-700 dark:text-rose-400 border-rose-500/30 bg-rose-500/10" },
+  lost:         { label: "ค้นหาของ",     iconName: "compass", emoji: "🧭", color: "text-sky-700 dark:text-sky-400 border-sky-500/30 bg-sky-500/10" },
+  career:       { label: "การงาน",    iconName: "crown", emoji: "👑", color: "text-indigo-700 dark:text-indigo-400 border-indigo-500/30 bg-indigo-500/10" },
+  health:       { label: "สุขภาพ", iconName: "balance", emoji: "🌿", color: "text-teal-700 dark:text-teal-400 border-teal-500/30 bg-teal-500/10" },
+  general:      { label: "ทั่วไป",      iconName: "scroll", emoji: "✦", color: "text-[#8C6D2D] dark:text-[#C6A96B] border-[#C6A96B]/30 bg-amber-500/10" },
 };
 
 export const ACTUAL_RESULT_META: Record<
   ActualResult,
-  { label: string; shortLabel: string; emoji: string; color: string; badgeColor: string; description: string }
+  { label: string; shortLabel: string; iconName: AstralIconName; emoji: string; color: string; badgeColor: string; description: string }
 > = {
   accurate_success: {
     label: "สำเร็จราบรื่น ตรงตามคำทำนาย",
     shortLabel: "สำเร็จตามคาด",
-    emoji: "🌟",
-    color: "text-emerald-400 border-emerald-400/40 bg-emerald-500/10",
-    badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-400/30",
+    iconName: "star",
+    emoji: "★",
+    color: "text-emerald-700 dark:text-emerald-400 border-emerald-500/40 bg-emerald-500/10",
+    badgeColor: "bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border-emerald-500/30",
     description: "ผลลัพธ์เป็นไปตามจังหวะเวลาและคำแนะนำ ได้ผลลัพธ์ที่ดี",
   },
   accurate_neutral: {
     label: "เป็นไปตามคาด ปลอดภัย ไร้อุปสรรค",
     shortLabel: "เป็นไปตามคาด",
-    emoji: "⚖️",
-    color: "text-blue-400 border-blue-400/40 bg-blue-500/10",
-    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-400/30",
+    iconName: "balance",
+    emoji: "✓",
+    color: "text-blue-700 dark:text-blue-400 border-blue-500/40 bg-blue-500/10",
+    badgeColor: "bg-blue-500/20 text-blue-800 dark:text-blue-300 border-blue-500/30",
     description: "สถานการณ์ราบรื่น ไม่เกิดข้อผิดพลาดหรือปัญหาแทรกซ้อน",
   },
   partially_accurate: {
     label: "ตรงบางส่วน หรือมีปัจจัยอื่นแทรก",
     shortLabel: "ตรงบางส่วน",
-    emoji: "🌗",
-    color: "text-amber-400 border-amber-400/40 bg-amber-500/10",
-    badgeColor: "bg-amber-500/20 text-amber-300 border-amber-400/30",
+    iconName: "moon",
+    emoji: "◑",
+    color: "text-amber-700 dark:text-amber-400 border-amber-500/40 bg-amber-500/10",
+    badgeColor: "bg-amber-500/20 text-amber-800 dark:text-amber-300 border-amber-500/30",
     description: "มีทั้งส่วนที่ตรงและส่วนที่มีตัวแปรภายนอกเปลี่ยนแปลง",
   },
   inaccurate: {
     label: "คลาดเคลื่อน ไม่ตรงกับสถานการณ์",
     shortLabel: "คลาดเคลื่อน",
-    emoji: "⚡",
-    color: "text-rose-400 border-rose-400/40 bg-rose-500/10",
-    badgeColor: "bg-rose-500/20 text-rose-300 border-rose-400/30",
+    iconName: "compass",
+    emoji: "✕",
+    color: "text-rose-700 dark:text-rose-400 border-rose-500/40 bg-rose-500/10",
+    badgeColor: "bg-rose-500/20 text-rose-800 dark:text-rose-300 border-rose-500/30",
     description: "ผลลัพธ์ไม่เป็นไปตามที่ประเมินไว้ เป็นบทเรียนเพื่อสังเกตจังหวะ",
   },
   unresolved: {
     label: "ยังไม่ปรากฏผลชัดเจน / รอจังหวะเวลา",
     shortLabel: "รอผลลัพธ์",
+    iconName: "sandglass",
     emoji: "⏳",
-    color: "text-purple-400 border-purple-400/40 bg-purple-500/10",
-    badgeColor: "bg-purple-500/20 text-purple-300 border-purple-400/30",
+    color: "text-purple-700 dark:text-purple-400 border-purple-500/40 bg-purple-500/10",
+    badgeColor: "bg-purple-500/20 text-purple-800 dark:text-purple-300 border-purple-500/30",
     description: "เหตุการณ์ยังดำเนินอยู่ หรือยังไม่ถึงช่วงเวลาตัดสิน",
   },
 };
@@ -565,94 +571,116 @@ export default function SettingsPage() {
 
   const isFreetier = profile?.plan !== 'pro' && profile?.plan !== 'imperial';
 
+  // Birth time state for easy wheel picker
+  const initialTimeParts = (profile?.birth_time || "").split(":");
+  const [birthHour, setBirthHour] = useState<string>(initialTimeParts[0] || "09");
+  const [birthMinute, setBirthMinute] = useState<string>(initialTimeParts[1] || "00");
+  const [isUnknownBirthTime, setIsUnknownBirthTime] = useState<boolean>(!profile?.birth_time);
+
   return (
     <div className="space-y-8 max-w-2xl mx-auto pb-20 w-full max-w-full min-w-0 overflow-x-hidden">
       {/* Header */}
       <div className="flex justify-between items-end">
         <div>
-          <p className="text-[#D9BC82] text-xs tracking-widest uppercase mb-1">
-            {t("common:nav.settings", "โปรไฟล์")}
+          <p className="text-[#8C6D2D] dark:text-[#D9BC82] text-xs tracking-widest uppercase mb-1 font-bold">
+            {t("common:nav.settings", "โปรไฟล์ & ตั้งค่า")}
           </p>
-          <h1 className="font-display text-2xl sm:text-3xl font-bold text-[#F8F6F1]">
+          <h1 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-[#F8F6F1]">
             {t("common:settings.title", "ตั้งค่าโปรไฟล์และดวงชะตา")}
           </h1>
         </div>
       </div>
 
-      {/* Navigation tabs (Horizontally scrollable on mobile) */}
-      <div className="flex overflow-x-auto no-scrollbar border-b border-white/5 bg-[#0A1628]/45 p-1 rounded-2xl border border-[#D9BC82]/10 gap-1 w-full max-w-full -mx-1 px-1 sm:mx-0 sm:px-1">
+      {/* Navigation tabs: 2 rows on mobile (3 items top row, 2 items bottom row), 1 row on desktop */}
+      <div className="grid grid-cols-6 gap-1.5 p-1.5 rounded-2xl bg-slate-100/90 dark:bg-[#0A1628]/60 border border-slate-200/80 dark:border-[#D9BC82]/15 shadow-sm sm:flex sm:items-center sm:gap-1">
+        {/* Row 1 Col 1-2 on mobile (33.3%), flex-1 on desktop */}
         <button
+          type="button"
           onClick={() => handleTabChange("personal")}
-          className={`shrink-0 sm:flex-1 py-2 px-3 sm:px-2 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all ${
+          className={`col-span-2 sm:flex-1 py-2.5 px-2 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center justify-center gap-1.5 ${
             activeTab === "personal"
-              ? "bg-[#D9BC82] text-[#0A1628]"
-              : "border-transparent text-[#C6B79F] hover:text-[#F8F6F1]"
+              ? "bg-gradient-to-r from-[#D9BC82] to-[#C6A96B] text-[#0A1628] shadow-sm font-black"
+              : "text-slate-600 dark:text-[#C6B79F] hover:text-slate-900 dark:hover:text-[#F8F6F1] hover:bg-slate-200/60 dark:hover:bg-white/5"
           }`}
         >
-          {t("common:settings.personal_tab", "ข้อมูลส่วนตัว")}
+          <AstralIcon name="compass" size={14} />
+          <span className="truncate">{t("common:settings.personal_tab", "ข้อมูลส่วนตัว")}</span>
         </button>
+
+        {/* Row 1 Col 3-4 on mobile (33.3%), flex-1 on desktop */}
         <button
+          type="button"
           onClick={() => handleTabChange("wisdom")}
-          className={`shrink-0 sm:flex-1 py-2 px-3 sm:px-2 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center justify-center gap-1.5 ${
+          className={`col-span-2 sm:flex-1 py-2.5 px-2 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center justify-center gap-1.5 ${
             activeTab === "wisdom"
-              ? "bg-[#D9BC82] text-[#0A1628]"
-              : "border-transparent text-[#C6B79F] hover:text-[#F8F6F1]"
+              ? "bg-gradient-to-r from-[#D9BC82] to-[#C6A96B] text-[#0A1628] shadow-sm font-black"
+              : "text-slate-600 dark:text-[#C6B79F] hover:text-slate-900 dark:hover:text-[#F8F6F1] hover:bg-slate-200/60 dark:hover:bg-white/5"
           }`}
         >
-          <span>🧠</span>
-          <span>{t("common:settings.wisdom_tab", "คลังปัญญาของฉัน")}</span>
+          <AstralIcon name="portal" size={14} />
+          <span className="truncate">{t("common:settings.wisdom_tab", "คลังปัญญาของฉัน")}</span>
           {wisdomQueries.length > 0 && (
             <span
-              className={`text-[10px] px-1.5 py-0.5 rounded-full font-black ${
+              className={`text-[10px] px-1.5 py-0.5 rounded-full font-black shrink-0 ${
                 activeTab === "wisdom"
                   ? "bg-[#0A1628]/20 text-[#0A1628]"
-                  : "bg-[#C6A96B]/20 text-[#C6A96B]"
+                  : "bg-[#C6A96B]/20 text-[#8C6D2D] dark:text-[#C6A96B]"
               }`}
             >
               {wisdomQueries.length}
             </span>
           )}
         </button>
+
+        {/* Row 1 Col 5-6 on mobile (33.3%), flex-1 on desktop */}
         <button
+          type="button"
           onClick={() => handleTabChange("sands")}
-          className={`shrink-0 sm:flex-1 py-2 px-3 sm:px-2 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center justify-center gap-1.5 ${
+          className={`col-span-2 sm:flex-1 py-2.5 px-2 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center justify-center gap-1.5 ${
             activeTab === "sands"
-              ? "bg-[#D9BC82] text-[#0A1628]"
-              : "border-transparent text-[#C6B79F] hover:text-[#F8F6F1]"
+              ? "bg-gradient-to-r from-[#D9BC82] to-[#C6A96B] text-[#0A1628] shadow-sm font-black"
+              : "text-slate-600 dark:text-[#C6B79F] hover:text-slate-900 dark:hover:text-[#F8F6F1] hover:bg-slate-200/60 dark:hover:bg-white/5"
           }`}
         >
-          <span>🏖️</span>
-          <span>ทรายกาลเวลา</span>
+          <AstralIcon name="sandglass" size={14} />
+          <span className="truncate">ทรายกาลเวลา</span>
           <span
-            className={`text-[10px] px-1.5 py-0.5 rounded-full font-black ${
+            className={`text-[10px] px-1.5 py-0.5 rounded-full font-black shrink-0 ${
               activeTab === "sands"
                 ? "bg-[#0A1628]/20 text-[#0A1628]"
-                : "bg-[#C6A96B]/20 text-[#C6A96B]"
+                : "bg-[#C6A96B]/20 text-[#8C6D2D] dark:text-[#C6A96B]"
             }`}
           >
             {sandsSummary.currentBalance}
           </span>
         </button>
+
+        {/* Row 2 Col 1-3 on mobile (50%), flex-1 on desktop */}
         <button
+          type="button"
           onClick={() => handleTabChange("affiliate")}
-          className={`shrink-0 sm:flex-1 py-2 px-3 sm:px-2 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all ${
+          className={`col-span-3 sm:flex-1 py-2.5 px-3 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center justify-center gap-1.5 ${
             activeTab === "affiliate"
-              ? "bg-[#D9BC82] text-[#0A1628]"
-              : "border-transparent text-[#C6B79F] hover:text-[#F8F6F1]"
+              ? "bg-gradient-to-r from-[#D9BC82] to-[#C6A96B] text-[#0A1628] shadow-sm font-black"
+              : "text-slate-600 dark:text-[#C6B79F] hover:text-slate-900 dark:hover:text-[#F8F6F1] hover:bg-slate-200/60 dark:hover:bg-white/5"
           }`}
         >
-          {t("common:settings.affiliate_tab", "พันธมิตร & รายได้")}
+          <AstralIcon name="gem" size={14} />
+          <span className="truncate">{t("common:settings.affiliate_tab", "พันธมิตร & รายได้")}</span>
         </button>
+
+        {/* Row 2 Col 4-6 on mobile (50%), flex-1 on desktop */}
         <button
+          type="button"
           onClick={() => handleTabChange("reminders")}
-          className={`shrink-0 sm:flex-1 py-2 px-3 sm:px-2 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center justify-center gap-1.5 ${
+          className={`col-span-3 sm:flex-1 py-2.5 px-3 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center justify-center gap-1.5 ${
             activeTab === "reminders"
-              ? "bg-[#D9BC82] text-[#0A1628]"
-              : "border-transparent text-[#C6B79F] hover:text-[#F8F6F1]"
+              ? "bg-gradient-to-r from-[#D9BC82] to-[#C6A96B] text-[#0A1628] shadow-sm font-black"
+              : "text-slate-600 dark:text-[#C6B79F] hover:text-slate-900 dark:hover:text-[#F8F6F1] hover:bg-slate-200/60 dark:hover:bg-white/5"
           }`}
         >
-          <span>🔔</span>
-          <span>เตือนจังหวะเวลา</span>
+          <AstralIcon name="clock" size={14} />
+          <span className="truncate">เตือนจังหวะเวลา</span>
         </button>
       </div>
 
@@ -660,9 +688,10 @@ export default function SettingsPage() {
       {activeTab === "personal" && (
         <div className="space-y-6 animate-in fade-in duration-300">
           <div className="space-y-6">
-            <Card className="border-[#C6A96B]/10 p-6 bg-slate-950/40">
-              <h2 className="text-[#C6A96B] font-display text-lg font-bold mb-4 flex items-center gap-2">
-                <span>✦</span> {t("common:settings.birth_chart_data", "ข้อมูลดวงชะตากำเนิด")}
+            <Card className="border-slate-200/80 dark:border-[#C6A96B]/20 p-6 bg-white/95 dark:bg-slate-950/40 shadow-sm">
+              <h2 className="text-[#8C6D2D] dark:text-[#C6A96B] font-display text-lg font-bold mb-4 flex items-center gap-2">
+                <AstralIcon name="compass" variant="gold" size={18} glow />
+                <span>{t("common:settings.birth_chart_data", "ข้อมูลดวงชะตากำเนิด")}</span>
               </h2>
               
               <Form method="post" className="flex flex-col gap-5">
@@ -678,13 +707,13 @@ export default function SettingsPage() {
                   />
 
                   <div className="flex flex-col">
-                    <label className="text-[#C6B79F] text-[14px] uppercase tracking-widest block mb-2 font-bold">
+                    <label className="text-slate-700 dark:text-[#C6B79F] text-[14px] uppercase tracking-widest block mb-2 font-bold">
                       {t("common:settings.gender", "เพศกำเนิด (สำหรับโหราจร)")}
                     </label>
                     <select
                       name="gender"
                       defaultValue={profile?.gender ?? ""}
-                      className="w-full bg-[#0A1628]/70 border border-[#C6A96B]/20 text-[#F8F6F1] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6A96B]"
+                      className="w-full bg-slate-50 dark:bg-[#0A1628]/70 border border-slate-200 dark:border-[#C6A96B]/20 text-slate-900 dark:text-[#F8F6F1] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6A96B]"
                     >
                       <option value="">{t("common:settings.select_gender", "เลือกเพศ...")}</option>
                       <option value="male">{t("common:settings.male", "ชาย (Male)")}</option>
@@ -697,7 +726,7 @@ export default function SettingsPage() {
                 {/* วัน / เดือน / ปี พ.ศ. */}
                 <div className="grid grid-cols-3 gap-3">
                   <div className="flex flex-col">
-                    <label className="text-[#C6B79F] text-[14px] uppercase tracking-widest block mb-2 font-bold">
+                    <label className="text-slate-700 dark:text-[#C6B79F] text-[14px] uppercase tracking-widest block mb-2 font-bold">
                       {t("common:settings.birth_day", "วันเกิด")}
                     </label>
                     <input
@@ -707,18 +736,18 @@ export default function SettingsPage() {
                       max={31}
                       defaultValue={birthDateBE.day}
                       placeholder={t("common:settings.birth_day", "วัน")}
-                      className="w-full bg-[#0A1628]/70 border border-[#C6A96B]/20 text-[#F8F6F1] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6A96B]"
+                      className="w-full bg-slate-50 dark:bg-[#0A1628]/70 border border-slate-200 dark:border-[#C6A96B]/20 text-slate-900 dark:text-[#F8F6F1] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6A96B]"
                     />
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="text-[#C6B79F] text-[14px] uppercase tracking-widest block mb-2 font-bold">
+                    <label className="text-slate-700 dark:text-[#C6B79F] text-[14px] uppercase tracking-widest block mb-2 font-bold">
                       {t("common:settings.birth_month", "เดือนเกิด")}
                     </label>
                     <select
                       name="birthMonth"
                       defaultValue={birthDateBE.month}
-                      className="w-full bg-[#0A1628]/70 border border-[#C6A96B]/20 text-[#F8F6F1] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6A96B]"
+                      className="w-full bg-slate-50 dark:bg-[#0A1628]/70 border border-slate-200 dark:border-[#C6A96B]/20 text-slate-900 dark:text-[#F8F6F1] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6A96B]"
                     >
                       <option value="">{t("common:settings.birth_month", "เดือน...")}</option>
                       <option value="1">{t("common:language.th") === "ไทย" ? "มกราคม" : "January"}</option>
@@ -737,7 +766,7 @@ export default function SettingsPage() {
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="text-[#C6B79F] text-[14px] uppercase tracking-widest block mb-2 font-bold">
+                    <label className="text-slate-700 dark:text-[#C6B79F] text-[14px] uppercase tracking-widest block mb-2 font-bold">
                       {t("common:settings.birth_year", "ปีเกิด (พ.ศ.)")}
                     </label>
                     <input
@@ -747,18 +776,106 @@ export default function SettingsPage() {
                       max={2600}
                       defaultValue={birthDateBE.year}
                       placeholder="เช่น 2525"
-                      className="w-full bg-[#0A1628]/70 border border-[#C6A96B]/20 text-[#F8F6F1] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6A96B]"
+                      className="w-full bg-slate-50 dark:bg-[#0A1628]/70 border border-slate-200 dark:border-[#C6A96B]/20 text-slate-900 dark:text-[#F8F6F1] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6A96B]"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input
-                    name="birthTime"
-                    type="time"
-                    label={t("common:settings.birth_time", "เวลาเกิด (ตามสูติบัตร)")}
-                    defaultValue={profile?.birth_time ?? ""}
-                  />
+                  {/* Wheel / Dropdown Select for Birth Time */}
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="text-slate-700 dark:text-[#C6B79F] text-[14px] uppercase tracking-widest font-bold flex items-center gap-1.5">
+                        <AstralIcon name="clock" size={14} />
+                        <span>{t("common:settings.birth_time", "เวลาเกิด (ตามสูติบัตร)")}</span>
+                      </label>
+                      <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-slate-600 dark:text-[#C6B79F]">
+                        <input
+                          type="checkbox"
+                          checked={isUnknownBirthTime}
+                          onChange={(e) => setIsUnknownBirthTime(e.target.checked)}
+                          className="rounded border-slate-300 dark:border-white/20 text-[#C6A96B] focus:ring-[#C6A96B]"
+                        />
+                        <span>ไม่ทราบเวลาแน่นอน</span>
+                      </label>
+                    </div>
+
+                    {!isUnknownBirthTime ? (
+                      <div className="space-y-2">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <span className="text-[11px] text-slate-500 dark:text-[#94A3B8] mb-1 block">ชั่วโมง (00 - 23)</span>
+                            <select
+                              value={birthHour}
+                              onChange={(e) => setBirthHour(e.target.value)}
+                              className="w-full bg-slate-50 dark:bg-[#0A1628]/70 border border-slate-200 dark:border-[#C6A96B]/20 text-slate-900 dark:text-[#F8F6F1] rounded-xl px-3 py-2.5 text-sm font-semibold focus:outline-none focus:border-[#C6A96B]"
+                            >
+                              {Array.from({ length: 24 }, (_, i) => {
+                                const val = String(i).padStart(2, "0");
+                                return (
+                                  <option key={val} value={val} className="bg-white dark:bg-[#0A1628] text-slate-900 dark:text-[#F8F6F1]">
+                                    {val} น.
+                                  </option>
+                                );
+                              })}
+                            </select>
+                          </div>
+                          <div>
+                            <span className="text-[11px] text-slate-500 dark:text-[#94A3B8] mb-1 block">นาที (00 - 59)</span>
+                            <select
+                              value={birthMinute}
+                              onChange={(e) => setBirthMinute(e.target.value)}
+                              className="w-full bg-slate-50 dark:bg-[#0A1628]/70 border border-slate-200 dark:border-[#C6A96B]/20 text-slate-900 dark:text-[#F8F6F1] rounded-xl px-3 py-2.5 text-sm font-semibold focus:outline-none focus:border-[#C6A96B]"
+                            >
+                              {Array.from({ length: 60 }, (_, i) => {
+                                const val = String(i).padStart(2, "0");
+                                return (
+                                  <option key={val} value={val} className="bg-white dark:bg-[#0A1628] text-slate-900 dark:text-[#F8F6F1]">
+                                    {val} นาที
+                                  </option>
+                                );
+                              })}
+                            </select>
+                          </div>
+                        </div>
+
+                        {/* Quick Presets */}
+                        <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                          <span className="text-[10px] text-slate-500 dark:text-[#64748B]">ลัด:</span>
+                          {[
+                            { label: "06:00 (ย่ำรุ่ง)", h: "06", m: "00" },
+                            { label: "09:00 (สาย)", h: "09", m: "00" },
+                            { label: "12:00 (เที่ยง)", h: "12", m: "00" },
+                            { label: "18:00 (ค่ำ)", h: "18", m: "00" },
+                          ].map((preset) => (
+                            <button
+                              key={preset.label}
+                              type="button"
+                              onClick={() => {
+                                setBirthHour(preset.h);
+                                setBirthMinute(preset.m);
+                              }}
+                              className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-[#C6B79F] hover:text-slate-900 dark:hover:text-white"
+                            >
+                              {preset.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="p-3 rounded-xl border border-dashed border-amber-300 dark:border-amber-400/30 bg-amber-50/50 dark:bg-amber-400/5 text-xs text-amber-800 dark:text-amber-300/90 flex items-center gap-2">
+                        <AstralIcon name="sandglass" size={14} />
+                        <span>ระบบจะใช้เวลามาตรฐาน 06:00 น. (ย่ำรุ่งวันเกิด) ในการคำนวณฐานดวงชะตา</span>
+                      </div>
+                    )}
+
+                    {/* Hidden input to pass value into Form */}
+                    <input
+                      type="hidden"
+                      name="birthTime"
+                      value={isUnknownBirthTime ? "" : `${birthHour.padStart(2, "0")}:${birthMinute.padStart(2, "0")}`}
+                    />
+                  </div>
 
                   <Input
                     name="birthPlace"
@@ -769,7 +886,7 @@ export default function SettingsPage() {
                 </div>
 
                 {actionData && (actionData as any).error && (
-                  <p className="text-red-400 text-xs font-bold">{(actionData as any).error}</p>
+                  <p className="text-red-500 dark:text-red-400 text-xs font-bold">{(actionData as any).error}</p>
                 )}
 
                 <Button type="submit" loading={isLoading} className="mt-2">
@@ -779,16 +896,16 @@ export default function SettingsPage() {
             </Card>
           </div>
 
-          <Card className="border-[#C6A96B]/20 p-5 bg-gradient-to-b from-[#0A1628] to-[#020617]">
+          <Card className="border-slate-200/80 dark:border-[#C6A96B]/20 p-5 bg-gradient-to-br from-amber-50/70 via-white to-amber-50/20 dark:from-[#0A1628] dark:to-[#020617] shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[13px] text-[#94A3B8] mb-1">
+                <p className="text-[13px] text-slate-600 dark:text-[#94A3B8] mb-1 font-medium">
                   {t("common:settings.current_plan", "ระดับสมาชิกปัจจุบัน")}
                 </p>
-                <p className="text-2xl font-black font-display text-[#F8F6F1] uppercase">{profile?.plan || 'FREE'}</p>
+                <p className="text-2xl font-black font-display text-slate-900 dark:text-[#F8F6F1] uppercase">{profile?.plan || 'FREE'}</p>
               </div>
               <a href="/dashboard/upgrade"
-                className="px-4 py-2 rounded-xl text-xs font-bold text-[#020617] whitespace-nowrap"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-[#020617] whitespace-nowrap shadow-md hover:brightness-110 active:scale-95 transition-all"
                 style={{ background: "linear-gradient(135deg, #C6A96B, #D9BC82)" }}>
                 {t("common:settings.upgrade", "อัปเกรด →")}
               </a>
@@ -804,24 +921,24 @@ export default function SettingsPage() {
           {/* Subheader and Title */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>
-              <h2 className="text-[#F8F6F1] font-display text-lg sm:text-xl font-bold flex items-center gap-2">
-                <span>🧠</span>
+              <h2 className="text-slate-900 dark:text-[#F8F6F1] font-display text-lg sm:text-xl font-bold flex items-center gap-2">
+                <AstralIcon name="portal" variant="gold" size={22} glow />
                 <span>{t("common:settings.wisdom_title", "คลังปัญญา & ประวัติคำทำนาย")}</span>
               </h2>
-              <p className="text-xs text-[#94A3B8]">
+              <p className="text-xs text-slate-600 dark:text-[#94A3B8]">
                 บันทึกประวัติคำถาม, ผลพยากรณ์, และวงจรการติดตามผลจริงสู่ปัญญาเฉพาะตน
               </p>
             </div>
 
             {/* Bookmark Filter Switch */}
-            <div className="flex items-center gap-1 bg-[#0A1628]/70 border border-white/10 p-1 rounded-xl self-start sm:self-auto">
+            <div className="flex items-center gap-1 bg-slate-100 dark:bg-[#0A1628]/70 border border-slate-200 dark:border-white/10 p-1 rounded-xl self-start sm:self-auto">
               <button
                 type="button"
                 onClick={() => setShowBookmarkedOnly(false)}
                 className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
                   !showBookmarkedOnly
-                    ? "bg-[#C6A96B] text-[#0A1628]"
-                    : "text-[#C6B79F] hover:text-white"
+                    ? "bg-[#C6A96B] text-[#0A1628] shadow-sm"
+                    : "text-slate-600 dark:text-[#C6B79F] hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
                 ทั้งหมด ({wisdomQueries.length})
@@ -831,25 +948,25 @@ export default function SettingsPage() {
                 onClick={() => setShowBookmarkedOnly(true)}
                 className={`px-3 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1 ${
                   showBookmarkedOnly
-                    ? "bg-amber-400 text-[#0A1628]"
-                    : "text-[#C6B79F] hover:text-white"
+                    ? "bg-amber-400 text-[#0A1628] shadow-sm"
+                    : "text-slate-600 dark:text-[#C6B79F] hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
-                <span>★</span>
+                <AstralIcon name="star" variant="gold" size={13} />
                 <span>บุ๊กมาร์ก ({bookmarkedTotalCount})</span>
               </button>
             </div>
           </div>
 
           {/* Personal Wisdom Hub Banner & Metrics (STEP 4.3) */}
-          <div className="rounded-3xl border border-slate-200 dark:border-[#C6A96B]/30 bg-gradient-to-br from-white via-[#FAF8F5] to-[#F5F0ED] dark:from-[#0A1628] dark:via-[#0D1C34] dark:to-[#020617] p-4 sm:p-6 shadow-xl space-y-4 w-full max-w-full overflow-hidden">
+          <div className="rounded-3xl border border-slate-200/80 dark:border-[#C6A96B]/30 bg-gradient-to-br from-amber-50/60 via-white to-amber-50/20 dark:from-[#0B1E38] dark:via-[#0D1C34] dark:to-[#020617] p-4 sm:p-6 shadow-xl space-y-4 w-full max-w-full overflow-hidden">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 border-b border-black/5 dark:border-white/10 pb-3">
               <div className="space-y-0.5 min-w-0">
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8C6D2D] dark:text-[#C6A96B]">
                   PERSONAL WISDOM MEMORY
                 </span>
                 <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-[#F8F6F1] flex items-center gap-1.5 flex-wrap">
-                  <span>🏛️</span>
+                  <AstralIcon name="portal" variant="gold" size={18} />
                   <span>วงจรตกผลึกปัญญา (Outcome & Wisdom Loop)</span>
                 </h3>
               </div>
@@ -861,7 +978,7 @@ export default function SettingsPage() {
 
             {/* 4 KPI Metrics */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
-              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.03] border border-black/5 dark:border-white/10 shadow-sm space-y-1 min-w-0 overflow-hidden">
+              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-sm space-y-1 min-w-0 overflow-hidden">
                 <p className="text-[10px] sm:text-[11px] text-slate-600 dark:text-[#94A3B8] font-medium truncate">อัตราความแม่นยำ</p>
                 <p className="text-lg sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display">
                   {wisdomStats.trackedOutcomes > 0 ? `${wisdomStats.successRate}%` : "—"}
@@ -869,7 +986,7 @@ export default function SettingsPage() {
                 <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-[#64748B] truncate">จากผลลัพธ์ที่ตรงตามคาด</p>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.03] border border-black/5 dark:border-white/10 shadow-sm space-y-1 min-w-0 overflow-hidden">
+              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-sm space-y-1 min-w-0 overflow-hidden">
                 <p className="text-[10px] sm:text-[11px] text-slate-600 dark:text-[#94A3B8] font-medium truncate">การลงมือทำจริง</p>
                 <p className="text-lg sm:text-2xl font-black text-amber-600 dark:text-amber-300 font-display">
                   {wisdomStats.actionTakenCount} <span className="text-[10px] sm:text-xs font-normal text-slate-500 dark:text-[#94A3B8]">/ {wisdomStats.trackedOutcomes}</span>
@@ -877,7 +994,7 @@ export default function SettingsPage() {
                 <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-[#64748B] truncate">ทำตามจังหวะเวลา</p>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.03] border border-black/5 dark:border-white/10 shadow-sm space-y-1 min-w-0 overflow-hidden">
+              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-sm space-y-1 min-w-0 overflow-hidden">
                 <p className="text-[10px] sm:text-[11px] text-slate-600 dark:text-[#94A3B8] font-medium truncate">ติดตามผลแล้ว</p>
                 <p className="text-lg sm:text-2xl font-black text-slate-900 dark:text-[#F8F6F1] font-display">
                   {trackedTotalCount} <span className="text-[10px] sm:text-xs font-normal text-slate-500 dark:text-[#94A3B8]">/ {wisdomQueries.length}</span>
@@ -889,11 +1006,11 @@ export default function SettingsPage() {
                 </p>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.03] border border-black/5 dark:border-white/10 shadow-sm space-y-1 min-w-0 overflow-hidden">
+              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 shadow-sm space-y-1 min-w-0 overflow-hidden">
                 <p className="text-[10px] sm:text-[11px] text-slate-600 dark:text-[#94A3B8] font-medium truncate">ความพึงพอใจเฉลี่ย</p>
                 <p className="text-lg sm:text-2xl font-black text-amber-600 dark:text-amber-400 font-display flex items-center gap-1">
                   <span>{wisdomStats.trackedOutcomes > 0 ? wisdomStats.averageRating.toFixed(1) : "—"}</span>
-                  <span className="text-xs sm:text-sm font-normal text-amber-500">★</span>
+                  <AstralIcon name="star" variant="gold" size={14} />
                 </p>
                 <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-[#64748B] truncate">ประเมินย้อนหลัง</p>
               </div>
@@ -902,7 +1019,7 @@ export default function SettingsPage() {
 
           {/* STEP 4.5 — Personal Wisdom Intelligence Hub */}
           {wisdomIntelligence && (
-            <div className="rounded-3xl border border-slate-200 dark:border-[#C6A96B]/30 bg-white/95 dark:bg-[#0A1628]/80 backdrop-blur-xl p-5 sm:p-7 shadow-xl space-y-6 relative overflow-hidden">
+            <div className="rounded-3xl border border-slate-200/80 dark:border-[#C6A96B]/30 bg-white/95 dark:bg-[#0A1628]/85 backdrop-blur-xl p-5 sm:p-7 shadow-xl space-y-6 relative overflow-hidden">
               {/* Subtle background glow */}
               <div
                 className="absolute -top-24 -right-24 w-80 h-80 rounded-full pointer-events-none opacity-20 blur-3xl"
@@ -912,20 +1029,21 @@ export default function SettingsPage() {
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-black/5 dark:border-white/10 pb-4 relative z-10">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl sm:text-3xl">✨</span>
+                  <AstralIcon name="spark" variant="gold" size={24} glow />
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8C6D2D] dark:text-[#C6A96B]">
                       PERSONAL WISDOM INTELLIGENCE
                     </span>
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 flex-wrap">
                       <span>ปัญญาเฉพาะตน & การสังเคราะห์จังหวะชีวิต</span>
                       {wisdomIntelligence.hasSufficientData ? (
                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 font-bold">
                           ✓ ตกผลึกพร้อม
                         </span>
                       ) : (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/30 font-bold">
-                          ⏳ กำลังสะสมข้อมูล ({wisdomIntelligence.sampleCount}/{wisdomIntelligence.threshold})
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/30 font-bold flex items-center gap-1">
+                          <AstralIcon name="sandglass" size={11} />
+                          <span>กำลังสะสมข้อมูล ({wisdomIntelligence.sampleCount}/{wisdomIntelligence.threshold})</span>
                         </span>
                       )}
                     </h3>
@@ -938,10 +1056,11 @@ export default function SettingsPage() {
               </div>
 
               {/* AI Synthesized Executive Summary */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/40 dark:bg-gradient-to-br dark:from-white/[0.04] dark:to-white/[0.01] border border-amber-200/50 dark:border-white/10 space-y-3 relative z-10 shadow-sm">
+              <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-amber-50/90 via-white to-amber-100/40 dark:from-[#0B1E38]/90 dark:via-[#07172A]/90 dark:to-[#020914] border border-amber-200/80 dark:border-[#C6A96B]/30 space-y-3 relative z-10 shadow-sm">
                 <div className="flex items-center gap-2">
+                  <AstralIcon name="compass" variant="gold" size={15} glow />
                   <span className="text-xs font-bold text-[#8C6D2D] dark:text-[#C6A96B] uppercase tracking-wider">
-                    ✦ บทสรุปปัญญาสำหรับคุณ (Executive Insight)
+                    บทสรุปปัญญาสำหรับคุณ (Executive Insight)
                   </span>
                 </div>
                 <p className="text-sm sm:text-base text-slate-800 dark:text-[#F8F6F1] font-sans leading-relaxed font-medium">
@@ -959,7 +1078,7 @@ export default function SettingsPage() {
                     </div>
                     <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-amber-400 to-[#C6A96B] rounded-full transition-all duration-500"
+                        className="h-full bg-gradient-to-r from-amber-400 via-[#C6A96B] to-[#D9BC82] rounded-full transition-all duration-500"
                         style={{
                           width: `${Math.min(100, (wisdomIntelligence.sampleCount / wisdomIntelligence.threshold) * 100)}%`,
                         }}
@@ -974,11 +1093,11 @@ export default function SettingsPage() {
                 {wisdomIntelligence.patterns.map((p, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.02] hover:border-[#C6A96B]/40 hover:shadow-md transition-all flex flex-col justify-between gap-3 shadow-sm"
+                    className="p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-white/[0.03] hover:border-[#C6A96B]/50 hover:shadow-md transition-all flex flex-col justify-between gap-3 shadow-sm"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xl">{p.icon || "💡"}</span>
+                        <AstralIcon name="star" variant="gold" size={18} glow />
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-[#CBD5E1] border border-slate-200 dark:border-white/10">
                           {p.confidence}% สอดคล้อง
                         </span>
@@ -1000,15 +1119,15 @@ export default function SettingsPage() {
 
               {/* Action Recommendations */}
               {wisdomIntelligence.actionRecommendations && wisdomIntelligence.actionRecommendations.length > 0 && (
-                <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-[#C6A96B]/5 border border-amber-200/60 dark:border-[#C6A96B]/20 space-y-2.5 relative z-10 shadow-sm">
+                <div className="p-4 rounded-2xl bg-amber-50/80 dark:bg-[#07172A]/80 border border-amber-200 dark:border-[#C6A96B]/30 space-y-2.5 relative z-10 shadow-sm">
                   <p className="text-xs font-bold text-[#8C6D2D] dark:text-[#C6A96B] uppercase tracking-wider flex items-center gap-1.5">
-                    <span>⚡</span>
+                    <AstralIcon name="spark" variant="gold" size={15} glow />
                     <span>คำแนะนำเชิงปฏิบัติการเพื่อยกระดับการตัดสินใจ (Actionable Guidance)</span>
                   </p>
                   <ul className="space-y-1.5 text-xs text-slate-700 dark:text-[#CBD5E1]">
                     {wisdomIntelligence.actionRecommendations.map((rec, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <span className="text-[#8C6D2D] dark:text-[#C6A96B] font-bold shrink-0">✦</span>
+                        <AstralIcon name="spark" variant="gold" size={12} className="shrink-0 mt-0.5" />
                         <span>{rec}</span>
                       </li>
                     ))}
@@ -1022,14 +1141,14 @@ export default function SettingsPage() {
           <div className="space-y-2.5">
             {/* Outcome Filter Pills */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-              <span className="text-[11px] text-[#94A3B8] mr-1 font-bold whitespace-nowrap">สถานะผลลัพธ์:</span>
+              <span className="text-[11px] text-slate-500 dark:text-[#94A3B8] mr-1 font-bold whitespace-nowrap">สถานะผลลัพธ์:</span>
               <button
                 type="button"
                 onClick={() => setOutcomeFilter("all")}
-                className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap border transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap border transition-all ${
                   outcomeFilter === "all"
-                    ? "bg-[#C6A96B]/20 border-[#C6A96B] text-[#F8F6F1]"
-                    : "bg-[#0A1628]/60 border-white/10 text-[#94A3B8] hover:text-white"
+                    ? "bg-[#C6A96B] text-[#0A1628] border-[#C6A96B] shadow-sm"
+                    : "bg-white dark:bg-[#0A1628]/60 border-slate-200 dark:border-white/10 text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
                 ทั้งหมด ({wisdomQueries.length})
@@ -1037,24 +1156,26 @@ export default function SettingsPage() {
               <button
                 type="button"
                 onClick={() => setOutcomeFilter("tracked")}
-                className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap border transition-all flex items-center gap-1 ${
+                className={`px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap border transition-all flex items-center gap-1.5 ${
                   outcomeFilter === "tracked"
-                    ? "bg-emerald-500/20 border-emerald-400 text-emerald-300"
-                    : "bg-[#0A1628]/60 border-white/10 text-[#94A3B8] hover:text-emerald-300"
+                    ? "bg-emerald-500/20 border-emerald-500 text-emerald-700 dark:text-emerald-300 shadow-sm"
+                    : "bg-white dark:bg-[#0A1628]/60 border-slate-200 dark:border-white/10 text-slate-600 dark:text-[#94A3B8] hover:text-emerald-600 dark:hover:text-emerald-300"
                 }`}
               >
-                <span>🎯 ติดตามผลแล้ว ({trackedTotalCount})</span>
+                <AstralIcon name="star" variant="gold" size={12} />
+                <span>ติดตามผลแล้ว ({trackedTotalCount})</span>
               </button>
               <button
                 type="button"
                 onClick={() => setOutcomeFilter("pending")}
-                className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap border transition-all flex items-center gap-1 ${
+                className={`px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap border transition-all flex items-center gap-1.5 ${
                   outcomeFilter === "pending"
-                    ? "bg-amber-500/20 border-amber-400 text-amber-300"
-                    : "bg-[#0A1628]/60 border-white/10 text-[#94A3B8] hover:text-amber-300"
+                    ? "bg-amber-500/20 border-amber-500 text-amber-800 dark:text-amber-300 shadow-sm"
+                    : "bg-white dark:bg-[#0A1628]/60 border-slate-200 dark:border-white/10 text-slate-600 dark:text-[#94A3B8] hover:text-amber-700 dark:hover:text-amber-300"
                 }`}
               >
-                <span>⏳ รอติดตามผล ({wisdomQueries.length - trackedTotalCount})</span>
+                <AstralIcon name="sandglass" size={12} />
+                <span>รอติดตามผล ({wisdomQueries.length - trackedTotalCount})</span>
               </button>
             </div>
 
@@ -1069,11 +1190,11 @@ export default function SettingsPage() {
                     onClick={() => setActiveIntent(key)}
                     className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all border ${
                       isSelected
-                        ? "bg-[#C6A96B]/20 border-[#C6A96B] text-[#F8F6F1] shadow-sm shadow-[#C6A96B]/20"
-                        : "bg-[#0A1628]/60 border-white/10 text-[#94A3B8] hover:text-[#F8F6F1] hover:border-white/20"
+                        ? "bg-[#C6A96B] text-[#0A1628] font-bold border-[#C6A96B] shadow-sm"
+                        : "bg-white dark:bg-[#0A1628]/60 border-slate-200 dark:border-white/10 text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-[#F8F6F1] hover:border-[#C6A96B]/40"
                     }`}
                   >
-                    <span>{meta.emoji}</span>
+                    <AstralIcon name={meta.iconName} size={13} />
                     <span>{meta.label}</span>
                   </button>
                 );
@@ -1113,21 +1234,21 @@ export default function SettingsPage() {
                 });
 
                 return (
-                  <div
+                    <div
                     key={item.id}
                     onClick={() => openDetailModal(item)}
-                    className="group relative cursor-pointer rounded-2xl border border-white/10 bg-[#0A1628]/70 hover:border-[#C6A96B]/40 hover:bg-[#0A1628]/90 transition-all p-4 sm:p-5 shadow-lg space-y-3"
+                    className="group relative cursor-pointer rounded-2xl border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#0A1628]/70 hover:border-[#C6A96B]/50 hover:bg-amber-50/20 dark:hover:bg-[#0A1628]/90 transition-all p-4 sm:p-5 shadow-sm hover:shadow-md space-y-3"
                   >
                     {/* Top Row: Meta Badge, Date, Bookmark button */}
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span
-                          className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border flex items-center gap-1 ${meta.color}`}
+                          className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border flex items-center gap-1.5 ${meta.color}`}
                         >
-                          <span>{meta.emoji}</span>
+                          <AstralIcon name={meta.iconName} size={12} />
                           <span>{meta.label}</span>
                         </span>
-                        <span className="text-[11px] text-[#64748B]">{dateStr}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-[#64748B]">{dateStr}</span>
                       </div>
 
                       <button
@@ -1136,8 +1257,8 @@ export default function SettingsPage() {
                         title={isBookmarked ? "ยกเลิกบุ๊กมาร์ก" : "บันทึกในบุ๊กมาร์ก"}
                         className={`p-1.5 rounded-lg border transition-all ${
                           isBookmarked
-                            ? "bg-amber-400/20 text-amber-300 border-amber-400/40"
-                            : "bg-white/5 text-[#64748B] border-white/10 hover:text-white hover:border-white/20"
+                            ? "bg-amber-400/20 text-amber-600 dark:text-amber-300 border-amber-400/40 shadow-sm"
+                            : "bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-[#64748B] border-slate-200 dark:border-white/10 hover:text-slate-800 dark:hover:text-white hover:border-[#C6A96B]/40"
                         }`}
                       >
                         <span className="text-sm leading-none">{isBookmarked ? "★" : "☆"}</span>
@@ -1146,7 +1267,7 @@ export default function SettingsPage() {
 
                     {/* Question */}
                     <div>
-                      <h3 className="text-sm sm:text-base font-bold text-[#F8F6F1] group-hover:text-[#C6A96B] transition-colors leading-snug">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-[#F8F6F1] group-hover:text-[#8C6D2D] dark:group-hover:text-[#C6A96B] transition-colors leading-snug">
                         “{item.question}”
                       </h3>
                     </div>
@@ -1155,22 +1276,24 @@ export default function SettingsPage() {
                     {(item.best_window?.timeRange || typeof item.prediction_score === "number") && (
                       <div className="flex flex-wrap items-center gap-2 text-xs">
                         {item.best_window?.timeRange && (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-amber-400/30 bg-amber-400/10 text-amber-300 text-[11px] font-medium">
-                            <span>⏳ ช่วงเวลา:</span>
-                            <span className="font-bold text-white">{item.best_window.timeRange}</span>
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-400/30 bg-amber-50 dark:bg-amber-400/10 text-amber-800 dark:text-amber-300 text-[11px] font-medium">
+                            <AstralIcon name="clock" size={12} />
+                            <span>ช่วงเวลา:</span>
+                            <span className="font-bold text-slate-900 dark:text-white">{item.best_window.timeRange}</span>
                           </span>
                         )}
                         {typeof item.prediction_score === "number" && (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-emerald-400/30 bg-emerald-400/10 text-emerald-300 text-[11px] font-medium">
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-emerald-300 dark:border-emerald-400/30 bg-emerald-50 dark:bg-emerald-400/10 text-emerald-800 dark:text-emerald-300 text-[11px] font-medium">
+                            <AstralIcon name="spark" size={12} />
                             <span>พลังงาน:</span>
-                            <span className="font-bold text-white">{item.prediction_score}/100</span>
+                            <span className="font-bold text-slate-900 dark:text-white">{item.prediction_score}/100</span>
                           </span>
                         )}
                       </div>
                     )}
 
                     {/* Answer Preview */}
-                    <p className="text-xs sm:text-sm text-[#94A3B8] line-clamp-2 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-[#94A3B8] line-clamp-2 leading-relaxed">
                       {item.answer}
                     </p>
 
@@ -1179,36 +1302,36 @@ export default function SettingsPage() {
                       <div className="space-y-1.5 pt-1">
                         <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
                           {outcomeMeta && (
-                            <span className={`px-2 py-0.5 rounded-md border font-bold flex items-center gap-1 ${outcomeMeta.badgeColor}`}>
-                              <span>{outcomeMeta.emoji}</span>
+                            <span className={`px-2 py-0.5 rounded-md border font-bold flex items-center gap-1.5 ${outcomeMeta.badgeColor}`}>
+                              <AstralIcon name={outcomeMeta.iconName} size={11} />
                               <span>{outcomeMeta.shortLabel}</span>
                             </span>
                           )}
                           <span className={`px-2 py-0.5 rounded-md border text-[10px] font-semibold ${
                             outcome.action_taken
-                              ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/20"
-                              : "bg-white/5 text-[#94A3B8] border-white/10"
+                              ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20"
+                              : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-[#94A3B8] border-slate-200 dark:border-white/10"
                           }`}>
-                            {outcome.action_taken ? "⚡ ได้ลงมือทำ" : "⏸ ไม่ได้ลงมือทำ"}
+                            {outcome.action_taken ? "✓ ได้ลงมือทำ" : "⏸ ไม่ได้ลงมือทำ"}
                           </span>
                           {typeof outcome.feedback_rating === "number" && (
-                            <span className="text-amber-400 text-xs tracking-tight">
+                            <span className="text-amber-500 text-xs tracking-tight">
                               {"★".repeat(outcome.feedback_rating)}
                             </span>
                           )}
                         </div>
 
                         {outcome.user_notes && (
-                          <div className="rounded-xl bg-[#C6A96B]/10 border border-[#C6A96B]/20 p-2.5 text-xs text-[#E2E8F0] flex items-start gap-2">
-                            <span className="text-[#C6A96B] font-bold shrink-0">💡 ปัญญาที่ได้:</span>
+                          <div className="rounded-xl bg-amber-50/70 dark:bg-[#C6A96B]/10 border border-amber-200/80 dark:border-[#C6A96B]/20 p-2.5 text-xs text-slate-800 dark:text-[#E2E8F0] flex items-start gap-2">
+                            <span className="text-[#8C6D2D] dark:text-[#C6A96B] font-bold shrink-0">💡 ปัญญาที่ได้:</span>
                             <span className="line-clamp-2 italic">“{outcome.user_notes}”</span>
                           </div>
                         )}
                       </div>
                     ) : (
                       <div className="pt-0.5">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-amber-400/20 bg-amber-400/5 text-amber-300/90 text-[11px]">
-                          <span>⏳</span>
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-amber-300/80 dark:border-amber-400/20 bg-amber-50/80 dark:bg-amber-400/5 text-amber-800 dark:text-amber-300/90 text-[11px]">
+                          <AstralIcon name="sandglass" size={12} />
                           <span>ยังไม่ได้ติดตามผลจริง — กดเพื่อบันทึกบทเรียนและผลลัพธ์</span>
                         </span>
                       </div>
@@ -1216,10 +1339,10 @@ export default function SettingsPage() {
 
                     {/* Footer View Link */}
                     <div className="pt-1 flex items-center justify-between text-[11px]">
-                      <span className="text-emerald-400/80 font-medium truncate max-w-[70%]">
+                      <span className="text-emerald-700 dark:text-emerald-400/80 font-medium truncate max-w-[70%]">
                         ✓ {item.actionable || "มีข้อแนะนำที่ทำได้ทันที"}
                       </span>
-                      <span className="text-[#C6A96B] group-hover:underline font-bold flex items-center gap-0.5">
+                      <span className="text-[#8C6D2D] dark:text-[#C6A96B] group-hover:underline font-bold flex items-center gap-0.5">
                         <span>ดูรายละเอียด & ติดตามผล</span>
                         <span>→</span>
                       </span>
@@ -1230,12 +1353,12 @@ export default function SettingsPage() {
             </div>
           ) : (
             /* Empty State */
-            <div className="rounded-3xl border border-dashed border-[#C6A96B]/20 bg-slate-950/40 p-8 sm:p-10 text-center space-y-4">
-              <div className="w-14 h-14 mx-auto rounded-full bg-[#C6A96B]/10 border border-[#C6A96B]/20 flex items-center justify-center text-2xl">
-                🧠
+            <div className="rounded-3xl border border-dashed border-[#C6A96B]/30 bg-slate-50 dark:bg-slate-950/40 p-8 sm:p-10 text-center space-y-4">
+              <div className="w-14 h-14 mx-auto rounded-full bg-[#C6A96B]/15 border border-[#C6A96B]/30 flex items-center justify-center">
+                <AstralIcon name="portal" variant="gold" size={28} glow />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base sm:text-lg font-bold text-[#F8F6F1]">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[#F8F6F1]">
                   {showBookmarkedOnly
                     ? "ยังไม่มีคำถามที่บุ๊กมาร์กไว้"
                     : outcomeFilter === "tracked"
@@ -1246,7 +1369,7 @@ export default function SettingsPage() {
                     ? "ไม่พบคำถามในหมวดหมู่นี้"
                     : "ยังไม่มีบันทึกคำถาม"}
                 </h3>
-                <p className="text-xs text-[#94A3B8] max-w-xs mx-auto">
+                <p className="text-xs text-slate-600 dark:text-[#94A3B8] max-w-xs mx-auto">
                   {showBookmarkedOnly || activeIntent !== "all" || outcomeFilter !== "all"
                     ? "ลองเลือกดูหมวดอื่น หรือกดดูทั้งหมด"
                     : "ลองถามเรื่องแรกของคุณได้เลย ระบบจะบันทึกคำทำนายและจังหวะเวลาไว้ในคลังปัญญานี้โดยอัตโนมัติ"}
@@ -1257,7 +1380,7 @@ export default function SettingsPage() {
                   to="/dashboard/check-yam"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#0A1628] font-bold text-xs sm:text-sm shadow-lg shadow-[#C6A96B]/20 hover:brightness-110 active:scale-95 transition-all"
                 >
-                  <span>🔎</span>
+                  <AstralIcon name="compass" size={14} />
                   <span>หาฤกษ์ให้ฉัน</span>
                 </Link>
               </div>
@@ -1267,26 +1390,26 @@ export default function SettingsPage() {
           {/* PHASE D — Detail Modal with Outcome Tracking & Personal Wisdom Form */}
           {selectedDetailQuery && (
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+              className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/80 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
               onClick={() => setSelectedDetailQuery(null)}
             >
               <div
-                className="w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-3xl border border-[#C6A96B]/30 bg-[#0A1628] p-4 sm:p-7 shadow-2xl space-y-4 sm:space-y-5"
+                className="w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-3xl border border-slate-200 dark:border-[#C6A96B]/30 bg-white dark:bg-[#0A1628] p-4 sm:p-7 shadow-2xl space-y-4 sm:space-y-5 text-slate-900 dark:text-[#F8F6F1]"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Modal Header */}
-                <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-4">
+                <div className="flex items-start justify-between gap-3 border-b border-slate-200 dark:border-white/10 pb-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-xs font-bold px-2.5 py-0.5 rounded-full border flex items-center gap-1 ${
+                        className={`text-xs font-bold px-2.5 py-0.5 rounded-full border flex items-center gap-1.5 ${
                           (INTENT_META[selectedDetailQuery.intent_category] || INTENT_META.general).color
                         }`}
                       >
-                        <span>{(INTENT_META[selectedDetailQuery.intent_category] || INTENT_META.general).emoji}</span>
+                        <AstralIcon name={(INTENT_META[selectedDetailQuery.intent_category] || INTENT_META.general).iconName} size={12} />
                         <span>{(INTENT_META[selectedDetailQuery.intent_category] || INTENT_META.general).label}</span>
                       </span>
-                      <span className="text-[11px] text-[#64748B]">
+                      <span className="text-[11px] text-slate-500 dark:text-[#64748B]">
                         {new Date(selectedDetailQuery.created_at).toLocaleString("th-TH", {
                           day: "numeric",
                           month: "short",
@@ -1296,7 +1419,7 @@ export default function SettingsPage() {
                         })}
                       </span>
                     </div>
-                    <h3 className="text-base sm:text-lg font-bold text-[#F8F6F1]">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[#F8F6F1]">
                       “{selectedDetailQuery.question}”
                     </h3>
                   </div>
@@ -1304,7 +1427,7 @@ export default function SettingsPage() {
                   <button
                     type="button"
                     onClick={() => setSelectedDetailQuery(null)}
-                    className="p-1.5 rounded-full bg-white/5 border border-white/10 text-[#94A3B8] hover:text-white hover:bg-white/10 transition-colors"
+                    className="p-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
                   >
                     ✕
                   </button>
@@ -1314,29 +1437,31 @@ export default function SettingsPage() {
                 {(selectedDetailQuery.best_window?.timeRange || typeof selectedDetailQuery.prediction_score === "number") && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {selectedDetailQuery.best_window?.timeRange && (
-                      <div className="p-3 rounded-xl border border-amber-400/30 bg-amber-400/10 space-y-0.5">
-                        <p className="text-[10px] font-bold text-amber-300 uppercase tracking-wider">
-                          ⏳ ช่วงเวลาทองที่แนะนำ
+                      <div className="p-3 rounded-xl border border-amber-300 dark:border-amber-400/30 bg-amber-50 dark:bg-amber-400/10 space-y-0.5">
+                        <p className="text-[10px] font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wider flex items-center gap-1">
+                          <AstralIcon name="clock" size={11} />
+                          <span>ช่วงเวลาทองที่แนะนำ</span>
                         </p>
-                        <p className="text-sm font-bold text-white">
+                        <p className="text-sm font-bold text-slate-900 dark:text-white">
                           {selectedDetailQuery.best_window.timeRange}
                         </p>
                         {selectedDetailQuery.best_window.description && (
-                          <p className="text-[11px] text-amber-200/80">
+                          <p className="text-[11px] text-amber-900/80 dark:text-amber-200/80">
                             {selectedDetailQuery.best_window.description}
                           </p>
                         )}
                       </div>
                     )}
                     {typeof selectedDetailQuery.prediction_score === "number" && (
-                      <div className="p-3 rounded-xl border border-emerald-400/30 bg-emerald-400/10 space-y-0.5">
-                        <p className="text-[10px] font-bold text-emerald-300 uppercase tracking-wider">
-                          ✦ คะแนนพลังงาน
+                      <div className="p-3 rounded-xl border border-emerald-300 dark:border-emerald-400/30 bg-emerald-50 dark:bg-emerald-400/10 space-y-0.5">
+                        <p className="text-[10px] font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider flex items-center gap-1">
+                          <AstralIcon name="spark" size={11} />
+                          <span>คะแนนพลังงาน</span>
                         </p>
-                        <p className="text-sm font-bold text-white">
+                        <p className="text-sm font-bold text-slate-900 dark:text-white">
                           {selectedDetailQuery.prediction_score} / 100
                         </p>
-                        <p className="text-[11px] text-emerald-200/80">
+                        <p className="text-[11px] text-emerald-900/80 dark:text-emerald-200/80">
                           ความสอดคล้อง: {selectedDetailQuery.confidence === "high" ? "สูงมาก" : selectedDetailQuery.confidence === "medium" ? "ปานกลาง" : "แนะนำสังเกตการณ์"}
                         </p>
                       </div>
@@ -1346,22 +1471,22 @@ export default function SettingsPage() {
 
                 {/* Main Stored Answer (Plain Thai) */}
                 <div className="space-y-2">
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#C6A96B]">
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8C6D2D] dark:text-[#C6A96B]">
                     ✦ คำแนะนำสำหรับคุณ
                   </p>
-                  <p className="text-sm sm:text-base text-[#F8F6F1] leading-relaxed whitespace-pre-line">
+                  <p className="text-sm sm:text-base text-slate-800 dark:text-[#F8F6F1] leading-relaxed whitespace-pre-line">
                     {selectedDetailQuery.answer}
                   </p>
                 </div>
 
                 {/* Actionable Advice */}
-                <div className="p-4 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 flex items-start gap-3">
-                  <span className="text-emerald-400 text-base mt-0.5">✓</span>
+                <div className="p-4 rounded-2xl border border-emerald-300 dark:border-emerald-400/20 bg-emerald-50 dark:bg-emerald-500/10 flex items-start gap-3">
+                  <span className="text-emerald-600 dark:text-emerald-400 text-base mt-0.5">✓</span>
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-400 mb-0.5">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-400 mb-0.5">
                       ข้อแนะนำที่ทำได้ทันที
                     </p>
-                    <p className="text-xs sm:text-sm text-[#E2E8F0] font-medium leading-snug">
+                    <p className="text-xs sm:text-sm text-slate-800 dark:text-[#E2E8F0] font-medium leading-snug">
                       {selectedDetailQuery.actionable}
                     </p>
                   </div>
@@ -1369,22 +1494,25 @@ export default function SettingsPage() {
 
                 {/* Level 2: Evidence Snapshot Accordion */}
                 {selectedDetailQuery.evidence_snapshot && selectedDetailQuery.evidence_snapshot.length > 0 && (
-                  <div className="pt-2 border-t border-white/8">
+                  <div className="pt-2 border-t border-slate-200 dark:border-white/8">
                     <button
                       type="button"
                       onClick={() => setShowEvidence(!showEvidence)}
-                      className="flex items-center justify-between w-full text-left py-1 text-xs font-bold text-[#94A3B8] hover:text-[#C6A96B] transition-colors"
+                      className="flex items-center justify-between w-full text-left py-1 text-xs font-bold text-slate-600 dark:text-[#94A3B8] hover:text-[#8C6D2D] dark:hover:text-[#C6A96B] transition-colors"
                     >
-                      <span>🔍 ดูปัจจัยพลังงานเชิงลึก (Evidence Chain)</span>
+                      <span className="flex items-center gap-1.5">
+                        <AstralIcon name="compass" size={13} />
+                        <span>ดูปัจจัยพลังงานเชิงลึก (Evidence Chain)</span>
+                      </span>
                       <span>{showEvidence ? "▲ ย่อ" : "▼ ขยาย"}</span>
                     </button>
 
                     {showEvidence && (
-                      <div className="mt-2 space-y-2 pl-2 border-l-2 border-[#C6A96B]/30 animate-fade-up">
+                      <div className="mt-2 space-y-2 pl-2 border-l-2 border-[#C6A96B]/50 animate-fade-up">
                         {selectedDetailQuery.evidence_snapshot.map((item, idx) => (
                           <div key={idx} className="text-xs space-y-0.5">
-                            <span className="font-bold text-[#C6A96B]">{item.source}:</span>
-                            <p className="text-[#CBD5E1]">{item.finding}</p>
+                            <span className="font-bold text-[#8C6D2D] dark:text-[#C6A96B]">{item.source}:</span>
+                            <p className="text-slate-700 dark:text-[#CBD5E1]">{item.finding}</p>
                           </div>
                         ))}
                       </div>
@@ -1396,26 +1524,26 @@ export default function SettingsPage() {
                 {/* STEP 4.3 — OUTCOME TRACKING & PERSONAL WISDOM FORM */}
                 {/* Loop: Prediction → Decision → Action → Outcome → Feedback → Wisdom */}
                 {/* ========================================================================= */}
-                <div className="rounded-2xl border border-[#C6A96B]/40 bg-gradient-to-br from-[#0B172B] to-[#040A14] p-4 sm:p-5 space-y-4 shadow-inner">
-                  <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+                <div className="rounded-2xl border border-slate-200 dark:border-[#C6A96B]/40 bg-slate-50/90 dark:bg-gradient-to-br dark:from-[#0B172B] dark:to-[#040A14] p-4 sm:p-5 space-y-4 shadow-sm">
+                  <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2.5">
                     <div className="space-y-0.5">
-                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#C6A96B]">
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8C6D2D] dark:text-[#C6A96B]">
                         STEP 4.3 — OUTCOME TRACKING
                       </p>
-                      <h4 className="text-sm font-bold text-[#F8F6F1] flex items-center gap-1.5">
-                        <span>📝</span>
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-[#F8F6F1] flex items-center gap-1.5">
+                        <AstralIcon name="scroll" size={15} />
                         <span>บันทึกผลลัพธ์ & ตกผลึกปัญญา</span>
                       </h4>
                     </div>
                     {(localOutcomes[selectedDetailQuery.id] ?? selectedDetailQuery.outcome) && (
-                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
                         ✓ บันทึกผลแล้ว
                       </span>
                     )}
                   </div>
 
                   {outcomeSavedSuccess && (
-                    <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-xs font-bold flex items-center gap-2 animate-in fade-in duration-200">
+                    <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-400 text-emerald-800 dark:text-emerald-300 text-xs font-bold flex items-center gap-2 animate-in fade-in duration-200">
                       <span>✓</span>
                       <span>บันทึกผลลัพธ์และตกผลึกปัญญาเข้าสู่ระบบเรียบร้อยแล้ว</span>
                     </div>
@@ -1423,7 +1551,7 @@ export default function SettingsPage() {
 
                   {/* 1. Action Taken Toggle */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#D9CDB7] block">
+                    <label className="text-xs font-bold text-slate-700 dark:text-[#D9CDB7] block">
                       1. คุณได้ตัดสินใจลงมือทำตามคำแนะนำหรือไม่?
                     </label>
                     <div className="grid grid-cols-2 gap-2">
@@ -1432,8 +1560,8 @@ export default function SettingsPage() {
                         onClick={() => setFormActionTaken(true)}
                         className={`p-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all ${
                           formActionTaken === true
-                            ? "bg-emerald-500/20 text-emerald-300 border-emerald-400 shadow-sm shadow-emerald-500/20"
-                            : "bg-white/5 text-[#94A3B8] border-white/10 hover:text-white"
+                            ? "bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500 shadow-sm"
+                            : "bg-white dark:bg-white/5 text-slate-600 dark:text-[#94A3B8] border-slate-200 dark:border-white/10 hover:text-slate-900 dark:hover:text-white"
                         }`}
                       >
                         <span>✓</span>
@@ -1444,8 +1572,8 @@ export default function SettingsPage() {
                         onClick={() => setFormActionTaken(false)}
                         className={`p-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all ${
                           formActionTaken === false
-                            ? "bg-rose-500/20 text-rose-300 border-rose-400 shadow-sm shadow-rose-500/20"
-                            : "bg-white/5 text-[#94A3B8] border-white/10 hover:text-white"
+                            ? "bg-rose-500/20 text-rose-700 dark:text-rose-300 border-rose-500 shadow-sm"
+                            : "bg-white dark:bg-white/5 text-slate-600 dark:text-[#94A3B8] border-slate-200 dark:border-white/10 hover:text-slate-900 dark:hover:text-white"
                         }`}
                       >
                         <span>✕</span>
@@ -1456,7 +1584,7 @@ export default function SettingsPage() {
 
                   {/* 2. Actual Result 5 Selectable Chips */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#D9CDB7] block">
+                    <label className="text-xs font-bold text-slate-700 dark:text-[#D9CDB7] block">
                       2. ผลลัพธ์ที่เกิดขึ้นจริงเป็นอย่างไร?
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -1471,14 +1599,14 @@ export default function SettingsPage() {
                               className={`p-2.5 rounded-xl border text-left transition-all space-y-0.5 ${
                                 isSelected
                                   ? `${meta.color} border-current ring-1 ring-current/40 shadow-sm`
-                                  : "bg-white/[0.03] border-white/10 text-[#94A3B8] hover:text-white hover:border-white/20"
+                                  : "bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/10 text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white hover:border-[#C6A96B]/40"
                               }`}
                             >
-                              <div className="flex items-center gap-1.5 font-bold text-xs text-white">
-                                <span>{meta.emoji}</span>
+                              <div className="flex items-center gap-1.5 font-bold text-xs">
+                                <AstralIcon name={meta.iconName} size={12} />
                                 <span>{meta.shortLabel}</span>
                               </div>
-                              <p className="text-[10px] text-[#94A3B8] leading-tight">
+                              <p className="text-[10px] text-slate-500 dark:text-[#94A3B8] leading-tight">
                                 {meta.description}
                               </p>
                             </button>
@@ -1491,10 +1619,10 @@ export default function SettingsPage() {
                   {/* 3. Feedback Rating (1-5 Stars) */}
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-bold text-[#D9CDB7]">
+                      <label className="text-xs font-bold text-slate-700 dark:text-[#D9CDB7]">
                         3. ให้คะแนนความสอดคล้อง / ความพึงพอใจ:
                       </label>
-                      <span className="text-xs font-bold text-amber-400">
+                      <span className="text-xs font-bold text-amber-600 dark:text-amber-400">
                         {formFeedbackRating} / 5 ดาว
                       </span>
                     </div>
@@ -1506,8 +1634,8 @@ export default function SettingsPage() {
                           onClick={() => setFormFeedbackRating(star)}
                           className={`w-9 h-9 rounded-xl border flex items-center justify-center text-base transition-all ${
                             star <= formFeedbackRating
-                              ? "bg-amber-400/20 border-amber-400/60 text-amber-300 scale-105"
-                              : "bg-white/5 border-white/10 text-[#64748B] hover:text-white"
+                              ? "bg-amber-400/20 border-amber-400 text-amber-600 dark:text-amber-300 scale-105 shadow-sm"
+                              : "bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-400 dark:text-[#64748B] hover:text-slate-900 dark:hover:text-white"
                           }`}
                         >
                           ★
@@ -1518,7 +1646,7 @@ export default function SettingsPage() {
 
                   {/* 4. Personal Wisdom Notes */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#D9CDB7] block">
+                    <label className="text-xs font-bold text-slate-700 dark:text-[#D9CDB7] block">
                       4. บันทึกบทเรียน & ตกผลึกปัญญาเฉพาะตัวคุณ (Personal Wisdom):
                     </label>
                     <textarea
@@ -1526,20 +1654,20 @@ export default function SettingsPage() {
                       value={formUserNotes}
                       onChange={(e) => setFormUserNotes(e.target.value)}
                       placeholder="บันทึกสิ่งที่ได้เรียนรู้จากเหตุการณ์นี้ ความรู้สึก หรือข้อสังเกตเรื่องจังหวะเวลาเฉพาะตัวคุณ เพื่อสะสมเป็นปัญญาชีวิต..."
-                      className="w-full bg-[#0A1628] border border-[#C6A96B]/30 rounded-xl p-3 text-xs text-[#F8F6F1] placeholder-[#64748B] focus:outline-none focus:border-[#C6A96B]"
+                      className="w-full bg-white dark:bg-[#0A1628] border border-slate-200 dark:border-[#C6A96B]/30 rounded-xl p-3 text-xs text-slate-900 dark:text-[#F8F6F1] placeholder-slate-400 dark:placeholder-[#64748B] focus:outline-none focus:border-[#C6A96B]"
                     />
                   </div>
 
                   {/* 5. Occurred Date */}
                   <div className="space-y-1">
-                    <label className="text-[11px] text-[#94A3B8] block">
+                    <label className="text-[11px] text-slate-600 dark:text-[#94A3B8] block">
                       วันที่เกิดผลลัพธ์จริง (ไม่บังคับ):
                     </label>
                     <input
                       type="date"
                       value={formOccurredAt}
                       onChange={(e) => setFormOccurredAt(e.target.value)}
-                      className="bg-[#0A1628] border border-white/10 rounded-xl px-3 py-1.5 text-xs text-[#F8F6F1] focus:outline-none focus:border-[#C6A96B]"
+                      className="bg-white dark:bg-[#0A1628] border border-slate-200 dark:border-white/10 rounded-xl px-3 py-1.5 text-xs text-slate-900 dark:text-[#F8F6F1] focus:outline-none focus:border-[#C6A96B]"
                     />
                   </div>
 
@@ -1553,12 +1681,12 @@ export default function SettingsPage() {
                     >
                       {outcomeFetcher.state === "submitting" ? (
                         <>
-                          <span className="animate-spin text-sm">⏳</span>
+                          <AstralIcon name="sandglass" size={14} className="animate-spin" />
                           <span>กำลังบันทึกปัญญา...</span>
                         </>
                       ) : (
                         <>
-                          <span>💾</span>
+                          <AstralIcon name="portal" size={14} />
                           <span>บันทึกผลลัพธ์และตกผลึกปัญญา</span>
                         </>
                       )}
@@ -1567,24 +1695,24 @@ export default function SettingsPage() {
                 </div>
 
                 {/* Snapshot Immutability & Engine Safety Note */}
-                <div className="rounded-xl bg-white/5 border border-white/5 p-2.5 text-center space-y-0.5">
-                  <p className="text-[10px] text-[#64748B]">
+                <div className="rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 p-2.5 text-center space-y-0.5">
+                  <p className="text-[10px] text-slate-500 dark:text-[#64748B]">
                     🔒 บันทึกความทรงจำจาก Snapshot ณ เวลาที่ถาม (ไม่เปลี่ยนแปลงตามการอัปเดตระบบ)
                   </p>
-                  <p className="text-[10px] text-[#C6A96B]/80 font-medium">
+                  <p className="text-[10px] text-[#8C6D2D] dark:text-[#C6A96B]/80 font-medium">
                     ✦ การบันทึกผลลัพธ์ใช้สร้างคลังปัญญาเฉพาะตน โดยไม่เปลี่ยนแปลงหลักการพยากรณ์หลักของระบบ
                   </p>
                 </div>
 
                 {/* Modal Footer Controls */}
-                <div className="flex items-center justify-between gap-3 pt-2 border-t border-white/10">
+                <div className="flex items-center justify-between gap-3 pt-2 border-t border-slate-200 dark:border-white/10">
                   <button
                     type="button"
                     onClick={(e) => handleToggleBookmark(selectedDetailQuery, e)}
                     className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-all ${
                       (localBookmarks[selectedDetailQuery.id] ?? selectedDetailQuery.is_bookmarked)
-                        ? "bg-amber-400/20 text-amber-300 border-amber-400/40"
-                        : "bg-white/5 text-[#94A3B8] border-white/10 hover:text-white"
+                        ? "bg-amber-400/20 text-amber-700 dark:text-amber-300 border-amber-400/40"
+                        : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-[#94A3B8] border-slate-200 dark:border-white/10 hover:text-slate-900 dark:hover:text-white"
                     }`}
                   >
                     <span>{(localBookmarks[selectedDetailQuery.id] ?? selectedDetailQuery.is_bookmarked) ? "★" : "☆"}</span>
@@ -1595,14 +1723,14 @@ export default function SettingsPage() {
                     <button
                       type="button"
                       onClick={(e) => handleCopyAnswer(selectedDetailQuery.answer, selectedDetailQuery.id, e)}
-                      className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-medium text-[#D9CDB7] transition-colors"
+                      className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-xs font-medium text-slate-700 dark:text-[#D9CDB7] transition-colors"
                     >
                       {copiedQueryId === selectedDetailQuery.id ? "✓ คัดลอกแล้ว" : "คัดลอกคำแนะนำ"}
                     </button>
                     <button
                       type="button"
                       onClick={() => setSelectedDetailQuery(null)}
-                      className="px-4 py-1.5 rounded-xl bg-[#C6A96B] text-[#0A1628] font-bold text-xs hover:brightness-110 transition-all"
+                      className="px-4 py-1.5 rounded-xl bg-[#C6A96B] text-[#0A1628] font-bold text-xs hover:brightness-110 transition-all shadow-sm"
                     >
                       ปิด
                     </button>

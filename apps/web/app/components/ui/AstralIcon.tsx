@@ -7,6 +7,7 @@ export type AstralIconName =
   | "wellness"
   | "horanu"
   | "yam"
+  | "clock"
   | "timeline"
   | "sub-yam"
   | "portal"
@@ -158,6 +159,7 @@ export function AstralIcon({
         </svg>
       );
 
+    case "clock":
     case "yam":
       return (
         <svg {...commonProps}>
