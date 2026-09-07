@@ -14,6 +14,7 @@ import {
 } from "~/lib/plans";
 import { createSupabaseClient } from "~/services/supabase.server";
 import type { Env } from "~/env.server";
+import { AstralIcon } from "~/components/ui/AstralIcon";
 
 export const meta: MetaFunction = () => [
   { title: "อัปเกรดสมาชิก & เติมทรายกาลเวลา — PhopePhum" },
@@ -204,7 +205,7 @@ export default function UpgradePage() {
                 : "text-[#94A3B8] hover:text-[#F8F6F1]"
             }`}
           >
-            <span>👑</span>
+            <AstralIcon name="crown" variant={activeTab === "membership" ? "current" : "gold"} size={16} glow={activeTab === "membership"} />
             <span>แผนสมาชิกพรีเมียม (Subscriptions)</span>
           </button>
           <button
@@ -216,7 +217,7 @@ export default function UpgradePage() {
                 : "text-[#94A3B8] hover:text-[#F8F6F1]"
             }`}
           >
-            <span>⏳</span>
+            <AstralIcon name="sandglass" variant={activeTab === "sands" ? "current" : "gold"} size={16} glow={activeTab === "sands"} />
             <span>เติมละอองทรายกาลเวลา (Sands Packs)</span>
           </button>
         </div>
@@ -360,7 +361,9 @@ export default function UpgradePage() {
                       </span>
                     )}
 
-                    <div className="text-3xl mb-2">⏳</div>
+                    <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-gradient-to-br from-amber-500/20 to-amber-500/5 border border-amber-500/30 shadow-sm">
+                      <AstralIcon name="sandglass" variant="amber" size={24} glow={isSelected} />
+                    </div>
                     <p className="font-display text-base font-bold text-[#F8F6F1]">{pack.name}</p>
                     <p className="text-[11px] text-[#C6A96B] font-semibold mt-0.5">{pack.bonusText}</p>
 

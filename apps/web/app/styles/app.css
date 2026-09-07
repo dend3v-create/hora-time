@@ -336,6 +336,55 @@ body {
   --tw-gradient-to: #F5EFE6 var(--tw-gradient-to-position) !important;
 }
 
+/* #0B1528 → Sacred Ivory / White surface in light mode */
+[data-theme="light"] .bg-\[\#0B1528\]        { background-color: #FFFFFF !important; }
+[data-theme="light"] .bg-\[\#0B1528\]\/40   { background-color: rgba(255, 255, 255, 0.65) !important; }
+[data-theme="light"] .bg-\[\#0B1528\]\/50   { background-color: rgba(255, 255, 255, 0.72) !important; }
+[data-theme="light"] .bg-\[\#0B1528\]\/60   { background-color: rgba(255, 255, 255, 0.80) !important; }
+[data-theme="light"] .bg-\[\#0B1528\]\/70   { background-color: rgba(255, 255, 255, 0.85) !important; }
+[data-theme="light"] .bg-\[\#0B1528\]\/80   { background-color: rgba(255, 255, 255, 0.90) !important; }
+[data-theme="light"] .bg-\[\#0B1528\]\/95   { background-color: rgba(255, 255, 255, 0.96) !important; }
+
+/* #07172A → Light elevated surface */
+[data-theme="light"] .bg-\[\#07172A\]        { background-color: #FAF8F5 !important; }
+[data-theme="light"] .bg-\[\#07172A\]\/40   { background-color: rgba(250, 248, 245, 0.60) !important; }
+[data-theme="light"] .bg-\[\#07172A\]\/50   { background-color: rgba(250, 248, 245, 0.70) !important; }
+[data-theme="light"] .bg-\[\#07172A\]\/60   { background-color: rgba(250, 248, 245, 0.80) !important; }
+[data-theme="light"] .bg-\[\#07172A\]\/80   { background-color: rgba(250, 248, 245, 0.90) !important; }
+[data-theme="light"] .bg-\[\#07172A\]\/95   { background-color: rgba(250, 248, 245, 0.96) !important; }
+
+/* #040D1A / #122444 */
+[data-theme="light"] .bg-\[\#040D1A\]        { background-color: #F5EFE6 !important; }
+[data-theme="light"] .bg-\[\#040D1A\]\/95   { background-color: rgba(245, 239, 230, 0.96) !important; }
+[data-theme="light"] .bg-\[\#040d1a\]        { background-color: #F5EFE6 !important; }
+[data-theme="light"] .bg-\[\#122444\]        { background-color: #FFFFFF !important; }
+
+/* Gradients for from-[#0B1528] / via-[#07172A] / to-[#040D1A] */
+[data-theme="light"] .from-\[\#0B1528\] {
+  --tw-gradient-from: #FAF8F5 var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(250, 248, 245, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+[data-theme="light"] .from-\[\#0B1528\]\/95 {
+  --tw-gradient-from: rgba(250, 248, 245, 0.95) var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(250, 248, 245, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+[data-theme="light"] .via-\[\#07172A\] {
+  --tw-gradient-to: rgba(244, 239, 230, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), #F4EFE6 var(--tw-gradient-via-position), var(--tw-gradient-to) !important;
+}
+[data-theme="light"] .via-\[\#07172A\]\/95 {
+  --tw-gradient-to: rgba(244, 239, 230, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(244, 239, 230, 0.95) var(--tw-gradient-via-position), var(--tw-gradient-to) !important;
+}
+[data-theme="light"] .to-\[\#040D1A\] {
+  --tw-gradient-to: #EDE6D8 var(--tw-gradient-to-position) !important;
+}
+[data-theme="light"] .to-\[\#040D1A\]\/95 {
+  --tw-gradient-to: rgba(237, 230, 216, 0.95) var(--tw-gradient-to-position) !important;
+}
+
 /* ── White opacity backgrounds → subtle warm parchment in light mode ── */
 [data-theme="light"] .bg-white\/2         { background-color: rgba(246, 242, 236, 0.40) !important; }
 [data-theme="light"] .bg-white\/3         { background-color: rgba(246, 242, 236, 0.55) !important; }

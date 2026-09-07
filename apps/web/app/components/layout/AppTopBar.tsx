@@ -2,6 +2,7 @@ import { Link } from "@remix-run/react";
 import { ThemeToggle } from "~/components/ThemeToggle";
 import { TimingReminderBell } from "~/components/timing/TimingReminderBell";
 import { useTranslation } from "react-i18next";
+import { AstralIcon } from "~/components/ui/AstralIcon";
 
 export interface AppTopBarProps {
   displayName: string;
@@ -59,7 +60,7 @@ export function AppTopBar({
           }}
           title={t("sands_of_time", "ทรายกาลเวลา")}
         >
-          <span className="text-xs">⏳</span>
+          <AstralIcon name="sandglass" variant="gold" size={13} glow />
           {isPro ? (
             <span className="text-[10px] uppercase tracking-wider font-extrabold">{t("unlimited", "PRO")}</span>
           ) : (

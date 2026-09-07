@@ -304,12 +304,12 @@ export default function PricingPage() {
                 key={pack.id}
                 className={`relative flex flex-col rounded-2xl p-6 transition-all duration-300 ${
                   pack.popular
-                    ? "border-2 border-[#D4AF37] bg-gradient-to-b from-[#122444] to-[#0A182E] shadow-2xl shadow-[#D4AF37]/20 sm:-translate-y-1.5"
+                    ? "border-2 border-[#D4AF37] bg-white dark:bg-gradient-to-b dark:from-[#122444] dark:to-[#0A182E] shadow-2xl shadow-[#D4AF37]/20 sm:-translate-y-1.5"
                     : "border border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-[#0B1A30]/85 hover:border-[#D4AF37]/50 shadow-md"
                 }`}
               >
                 {pack.popular && (
-                  <span className="absolute -top-3 right-4 px-3.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] via-[#F6D88C] to-[#C6A96B] text-[#020617] shadow-lg shadow-[#D4AF37]/30">
+                  <span className="absolute -top-3 right-4 px-3.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] via-[#F6D88C] to-[#C6A96B] text-[#020617] shadow-lg shadow-[#D4AF37]/30">
                     ยอดนิยม
                   </span>
                 )}
@@ -500,7 +500,7 @@ export default function PricingPage() {
             >
               <div className="text-2xl mb-2">{icon}</div>
               <p className="text-slate-900 dark:text-[#F8F6F1] font-bold text-sm mb-1.5">{title}</p>
-              <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed font-sarabun">{desc}</p>
+              <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-sarabun">{desc}</p>
             </div>
           ))}
         </div>
@@ -613,11 +613,11 @@ function PricingCard({
 
       {/* Tier label */}
       <div className="mb-5">
-        <p className="font-display text-[9px] tracking-[0.3em] uppercase mb-1 font-bold" style={{ color: priceColor }}>
+        <p className="font-display text-[10px] sm:text-xs tracking-[0.3em] uppercase mb-1 font-bold" style={{ color: priceColor }}>
           {plan.tier}
         </p>
         <p className="text-slate-900 dark:text-[#F8F6F1] text-xl font-bold leading-tight">{plan.name}</p>
-        <p className="text-slate-600 dark:text-slate-300 text-xs mt-1 min-h-[36px] leading-relaxed font-sarabun">{plan.subtitle}</p>
+        <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm mt-1 min-h-[40px] leading-relaxed font-sarabun">{plan.subtitle}</p>
       </div>
 
       {/* Price */}
@@ -630,7 +630,7 @@ function PricingCard({
             <span className="font-display text-4xl font-bold leading-none" style={{ color: priceColor }}>
               {plan.priceLabel}
             </span>
-            <span className="text-slate-500 dark:text-slate-400 text-xs mb-1 font-sarabun">{plan.priceNote}</span>
+            <span className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mb-1 font-sarabun">{plan.priceNote}</span>
           </>
         )}
       </div>
@@ -638,8 +638,8 @@ function PricingCard({
       {/* Features */}
       <ul className="space-y-3 mb-7 flex-1">
         {plan.features.map((f) => (
-          <li key={f.text} className={`flex items-start gap-3 text-xs ${f.included ? "" : "opacity-35"}`}>
-            <span className="shrink-0 mt-0.5 text-xs leading-none font-bold" style={{ color: f.included ? (isFree ? "#8C6D2D" : priceColor) : "#64748B" }}>
+          <li key={f.text} className={`flex items-start gap-3 text-xs sm:text-sm ${f.included ? "" : "opacity-35"}`}>
+            <span className="shrink-0 mt-0.5 text-xs sm:text-sm leading-none font-bold" style={{ color: f.included ? (isFree ? "#8C6D2D" : priceColor) : "#64748B" }}>
               {f.included ? "✓" : "✕"}
             </span>
             <span className={f.included ? "text-slate-700 dark:text-slate-200 text-left font-sarabun" : "text-slate-400 dark:text-slate-500 line-through text-left font-sarabun"}>{f.text}</span>
@@ -649,21 +649,21 @@ function PricingCard({
 
       {/* Note */}
       {plan.note && (
-        <p className="text-slate-500 dark:text-[#F6D88C] text-[11px] mb-4 leading-relaxed text-left font-sarabun">{plan.note}</p>
+        <p className="text-slate-600 dark:text-[#F6D88C] text-xs mb-4 leading-relaxed text-left font-sarabun">{plan.note}</p>
       )}
 
       {/* CTA */}
       <Link
         to={ctaHref}
-        className="block text-center py-3 px-4 rounded-xl text-xs font-bold transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-        style={isPro 
-          ? { background: "linear-gradient(135deg, #C6A96B, #D9BC82)", color: "#020617" }
-          : isImperial
-          ? { background: "linear-gradient(135deg, #4B6FAE, #6D8FC7)", color: "#F8F6F1" }
-          : isBasic
-          ? { background: "rgba(255,255,255,0.08)", color: "#F8F6F1", border: "1px solid rgba(255,255,255,0.15)" }
-          : { background: "rgba(255,255,255,0.05)", color: "#94A3B8", border: "1px solid rgba(255,255,255,0.08)" }
-      }
+        className={`block text-center py-3.5 px-4 rounded-xl text-sm font-bold transition-all duration-200 hover:opacity-90 active:scale-[0.98] ${
+          isPro
+            ? "bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-lg shadow-[#C6A96B]/20"
+            : isImperial
+            ? "bg-gradient-to-r from-[#4B6FAE] to-[#6D8FC7] text-white shadow-lg shadow-[#4B6FAE]/20"
+            : isBasic
+            ? "bg-amber-500/10 dark:bg-white/10 text-amber-900 dark:text-[#F8F6F1] border border-amber-500/30 dark:border-white/15 hover:bg-amber-500/15"
+            : "bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-[#94A3B8] border border-slate-200 dark:border-white/10 hover:bg-slate-200"
+        }`}
       >
         {plan.ctaLabel}
       </Link>

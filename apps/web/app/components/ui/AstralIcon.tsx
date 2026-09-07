@@ -23,7 +23,16 @@ export type AstralIconName =
   | "sun"
   | "gem"
   | "scroll"
-  | "star";
+  | "star"
+  | "deal"
+  | "handshake"
+  | "project"
+  | "launch"
+  | "matrix"
+  | "report"
+  | "lock"
+  | "card"
+  | "users";
 
 export type AstralIconVariant =
   | "gold"
@@ -303,6 +312,84 @@ export function AstralIcon({
         <svg {...commonProps}>
           <rect x="3" y="4" width="18" height="18" rx="2" />
           <path d="M16 2v4M8 2v4M3 10h18" />
+        </svg>
+      );
+
+    case "deal":
+    case "handshake":
+      return (
+        <svg {...commonProps}>
+          {/* Celestial Handshake / Covenant Alliance */}
+          <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.6-4.6a2 2 0 0 0 0-2.8l-1.4-1.4a2 2 0 0 0-2.8 0L13 12" />
+          <path d="m13 12-4-4a2 2 0 0 0-2.8 0L4.8 9.4a2 2 0 0 0 0 2.8L9 16" />
+          <path d="m2 8 3-3a2 2 0 0 1 2.8 0l2.2 2.2" />
+          <path d="m22 8-3-3a2 2 0 0 0-2.8 0l-2.2 2.2" />
+          <circle cx="12" cy="4" r="1.5" fill="currentColor" />
+        </svg>
+      );
+
+    case "project":
+    case "launch":
+      return (
+        <svg {...commonProps}>
+          {/* Ascending Celestial Comet / Genesis Rocket */}
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+          <circle cx="15" cy="9" r="1.5" fill="currentColor" />
+          <path d="m9 12-4.5 4.5M15 6l-3 3" strokeWidth="1.3" />
+        </svg>
+      );
+
+    case "matrix":
+      return (
+        <svg {...commonProps}>
+          {/* 7 Numbers 9 Bases Sacred Matrix */}
+          <rect x="3" y="3" width="18" height="18" rx="3" />
+          <path d="M3 9h18M3 15h18M9 3v18M15 3v18" strokeWidth="1.4" />
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+        </svg>
+      );
+
+    case "report":
+      return (
+        <svg {...commonProps}>
+          {/* Astrological Life Report with Star Seal */}
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" strokeWidth="1.5" />
+          <line x1="16" y1="17" x2="8" y2="17" strokeWidth="1.5" />
+          <circle cx="10" cy="9" r="1" fill="currentColor" />
+        </svg>
+      );
+
+    case "lock":
+      return (
+        <svg {...commonProps}>
+          {/* Sacred Celestial Padlock */}
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          <circle cx="12" cy="16" r="1.5" fill="currentColor" />
+        </svg>
+      );
+
+    case "card":
+      return (
+        <svg {...commonProps}>
+          {/* Sacred Transaction Crest */}
+          <rect x="2" y="5" width="20" height="14" rx="2" />
+          <line x1="2" y1="10" x2="22" y2="10" />
+          <circle cx="7" cy="15" r="1" fill="currentColor" />
+          <line x1="12" y1="15" x2="17" y2="15" strokeWidth="1.5" />
+        </svg>
+      );
+
+    case "users":
+      return (
+        <svg {...commonProps}>
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
         </svg>
       );
 
