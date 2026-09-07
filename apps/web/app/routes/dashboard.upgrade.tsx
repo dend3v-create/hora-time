@@ -286,7 +286,7 @@ export default function UpgradePage() {
                         ฿{plan.priceThb.toLocaleString()}
                       </span>
                       <span className="text-xs text-[#94A3B8]">
-                        / {plan.interval === "lifetime" ? "ตลอดชีพ" : plan.interval === "year" ? "ปี" : "เดือน"}
+                        / {plan.interval === "year" ? "ปี" : "เดือน"}
                       </span>
                     </div>
                   </div>
@@ -321,8 +321,8 @@ export default function UpgradePage() {
         {activeTab === "sands" && (
           <div className="max-w-3xl mx-auto space-y-4">
             <div className="text-center mb-6">
-              <p className="text-xs text-[#94A3B8]">
-                ละอองทรายกาลเวลาใช้สำหรับแลกรับ AI Report ฉบับเต็ม หรือเปิดสิทธิ์การวิเคราะห์พิเศษเฉพาะครั้ง
+              <p className="text-xs text-[#94A3B8] font-sarabun max-w-xl mx-auto leading-relaxed">
+                ขับเคลื่อนการวิเคราะห์ด้วย ระบบเศรษฐกิจ Sands of Time — ใช้ ละอองทรายกาลเวลา เพื่อแลกรับ AI Report ฉบับเต็ม หรือเปิดสิทธิ์การวิเคราะห์พิเศษเฉพาะครั้ง โดยไม่ต้องสมัครสมาชิกรายเดือน
               </p>
             </div>
 
@@ -385,6 +385,19 @@ export default function UpgradePage() {
                   </label>
                 );
               })}
+            </div>
+
+            {/* Microcopy Trust Strip */}
+            <div className="pt-4 flex flex-wrap items-center justify-center gap-y-2 gap-x-5 text-[11px] text-[#94A3B8] font-sarabun text-center">
+              <span className="flex items-center gap-1">
+                <span className="text-[#C6A96B]">✦</span> ใช้ ละอองทรายกาลเวลา ปลดล็อกสิทธิ์วิเคราะห์พิเศษทันที
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="text-[#C6A96B]">✦</span> แลก AI Report ฉบับเต็มด้วย ละอองทรายกาลเวลา
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="text-[#C6A96B]">✦</span> รับบทวิเคราะห์พิเศษเฉพาะครั้ง (ใช้ Sands of Time)
+              </span>
             </div>
           </div>
         )}

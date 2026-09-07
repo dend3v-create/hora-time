@@ -9,14 +9,22 @@ import { AstralIcon } from "~/components/ui/AstralIcon";
 import { PublicLayout } from "~/components/public/PublicLayout";
 
 export const meta: MetaFunction = () => [
-  { title: "ราคาสมาชิก & ปัญญาบารมี — PhopePhum Wisdom Guidance" },
-  { name: "description", content: "เริ่มต้นฟรีหรืออัปเกรดเป็นระดับต่างๆ รับคำแนะนำ AI วิเคราะห์ดวงชะตา และปฏิทินพลังงานรายวัน เริ่มต้นเพียง ฿89/เดือน หรือเติมละอองทรายกาลเวลาตามต้องการ" },
+  { title: "ราคา & แพ็กเกจสมาชิก — PhoPePhum OS | Data Science ของชีวิต" },
+  {
+    name: "description",
+    content:
+      "เริ่มต้นฟรี หรือยกระดับสู่เครื่องมือวิเคราะห์เชิงกลยุทธ์ระดับมืออาชีพ แพ็กเกจรายเดือนไม่มีสัญญาผูกมัด ผสานวิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน และคัมภีร์สุริยยาตร์แท้",
+  },
   { property: "og:type", content: "website" },
   { property: "og:url", content: "https://phopephum.com/pricing" },
-  { property: "og:title", content: "ราคาสมาชิก & ปัญญาบารมี — PhopePhum" },
-  { property: "og:description", content: "ที่ปรึกษาชีวิตส่วนตัว เริ่มฟรี หรือยกระดับสู่สัจธรรมชีวิตดวงดาว" },
+  { property: "og:title", content: "ราคา & แพ็กเกจสมาชิก — PhoPePhum OS" },
+  {
+    property: "og:description",
+    content:
+      "เลือกแผนที่ใช่สำหรับคุณ เริ่มต้นฟรี หรือยกระดับสู่เครื่องมือวิเคราะห์เชิงกลยุทธ์ระดับมืออาชีพและโหราจารย์ ทุกแพ็คเกจคิดเป็นรายเดือน ไม่มีตลอดชีพ",
+  },
   { property: "og:image", content: "https://phopephum.com/favicon.svg" },
-  { name: "keywords", content: "สมัครสมาชิกภพภูมิ, ราคาภพภูมิ, PhopePhum Wisdom, ที่ปรึกษาชีวิต AI, ทรายกาลเวลา" },
+  { name: "keywords", content: "ราคาภพภูมิ, สมัครสมาชิกภพภูมิ, PhoPePhum OS, แพ็กเกจดูดวง AI, ทรายกาลเวลา, เลข 7 ตัว 9 ฐาน" },
 ];
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
@@ -39,95 +47,96 @@ const MONTHLY_PLANS = [
   {
     tier: "FREE",
     id: "free",
-    name: "เริ่มต้น",
-    subtitle: "สัมผัสภูมิปัญญา",
+    name: "เริ่มทดลอง",
+    subtitle: "สัมผัสพลังงานชีวิตและกาลชะตาเบื้องต้น",
     price: "0",
     priceLabel: "ฟรี",
-    priceNote: "ตลอดชีพ",
+    priceNote: "",
     tag: null,
     style: "free" as const,
-    ctaLabel: "สมัครฟรีตอนนี้",
+    ctaLabel: "สมัครใช้งานฟรี",
     ctaLoggedIn: "/dashboard",
     ctaGuest: "/register",
     features: [
-      { text: "Dashboard พลังงานวันนี้",          included: true },
-      { text: "ข้อมูลชาตาส่วนตัวเบื้องต้น",       included: true },
-      { text: "เส้นทางชีวิต (ภาพรวม)",            included: true },
-      { text: "Wisdom AI (จำกัด 3 ครั้ง/เดือน)",  included: true },
-      { text: "ปฏิทินพลังงานรายวัน",              included: false },
-      { text: "ระบบวิเคราะห์จรแบบสมบูรณ์",       included: false },
-      { text: "ส่งออกรายงาน PDF พรีเมียม",        included: false },
+      { text: "สัมผัสพลังงานชีวิตและกาลชะตาเบื้องต้น", included: true },
+      { text: "ผังดวงวิชาเลข ๗ ตัว ๙ ฐานเบื้องต้น", included: true },
+      { text: "กาลชะตาวันนี้ & ยามปัจจุบัน", included: true },
+      { text: "Dashboard สรุปพลังงานประจำวัน", included: true },
+      { text: "Wisdom AI (ทดลองใช้งาน)", included: true },
+      { text: "รับทรายกาลเวลา (Sands) ฟรีทุกวัน", included: true },
+      { text: "ผังจักรพรรดิ 35 ภพ 19 ฐาน", included: false },
     ],
-    note: "* สมาชิกทดลองใช้งานฟรีตลอดชีพ",
+    note: "* เริ่มต้นใช้งานฟรี ไม่มีข้อผูกมัดใดๆ",
   },
   {
-    tier: "BASIC",
-    id: "basic",
-    name: "Basic Sage",
-    subtitle: "ยกระดับการพยากรณ์เบื้องต้น",
+    tier: "PREMIUM",
+    id: "premium",
+    name: "ยกระดับชีวิต",
+    subtitle: "วางแผนชีวิตและการเงินส่วนบุคคล",
     price: "89",
     priceLabel: "89",
     priceNote: "/ เดือน",
     tag: null,
     style: "basic" as const,
-    ctaLabel: "เริ่มใช้ Basic ฿89/เดือน",
-    ctaLoggedIn: "/dashboard/upgrade?plan=basic",
-    ctaGuest: "/register?plan=basic",
+    ctaLabel: "เริ่มใช้ Premium ฿89/เดือน",
+    ctaLoggedIn: "/dashboard/upgrade?plan=premium",
+    ctaGuest: "/register?plan=premium",
     features: [
-      { text: "ยามอัฏฐกาล & ราหู (วันนี้)",          included: true },
-      { text: "ผัง 7 ตัว 9 ฐาน (ดวงตนเอง)",        included: true },
-      { text: "Life Report 1 ครั้ง/เดือน",          included: true },
-      { text: "ปฏิทินพลังงานรายวัน",                included: true },
-      { text: "Wisdom AI (จำกัด 10 ครั้ง/เดือน)",   included: true },
-      { text: "บันทึกดวงตนเอง + 3 โปรไฟล์",        included: true },
-      { text: "ส่งออกรายงาน PDF พรีเมียม",        included: false },
+      { text: "ยามอัฏฐกาลเต็มผัง (กลางวัน-กลางคืน)", included: true },
+      { text: "วิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน (ตนเอง)", included: true },
+      { text: "ปฏิทินจันทรคติไทย 100 ปีแท้ (สุริยยาตร์)", included: true },
+      { text: "AI Life Report 1 ครั้ง/เดือน", included: true },
+      { text: "Wisdom AI 10 ครั้ง/เดือน", included: true },
+      { text: "บันทึกดวงตนเอง + 3 โปรไฟล์", included: true },
+      { text: "รับ Sands +50 ละอองทราย/เดือน", included: true },
     ],
     note: null,
   },
   {
-    tier: "PRO",
+    tier: "PROFESSIONAL",
     id: "pro",
-    name: "Professional Master",
-    subtitle: "ที่ปรึกษาชีวิตเต็มประสิทธิภาพ",
+    name: "มืออาชีพ",
+    subtitle: "วางแผนงานเฉพาะวิชาชีพ สามารถใช้งานระบบแบบ Custom มากขึ้น",
     price: "289",
     priceLabel: "289",
     priceNote: "/ เดือน",
-    tag: "แนะนำ",
+    tag: "แนะนำยอดนิยม",
     style: "pro" as const,
     ctaLabel: "เริ่มใช้ Pro ฿289/เดือน",
     ctaLoggedIn: "/dashboard/upgrade?plan=pro",
     ctaGuest: "/register?plan=pro",
     features: [
-      { text: "ยามอัฏฐกาลล่วงหน้า 7 วัน",          included: true },
-      { text: "ระบบวิเคราะห์จรแบบสมบูรณ์",        included: true },
-      { text: "Life Report 15 ครั้ง/เดือน",         included: true },
-      { text: "บันทึกดวงผู้อื่น 15 รายชื่อ",          included: true },
-      { text: "Wisdom AI ไม่จำกัด",                 included: true },
-      { text: "ปฏิทิน 100 ปีดวงดาวเชิงลึก",          included: true },
-      { text: "รับ Sands +150 ละอองทราย/เดือน",   included: true },
+      { text: "วางแผนงานเฉพาะวิชาชีพ Custom ระบบได้มากขึ้น", included: true },
+      { text: "KARNCHATA ENGINE V2.0 เต็มระบบ", included: true },
+      { text: "Multi-select Overlay Filter บนผังจักรพรรดิ", included: true },
+      { text: "ยามพรายกระซิบ 12 ภพ & ราหูค้นทรัพย์", included: true },
+      { text: "AI Life Report 15 ครั้ง/เดือน", included: true },
+      { text: "บันทึกดวงผู้อื่น 15 รายชื่อ", included: true },
+      { text: "รับ Sands +150 ละอองทราย/เดือน", included: true },
     ],
     note: null,
   },
   {
-    tier: "IMPERIAL",
-    id: "imperial",
-    name: "Imperial Emperor",
-    subtitle: "ที่สุดแห่งสัจธรรมพลังจักรวาล",
+    tier: "MASTER",
+    id: "master",
+    name: "โหราจารย์",
+    subtitle: "ปลดล็อคเครื่องมือสำหรับนักพยากรณ์ เข้าถึงหลักวิชาและหลักการโหราศาสตร์เพื่อใช้ในการพยากรณ์ได้อย่างลึกซึ้งมากขึ้น",
     price: "789",
     priceLabel: "789",
-    priceNote: "ตลอดชีพ",
-    tag: "สัจจะสูงสุด",
+    priceNote: "/ เดือน",
+    tag: "Master Class",
     style: "imperial" as const,
-    ctaLabel: "เริ่มใช้ Imperial ฿789 ตลอดชีพ",
-    ctaLoggedIn: "/dashboard/upgrade?plan=imperial",
-    ctaGuest: "/register?plan=imperial",
+    ctaLabel: "เริ่มใช้ Master ฿789/เดือน",
+    ctaLoggedIn: "/dashboard/upgrade?plan=master",
+    ctaGuest: "/register?plan=master",
     features: [
-      { text: "ทุกฟีเจอร์ในระบบไม่จำกัดตลอดชีพ",     included: true },
-      { text: "ดวงสมพงษ์ & ปฏิทิน 100 ปี",           included: true },
-      { text: "Life Report ไม่จำกัดครั้ง",           included: true },
-      { text: "Export รายงาน PDF พรีเมียม",          included: true },
-      { text: "Wisdom AI แบบ Real-time",            included: true },
-      { text: "รับ Sands +500 ละอองทรายโบนัส",     included: true },
+      { text: "ปลดล็อคเครื่องมือสำหรับนักพยากรณ์ เข้าถึงหลักวิชาลึกซึ้ง", included: true },
+      { text: "ผังดวงจักรพรรดิ 35 ภพ 19 ฐาน + สุริยยาตร์แท้", included: true },
+      { text: "ส่งออกรายงาน AI Life Report พรีเมียม (PDF)", included: true },
+      { text: "Pro Tools: 16 ยาม + ยามพรายกระซิบ + ราหูค้นทรัพย์", included: true },
+      { text: "บันทึกดวงไม่จำกัดโปรไฟล์", included: true },
+      { text: "Wisdom AI แบบ Real-time ไม่จำกัด", included: true },
+      { text: "รับ Sands +500 ละอองทราย/เดือน", included: true },
     ],
     note: null,
   },
@@ -139,45 +148,56 @@ const ANNUAL_PLANS = [
   },
   {
     ...MONTHLY_PLANS[1],
+    id: "premium_annual",
+    name: "ยกระดับชีวิต (รายปี)",
+    subtitle: "วางแผนชีวิตและการเงินส่วนบุคคล (ประหยัด 20%)",
+    price: "850",
+    priceLabel: "850",
+    priceNote: "/ ปี (~฿70.80/ด.)",
+    ctaLabel: "เริ่มใช้ Premium รายปี ฿850/ปี",
+    ctaLoggedIn: "/dashboard/upgrade?plan=premium_annual",
+    ctaGuest: "/register?plan=premium_annual",
+    note: "* ประหยัดกว่าการจ่ายรายเดือนถึง ฿218/ปี",
   },
   {
-    tier: "PRO",
+    ...MONTHLY_PLANS[2],
     id: "pro_annual",
-    name: "Professional Master (รายปี)",
-    subtitle: "คุ้มค่าที่สุดสำหรับมืออาชีพ (ประหยัด ~20%)",
-    price: "2790",
-    priceLabel: "2,790",
-    priceNote: "/ ปี (~฿232.50/ด.)",
-    tag: "คุ้มค่าสูงสุด",
-    style: "pro" as const,
-    ctaLabel: "เริ่มใช้ Pro รายปี ฿2,790/ปี",
+    name: "มืออาชีพ (รายปี)",
+    subtitle: "วางแผนงานเฉพาะวิชาชีพ Custom ระบบได้มากขึ้น (ประหยัด 20%)",
+    price: "2770",
+    priceLabel: "2,770",
+    priceNote: "/ ปี (~฿230.80/ด.)",
+    tag: "แนะนำยอดนิยม",
+    ctaLabel: "เริ่มใช้ Pro รายปี ฿2,770/ปี",
     ctaLoggedIn: "/dashboard/upgrade?plan=pro_annual",
     ctaGuest: "/register?plan=pro_annual",
-    features: [
-      { text: "สิทธิ์ Pro ครบถ้วนตลอด 1 ปีเต็ม",      included: true },
-      { text: "ยามอัฏฐกาลล่วงหน้า 7 วัน",          included: true },
-      { text: "ระบบวิเคราะห์จรแบบสมบูรณ์",        included: true },
-      { text: "Life Report 15 ครั้ง/เดือน",         included: true },
-      { text: "บันทึกดวงผู้อื่น 15 รายชื่อ",          included: true },
-      { text: "Wisdom AI ไม่จำกัด",                 included: true },
-      { text: "รับ Sands โบนัสพิเศษ +1,800 เม็ด",   included: true },
-    ],
-    note: "* ประหยัดกว่าการจ่ายรายเดือนถึง ฿678/ปี",
+    note: "* ประหยัดกว่าการจ่ายรายเดือนถึง ฿698/ปี",
   },
   {
     ...MONTHLY_PLANS[3],
+    id: "master_annual",
+    name: "โหราจารย์ (รายปี)",
+    subtitle: "ปลดล็อคเครื่องมือสำหรับนักพยากรณ์ ครบเครื่องตลอดปี (ประหยัด 20%)",
+    price: "7570",
+    priceLabel: "7,570",
+    priceNote: "/ ปี (~฿630.80/ด.)",
+    tag: "Master Class",
+    ctaLabel: "เริ่มใช้ Master รายปี ฿7,570/ปี",
+    ctaLoggedIn: "/dashboard/upgrade?plan=master_annual",
+    ctaGuest: "/register?plan=master_annual",
+    note: "* ประหยัดกว่าการจ่ายรายเดือนถึง ฿1,898/ปี",
   },
 ] as const;
 
 const COMPARE_ROWS = [
-  { label: "Dashboard วันนี้",            free: "✅",        basic: "✅",       pro: "✅",        imperial: "✅" },
-  { label: "ข้อมูลชาตาส่วนตัว",          free: "พื้นฐาน",   basic: "ตนเอง",     pro: "✅ ละเอียด",  imperial: "✅ ครบถ้วน" },
-  { label: "เส้นทางชีวิต & รายงาน",       free: "ภาพรวม",    basic: "1 ครั้ง/ด.",  pro: "15 ครั้ง/ด.", imperial: "✅ ไม่จำกัด" },
-  { label: "Wisdom AI",                 free: "3/เดือน",   basic: "10/เดือน",  pro: "✅ ไม่จำกัด",  imperial: "✅ ไม่จำกัด" },
-  { label: "ยามและปฏิทินพลังงาน",        free: "—",         basic: "วันนี้",     pro: "7 วันล่วงหน้า", imperial: "100 ปีดาราศาสตร์" },
-  { label: "บันทึกดวงผู้อื่น",            free: "—",         basic: "3 รายชื่อ",  pro: "15 รายชื่อ",  imperial: "✅ ไม่จำกัด" },
-  { label: "Sands of Time รวมในแพ็ก",   free: "—",         basic: "+50/ด.",    pro: "+150/ด.",    imperial: "+500 ทันที" },
-  { label: "ส่งออกรายงาน PDF",          free: "—",         basic: "—",         pro: "—",          imperial: "✅ พรีเมียม" },
+  { label: "Dashboard สรุปพลังงานประจำวัน", free: "✅", premium: "✅", pro: "✅", master: "✅" },
+  { label: "ผังวิชาเลข ๗ ตัว ๙ ฐาน", free: "พื้นฐาน", premium: "35 ภพ 19 ฐาน (ตนเอง)", pro: "✅ ผังจักรพรรดิละเอียด", master: "✅ สุริยยาตร์แท้ครบมิติ" },
+  { label: "AI Life Report & วางแผนชีวิต", free: "ภาพรวม", premium: "1 ครั้ง/ด.", pro: "15 ครั้ง/ด.", master: "✅ ไม่จำกัด (พรีเมียม PDF)" },
+  { label: "Wisdom AI Assistant", free: "ทดลองใช้", premium: "10 ครั้ง/ด.", pro: "✅ ไม่จำกัด", master: "✅ Real-time ไม่จำกัด" },
+  { label: "ยามอัฏฐกาล & ปฏิทินกาลเวลา", free: "ยามปัจจุบัน", premium: "เต็มผัง 16 ยาม", pro: "7 วันล่วงหน้า", master: "100 ปีแท้ + พรายกระซิบ 12 ภพ" },
+  { label: "บันทึกดวงชะตา", free: "ดวงตนเอง", premium: "ตนเอง + 3 โปรไฟล์", pro: "15 รายชื่อ", master: "✅ ไม่จำกัดโปรไฟล์" },
+  { label: "ละอองทราย Sands รวมในแพ็ก", free: "ฟรีทุกวัน", premium: "+50/ด.", pro: "+150/ด.", master: "+500/ด." },
+  { label: "เครื่องมือ Pro (ราหูค้นทรัพย์ & ยามพรายกระซิบ)", free: "—", premium: "—", pro: "✅ เต็มระบบ", master: "✅ Master Class" },
 ];
 
 // ─── Page Component ───────────────────────────────────────────────────────────
@@ -194,7 +214,7 @@ export default function PricingPage() {
 
         {/* Back nav */}
         <div className="mb-8">
-          <Link to={isLoggedIn ? "/dashboard" : "/"} className="text-[#94A3B8] text-sm hover:text-[#C6A96B] transition-colors">
+          <Link to={isLoggedIn ? "/dashboard" : "/"} className="text-slate-500 dark:text-[#94A3B8] text-sm hover:text-[#C6A96B] transition-colors">
             ← {isLoggedIn ? "กลับหน้า Dashboard" : "กลับหน้าหลัก"}
           </Link>
         </div>
@@ -203,7 +223,7 @@ export default function PricingPage() {
         {showUpgradeBanner && (
           <div className="mb-10 rounded-2xl border border-[#C6A96B]/30 px-5 py-4 text-center animate-in fade-in duration-300"
             style={{ background: "rgba(198,169,107,0.08)" }}>
-            <p className="text-[#C6A96B] text-sm font-semibold">
+            <p className="text-[#8C6D2D] dark:text-[#C6A96B] text-sm font-semibold">
               ✦ ฟังก์ชันนี้สำหรับสมาชิกแผน {requiredPlan ? requiredPlan.toUpperCase() : "พรีเมียม"} ขึ้นไป — เลือกแพ็กเกจด้านล่างเพื่อปลดล็อกได้ทันที
             </p>
           </div>
@@ -212,15 +232,15 @@ export default function PricingPage() {
         {/* ── Header ── */}
         <div className="text-center mb-10">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="text-[#C6A96B] text-sm">✦</span>
-            <span className="font-display text-[#F8F6F1] font-bold text-xl tracking-wider">PHOPEPHUM</span>
+            <span className="text-[#8C6D2D] dark:text-[#C6A96B] text-sm">✦</span>
+            <span className="font-display text-slate-900 dark:text-[#F8F6F1] font-bold text-xl tracking-wider">PHOPEPHUM</span>
           </div>
-          <h1 className="font-display text-4xl sm:text-5xl font-bold text-[#F8F6F1] mb-4 leading-tight">
+          <h1 className="font-display text-4xl sm:text-5xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-4 leading-tight">
             เลือกแผนที่ใช่สำหรับคุณ
           </h1>
-          <p className="text-[#94A3B8] text-base max-w-lg mx-auto leading-relaxed">
-            เริ่มต้นฟรี หรืออัปเกรดรับประสบการณ์ Wisdom Guidance<br className="hidden sm:block" />
-            เต็มประสิทธิภาพตามกำลังสัจบารมี
+          <p className="text-slate-600 dark:text-[#94A3B8] text-base max-w-lg mx-auto leading-relaxed">
+            เริ่มต้นใช้งานฟรี หรือยกระดับสู่เครื่องมือวิเคราะห์เชิงกลยุทธ์ระดับมืออาชีพ<br className="hidden sm:block" />
+            ตามกำลังสัจบารมี ทุกแพ็คเกจคิดเป็นรายเดือน ไม่มีตลอดชีพ
           </p>
         </div>
 
@@ -267,89 +287,215 @@ export default function PricingPage() {
         </div>
 
         {/* ── Sands Micro-Economy Top-Up Showcase ── */}
-        <div className="mb-20 max-w-4xl mx-auto rounded-3xl border border-[#C6A96B]/30 p-8 sm:p-10 relative overflow-hidden bg-gradient-to-b from-white/95 via-[#FAF8F5]/95 to-[#F5EFE6]/95 dark:from-[#0B1528]/85 dark:to-[#020617]/95 backdrop-blur-xl shadow-xl">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-2.5">
+        <div
+          id="sands"
+          className="mb-20 max-w-4xl mx-auto rounded-3xl border border-amber-400/30 dark:border-[#D4AF37]/35 p-7 sm:p-10 relative overflow-hidden bg-white/95 dark:bg-[#07172A]/95 backdrop-blur-2xl shadow-2xl scroll-mt-24"
+        >
+          {/* Top Luminous Accent Line */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/70 to-transparent pointer-events-none" />
+
+          {/* Ambient Cosmic Gold Aura (No white banding in dark mode) */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[radial-gradient(circle,_rgba(212,175,55,0.12)_0%,_transparent_70%)] pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[radial-gradient(circle,_rgba(75,111,174,0.10)_0%,_transparent_70%)] pointer-events-none" />
+
+          {/* Section Header */}
+          <div className="text-center mb-8 relative z-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-[#F6D88C] text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
               <AstralIcon name="sandglass" size="xs" variant="gold" glow />
-              <span>Sands of Time Micro-Economy</span>
+              <span>ระบบเศรษฐกิจ Sands of Time</span>
             </div>
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-[#F8F6F1]">
               หรือเติมเฉพาะ ละอองทรายกาลเวลา ตามต้องการ
             </h2>
-            <p className="text-sm text-slate-600 dark:text-[#94A3B8] mt-2 max-w-lg mx-auto leading-relaxed">
-              ใช้สำหรับแลกรับ AI Report ฉบับเต็ม หรือเปิดสิทธิ์การวิเคราะห์พิเศษเฉพาะครั้ง โดยไม่ต้องสมัครรายเดือน
+            <p className="text-sm text-slate-600 dark:text-[#CBD5E1] mt-2 max-w-2xl mx-auto leading-relaxed font-sarabun">
+              ขับเคลื่อนการวิเคราะห์ด้วย ระบบเศรษฐกิจ Sands of Time — ใช้ ละอองทรายกาลเวลา เพื่อแลกรับ AI Report ฉบับเต็ม หรือเปิดสิทธิ์การวิเคราะห์พิเศษเฉพาะครั้ง โดยไม่ต้องสมัครสมาชิกรายเดือน
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {/* 3 Sands Refill Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 relative z-10">
             {Object.values(SANDS_REFILL_PACKS).map((pack) => (
               <div
                 key={pack.id}
-                className={`relative flex flex-col rounded-2xl border p-5 transition-all duration-300 ${
+                className={`relative flex flex-col rounded-2xl p-6 transition-all duration-300 ${
                   pack.popular
-                    ? "border-[#C6A96B] bg-[#C6A96B]/10 dark:bg-[#C6A96B]/[0.08] shadow-xl shadow-[#C6A96B]/15 sm:-translate-y-1"
-                    : "border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.02]"
+                    ? "border-2 border-[#D4AF37] bg-gradient-to-b from-[#122444] to-[#0A182E] shadow-2xl shadow-[#D4AF37]/20 sm:-translate-y-1.5"
+                    : "border border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-[#0B1A30]/85 hover:border-[#D4AF37]/50 shadow-md"
                 }`}
               >
                 {pack.popular && (
-                  <span className="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-md">
+                  <span className="absolute -top-3 right-4 px-3.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] via-[#F6D88C] to-[#C6A96B] text-[#020617] shadow-lg shadow-[#D4AF37]/30">
                     ยอดนิยม
                   </span>
                 )}
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#C6A96B]/15 border border-[#C6A96B]/30 mb-2.5 shrink-0">
+                
+                {/* Icon */}
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 shrink-0 ${
+                  pack.popular
+                    ? "bg-[#D4AF37]/25 border border-[#D4AF37]/50 shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+                    : "bg-[#D4AF37]/15 border border-[#D4AF37]/30"
+                }`}>
                   <AstralIcon name="sandglass" size="md" variant="gold" glow />
                 </div>
-                <h3 className="font-display text-base font-bold text-slate-900 dark:text-[#F8F6F1]">{pack.name}</h3>
-                <p className="text-xs text-[#8C6D2D] dark:text-[#C6A96B] font-semibold mt-0.5">{pack.bonusText}</p>
 
-                <div className="my-3 pt-2 border-t border-slate-200 dark:border-white/10">
-                  <span className="text-2xl font-extrabold text-slate-900 dark:text-[#F8F6F1]">฿{pack.priceThb}</span>
-                  <span className="text-[10px] text-slate-500 dark:text-[#94A3B8] block mt-0.5">
+                {/* Title & Badge */}
+                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-[#F8F6F1]">{pack.name}</h3>
+                <div className="mt-1">
+                  <span className={`inline-block text-xs font-semibold px-2.5 py-0.5 rounded-md ${
+                    pack.popular
+                      ? "bg-[#D4AF37]/20 text-[#D4AF37] dark:text-[#F6D88C] border border-[#D4AF37]/40"
+                      : "bg-amber-500/10 dark:bg-[#D4AF37]/15 text-[#8C6D2D] dark:text-[#F6D88C] border border-amber-500/20 dark:border-[#D4AF37]/30"
+                  }`}>
+                    {pack.bonusText}
+                  </span>
+                </div>
+
+                {/* Pricing Block */}
+                <div className="my-5 pt-4 border-t border-slate-200 dark:border-white/10">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-sm font-bold text-[#8C6D2D] dark:text-[#D4AF37]">฿</span>
+                    <span className={`text-3xl font-black tracking-tight ${
+                      pack.popular
+                        ? "text-slate-900 dark:text-[#F6D88C]"
+                        : "text-slate-900 dark:text-[#F8F6F1]"
+                    }`}>
+                      {pack.priceThb}
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-500 dark:text-[#94A3B8] block mt-1 font-sarabun">
                     (~฿{pack.pricePerUnit.toFixed(2)} / ละอองทราย)
                   </span>
                 </div>
 
+                {/* CTA Link */}
                 <Link
                   to={isLoggedIn ? `/dashboard/upgrade?tab=sands&plan=${pack.id}` : `/register?tab=sands&plan=${pack.id}`}
-                  className={`w-full py-2.5 rounded-xl text-xs font-bold text-center mt-auto transition-all ${
+                  className={`w-full py-2.5 rounded-xl text-xs sm:text-sm font-bold text-center mt-auto transition-all ${
                     pack.popular
-                      ? "bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-md shadow-[#C6A96B]/20 hover:opacity-95"
-                      : "border border-slate-300 dark:border-white/20 text-slate-800 dark:text-[#F8F6F1] bg-white/60 dark:bg-transparent hover:bg-slate-100 dark:hover:bg-white/5"
+                      ? "bg-gradient-to-r from-[#D4AF37] via-[#F6D88C] to-[#C6A96B] text-[#020617] shadow-lg shadow-[#D4AF37]/25 hover:brightness-110 active:scale-[0.98]"
+                      : "border border-slate-300 dark:border-white/15 text-slate-800 dark:text-[#F8F6F1] bg-white dark:bg-white/[0.06] hover:bg-[#D4AF37]/15 hover:border-[#D4AF37]/50 hover:text-slate-900 dark:hover:text-[#F6D88C] active:scale-[0.98]"
                   }`}
                 >
-                  เติม {pack.sandsAmount} ทราย →
+                  เติม {pack.sandsAmount} ละอองทราย →
                 </Link>
               </div>
             ))}
+          </div>
+
+          {/* Microcopy & CTA Trust Highlights */}
+          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-wrap items-center justify-center gap-y-2.5 gap-x-6 text-xs text-slate-600 dark:text-[#CBD5E1] font-sarabun text-center font-medium relative z-10">
+            <span className="flex items-center gap-1.5">
+              <span className="text-[#D4AF37] font-bold text-sm">✦</span> ใช้ ละอองทรายกาลเวลา ปลดล็อกสิทธิ์วิเคราะห์พิเศษทันที
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-[#D4AF37] font-bold text-sm">✦</span> แลก AI Report ฉบับเต็มด้วย ละอองทรายกาลเวลา
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-[#D4AF37] font-bold text-sm">✦</span> รับบทวิเคราะห์พิเศษเฉพาะครั้ง (ใช้ Sands of Time)
+            </span>
           </div>
         </div>
 
         {/* ── Comparison Table ── */}
         <div className="mb-20 max-w-4xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
-            <div className="h-px flex-1" style={{ background: "rgba(198,169,107,0.2)" }} />
-            <p className="text-[#C6A96B] text-[10px] tracking-[0.3em] uppercase whitespace-nowrap">เปรียบเทียบฟีเจอร์อย่างละเอียด</p>
-            <div className="h-px flex-1" style={{ background: "rgba(198,169,107,0.2)" }} />
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C6A96B]/30 to-transparent" />
+            <p className="text-[#8C6D2D] dark:text-[#D4AF37] text-[11px] font-bold tracking-[0.25em] uppercase whitespace-nowrap">
+              เปรียบเทียบฟีเจอร์อย่างละเอียด
+            </p>
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C6A96B]/30 to-transparent" />
           </div>
 
-          <div className="rounded-2xl overflow-hidden border border-white/5 overflow-x-auto"
-            style={{ backdropFilter: "blur(24px)", background: "var(--card-dark-bg)" }}>
-            <div className="min-w-[700px]">
-              <div className="grid grid-cols-5 text-xs font-bold uppercase tracking-widest border-b border-white/5 px-5 py-3 text-center">
-                <div className="text-left text-[#94A3B8]">ฟีเจอร์</div>
-                <div className="text-[#4A5568]">ฟรี</div>
-                <div className="text-[#94A3B8]">Basic</div>
-                <div className="text-[#C6A96B]">Pro</div>
-                <div className="text-[#4B6FAE]">Imperial</div>
+          <div className="rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#07172A]/90 backdrop-blur-2xl shadow-2xl overflow-x-auto">
+            <div className="min-w-[720px]">
+              {/* Header Row */}
+              <div className="grid grid-cols-5 text-xs font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/10 px-5 py-4 text-center bg-slate-100/90 dark:bg-white/[0.04]">
+                <div className="text-left text-slate-700 dark:text-slate-300 font-bold">ฟีเจอร์</div>
+                <div className="text-slate-700 dark:text-slate-300 font-bold">เริ่มทดลอง</div>
+                <div className="text-sky-600 dark:text-sky-300 font-extrabold">PREMIUM</div>
+                <div className="text-amber-700 dark:text-[#F6D88C] font-extrabold flex items-center justify-center gap-1">
+                  <span>PROFESSIONAL</span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-800 dark:text-[#F6D88C] border border-amber-500/30">
+                    แนะนำ
+                  </span>
+                </div>
+                <div className="text-indigo-600 dark:text-[#A5C2F0] font-extrabold">MASTER</div>
               </div>
+
+              {/* Data Rows */}
               {COMPARE_ROWS.map((row, i) => (
-                <div key={row.label}
-                  className={`grid grid-cols-5 px-5 py-3 text-sm text-center ${i % 2 === 0 ? "bg-white/[0.02]" : ""} border-b border-white/[0.04] last:border-0`}>
-                  <div className="text-left text-[#94A3B8] font-medium">{row.label}</div>
-                  <div className="text-[#4A5568]">{row.free}</div>
-                  <div className="text-[#94A3B8]">{row.basic}</div>
-                  <div className="text-[#C6A96B] font-semibold">{row.pro}</div>
-                  <div className="text-[#4B6FAE] font-semibold">{row.imperial}</div>
+                <div
+                  key={row.label}
+                  className={`grid grid-cols-5 px-5 py-3.5 text-xs sm:text-sm text-center items-center ${
+                    i % 2 === 0 ? "bg-slate-50/60 dark:bg-white/[0.02]" : "bg-transparent"
+                  } hover:bg-amber-500/5 dark:hover:bg-white/[0.04] transition-colors border-b border-slate-100 dark:border-white/[0.05] last:border-0`}
+                >
+                  {/* Column 1: Feature Label */}
+                  <div className="text-left text-slate-800 dark:text-[#F8F6F1] font-medium font-sarabun pr-2">
+                    {row.label}
+                  </div>
+
+                  {/* Column 2: Free */}
+                  <div className="text-slate-600 dark:text-[#CBD5E1] font-sarabun">
+                    {row.free === "✅" ? (
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                        ✓
+                      </span>
+                    ) : row.free === "—" ? (
+                      <span className="text-slate-400 dark:text-slate-600 font-mono">—</span>
+                    ) : (
+                      row.free
+                    )}
+                  </div>
+
+                  {/* Column 3: Premium */}
+                  <div className="text-slate-700 dark:text-sky-200 font-sarabun">
+                    {row.premium === "✅" ? (
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                        ✓
+                      </span>
+                    ) : row.premium === "—" ? (
+                      <span className="text-slate-400 dark:text-slate-600 font-mono">—</span>
+                    ) : (
+                      row.premium
+                    )}
+                  </div>
+
+                  {/* Column 4: Professional */}
+                  <div className="text-amber-800 dark:text-[#F6D88C] font-semibold font-sarabun">
+                    {row.pro === "✅" ? (
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-700 dark:text-[#F6D88C] font-bold text-xs shadow-[0_0_10px_rgba(212,175,55,0.25)]">
+                        ✓
+                      </span>
+                    ) : row.pro.startsWith("✅ ") ? (
+                      <span className="inline-flex items-center gap-1.5 justify-center">
+                        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-amber-500/20 text-amber-700 dark:text-[#F6D88C] font-bold text-[10px]">
+                          ✓
+                        </span>
+                        <span>{row.pro.replace("✅ ", "")}</span>
+                      </span>
+                    ) : (
+                      row.pro
+                    )}
+                  </div>
+
+                  {/* Column 5: Master */}
+                  <div className="text-indigo-600 dark:text-[#CBD5E1] font-semibold font-sarabun">
+                    {row.master === "✅" ? (
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-indigo-500/20 border border-indigo-400/40 text-indigo-500 dark:text-[#A5C2F0] font-bold text-xs">
+                        ✓
+                      </span>
+                    ) : row.master.startsWith("✅ ") ? (
+                      <span className="inline-flex items-center gap-1.5 justify-center">
+                        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-indigo-500/20 text-indigo-400 dark:text-[#A5C2F0] font-bold text-[10px]">
+                          ✓
+                        </span>
+                        <span className="text-indigo-600 dark:text-[#A5C2F0]">{row.master.replace("✅ ", "")}</span>
+                      </span>
+                    ) : (
+                      row.master
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -357,17 +503,19 @@ export default function PricingPage() {
         </div>
 
         {/* ── Trust signals ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-16">
           {[
-            { icon: "🔒", title: "ปลอดภัย 100%", desc: "ชำระเงินผ่าน Omise (Opn Payments) ด้วย PromptPay QR หรือบัตรเครดิตมาตรฐานระดับโลก" },
+            { icon: "🔒", title: "ปลอดภัย 100%", desc: "ชำระเงินผ่าน Omise (Opn Payments) ด้วย PromptPay QR หรือบัตรเครดิตมาตรฐานระดับสากล" },
             { icon: "⚡", title: "ปลดล็อกทันที", desc: "ระบบ Atomic Webhook ยืนยันยอดและเปิดสิทธิ์ทันทีภายในไม่กี่วินาที" },
-            { icon: "✦", title: "ภูมิปัญญาแท้ดั้งเดิม", desc: "เลข 7 ตัว 9 ฐาน + อัฏฐกาลที่แม่นยำ พร้อมการผสาน AI อัจฉริยะ" },
+            { icon: "✦", title: "ภูมิปัญญาแท้ดั้งเดิม", desc: "วิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน + สุริยยาตร์แท้ ผสาน AI อัจฉริยะ" },
           ].map(({ icon, title, desc }) => (
-            <div key={title} className="text-center p-5 rounded-2xl border border-white/5"
-              style={{ backdropFilter: "blur(12px)", background: "var(--card-dark-bg)" }}>
+            <div
+              key={title}
+              className="text-center p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#07172A]/80 backdrop-blur-xl shadow-lg"
+            >
               <div className="text-2xl mb-2">{icon}</div>
-              <p className="text-[#F8F6F1] font-semibold text-sm mb-1">{title}</p>
-              <p className="text-[#94A3B8] text-xs leading-relaxed">{desc}</p>
+              <p className="text-slate-900 dark:text-[#F8F6F1] font-bold text-sm mb-1.5">{title}</p>
+              <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed font-sarabun">{desc}</p>
             </div>
           ))}
         </div>
@@ -375,9 +523,11 @@ export default function PricingPage() {
         {/* ── FAQ ── */}
         <div className="max-w-2xl mx-auto mb-16">
           <div className="flex items-center gap-3 mb-6">
-            <div className="h-px flex-1" style={{ background: "rgba(198,169,107,0.2)" }} />
-            <p className="text-[#C6A96B] text-[10px] tracking-[0.3em] uppercase whitespace-nowrap">คำถามที่พบบ่อย</p>
-            <div className="h-px flex-1" style={{ background: "rgba(198,169,107,0.2)" }} />
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C6A96B]/30 to-transparent" />
+            <p className="text-[#8C6D2D] dark:text-[#D4AF37] text-[11px] font-bold tracking-[0.25em] uppercase whitespace-nowrap">
+              คำถามที่พบบ่อย
+            </p>
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C6A96B]/30 to-transparent" />
           </div>
           <div className="space-y-4">
             {[
@@ -385,10 +535,12 @@ export default function PricingPage() {
               { q: "ช่องทางการชำระเงินรองรับแบบไหนบ้าง?", a: "เรารองรับ Thai PromptPay QR ทุกธนาคาร และบัตรเครดิต/เดบิต ผ่านเกตเวย์ Omise (Opn Payments) ที่มีความปลอดภัยระดับสากล" },
               { q: "ละอองทรายกาลเวลา (Sands of Time) คืออะไรและหมดอายุไหม?", a: "ละอองทรายกาลเวลาเป็นหน่วยแต้มปัญญาสำหรับแลกรับบทวิเคราะห์เชิงลึก โดยละอองทรายที่ซื้อเพิ่มจะไม่มีวันหมดอายุ และจะถูกเก็บสะสมไว้ในบัญชีของคุณตลอดไป" },
             ].map(({ q, a }) => (
-              <div key={q} className="rounded-xl border border-white/5 px-5 py-4"
-                style={{ background: "var(--card-dark-bg)" }}>
-                <p className="text-[#F8F6F1] font-semibold text-sm mb-1">{q}</p>
-                <p className="text-[#94A3B8] text-sm leading-relaxed">{a}</p>
+              <div
+                key={q}
+                className="rounded-2xl border border-slate-200 dark:border-white/10 px-5 py-4 bg-white/95 dark:bg-[#07172A]/80 backdrop-blur-xl shadow-md"
+              >
+                <p className="text-slate-900 dark:text-[#F8F6F1] font-bold text-sm mb-1">{q}</p>
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed font-sarabun">{a}</p>
               </div>
             ))}
           </div>
@@ -429,30 +581,30 @@ function PricingCard({
   const isImperial  = plan.style === "imperial";
 
   const borderColor = isPro 
-    ? "rgba(198,169,107,0.40)" 
+    ? "rgba(198,169,107,0.45)" 
     : isImperial 
-    ? "rgba(75,111,174,0.40)" 
-    : "rgba(255,255,255,0.08)";
+    ? "rgba(75,111,174,0.45)" 
+    : "rgba(255,255,255,0.12)";
     
   const bg = isPro
-    ? "rgba(198,169,107,0.06)"
+    ? "rgba(198,169,107,0.08)"
     : isImperial
-    ? "rgba(75,111,174,0.06)"
+    ? "rgba(75,111,174,0.08)"
     : "var(--card-dark-bg)";
     
   const glow = isPro 
-    ? "0 0 60px rgba(198,169,107,0.12)" 
+    ? "0 0 60px rgba(198,169,107,0.15)" 
     : isImperial 
-    ? "0 0 60px rgba(75,111,174,0.12)" 
+    ? "0 0 60px rgba(75,111,174,0.15)" 
     : "none";
     
   const priceColor = isPro 
     ? "#C6A96B" 
     : isImperial 
-    ? "#4B6FAE" 
+    ? "#759CE0" 
     : isBasic 
     ? "#A3B3CC" 
-    : "#4A5568";
+    : "#94A3B8";
 
   const ctaHref = isLoggedIn ? plan.ctaLoggedIn : plan.ctaGuest;
 
@@ -467,7 +619,7 @@ function PricingCard({
           <span className="px-4 py-1 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase shadow-md"
             style={{ 
               background: isImperial ? "linear-gradient(135deg, #4B6FAE, #6D8FC7)" : "linear-gradient(135deg, #C6A96B, #D9BC82)", 
-              color: "#020617" 
+              color: isImperial ? "#F8F6F1" : "#020617" 
             }}>
             {plan.tag}
           </span>
@@ -476,24 +628,24 @@ function PricingCard({
 
       {/* Tier label */}
       <div className="mb-5">
-        <p className="font-display text-[9px] tracking-[0.3em] uppercase mb-1" style={{ color: priceColor }}>
+        <p className="font-display text-[9px] tracking-[0.3em] uppercase mb-1 font-bold" style={{ color: priceColor }}>
           {plan.tier}
         </p>
-        <p className="text-[#F8F6F1] text-xl font-bold leading-tight">{plan.name}</p>
-        <p className="text-[#94A3B8] text-xs mt-1 min-h-[32px]">{plan.subtitle}</p>
+        <p className="text-slate-900 dark:text-[#F8F6F1] text-xl font-bold leading-tight">{plan.name}</p>
+        <p className="text-slate-600 dark:text-slate-300 text-xs mt-1 min-h-[36px] leading-relaxed font-sarabun">{plan.subtitle}</p>
       </div>
 
       {/* Price */}
       <div className="mb-6 flex items-end gap-1">
         {isFree ? (
-          <span className="font-display text-4xl font-bold leading-none text-[#4A5568]">ฟรี</span>
+          <span className="font-display text-4xl font-bold leading-none text-slate-800 dark:text-[#F8F6F1]">ฟรี</span>
         ) : (
           <>
-            <span className="text-[#94A3B8] text-sm self-start mt-1">฿</span>
+            <span className="text-slate-500 dark:text-slate-400 text-sm self-start mt-1">฿</span>
             <span className="font-display text-4xl font-bold leading-none" style={{ color: priceColor }}>
               {plan.priceLabel}
             </span>
-            <span className="text-[#94A3B8] text-xs mb-1">{plan.priceNote}</span>
+            <span className="text-slate-500 dark:text-slate-400 text-xs mb-1 font-sarabun">{plan.priceNote}</span>
           </>
         )}
       </div>
@@ -502,17 +654,17 @@ function PricingCard({
       <ul className="space-y-3 mb-7 flex-1">
         {plan.features.map((f) => (
           <li key={f.text} className={`flex items-start gap-3 text-xs ${f.included ? "" : "opacity-35"}`}>
-            <span className="shrink-0 mt-0.5 text-xs leading-none" style={{ color: f.included ? (isFree ? "#4A5568" : priceColor) : "#374151" }}>
+            <span className="shrink-0 mt-0.5 text-xs leading-none font-bold" style={{ color: f.included ? (isFree ? "#8C6D2D" : priceColor) : "#64748B" }}>
               {f.included ? "✓" : "✕"}
             </span>
-            <span className={f.included ? "text-[#D9CDB7] text-left" : "text-[#4A5568] line-through text-left"}>{f.text}</span>
+            <span className={f.included ? "text-slate-700 dark:text-slate-200 text-left font-sarabun" : "text-slate-400 dark:text-slate-500 line-through text-left font-sarabun"}>{f.text}</span>
           </li>
         ))}
       </ul>
 
       {/* Note */}
       {plan.note && (
-        <p className="text-[#4A5568] text-[11px] mb-4 leading-relaxed text-left">{plan.note}</p>
+        <p className="text-slate-500 dark:text-[#F6D88C] text-[11px] mb-4 leading-relaxed text-left font-sarabun">{plan.note}</p>
       )}
 
       {/* CTA */}
@@ -526,7 +678,7 @@ function PricingCard({
           : isBasic
           ? { background: "rgba(255,255,255,0.08)", color: "#F8F6F1", border: "1px solid rgba(255,255,255,0.15)" }
           : { background: "rgba(255,255,255,0.05)", color: "#94A3B8", border: "1px solid rgba(255,255,255,0.08)" }
-        }
+      }
       >
         {plan.ctaLabel}
       </Link>

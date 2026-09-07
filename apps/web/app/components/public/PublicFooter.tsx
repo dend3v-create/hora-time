@@ -7,7 +7,7 @@ export function PublicFooter() {
   return (
     <footer className="relative z-10 border-t border-slate-200/80 dark:border-white/10 bg-slate-50/90 dark:bg-[#020617]/95 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
           
           {/* Brand & Purpose (2 cols) */}
@@ -28,7 +28,7 @@ export function PublicFooter() {
               </div>
             </Link>
 
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm font-sarabun">
               ระบบปฏิบัติการปัญญาและกาลเวลาชีวิต ผสานศาสตร์ปฏิทินจันทรคติไทยแท้ 100 ปี กับเทคโนโลยี AI อัจฉริยะ เพื่อให้คุณก้าวทันจังหวะชีวิตอย่างมีสติและรู้จังหวะตัดสินใจ
             </p>
 
@@ -49,7 +49,7 @@ export function PublicFooter() {
             <h3 className="text-xs font-bold text-[#8C6D2D] dark:text-[#C6A96B] uppercase tracking-wider mb-4">
               ผลิตภัณฑ์ & ฟีเจอร์
             </h3>
-            <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400 font-sarabun">
               <li>
                 <Link to="/features" className="hover:text-slate-900 dark:hover:text-[#F8F6F1] transition-colors">
                   ฟีเจอร์ทั้งหมด
@@ -57,7 +57,7 @@ export function PublicFooter() {
               </li>
               <li>
                 <Link to="/how-it-works" className="hover:text-slate-900 dark:hover:text-[#F8F6F1] transition-colors">
-                  วิธีใช้งาน & กลไกคำนวณ
+                  วิธีใช้งาน
                 </Link>
               </li>
               <li>
@@ -67,7 +67,7 @@ export function PublicFooter() {
               </li>
               <li>
                 <Link to="/pricing#sands" className="hover:text-slate-900 dark:hover:text-[#F8F6F1] transition-colors">
-                  เศรษฐกิจทรายกาลเวลา (Sands)
+                  ระบบเศรษฐกิจ Sands of Time
                 </Link>
               </li>
               <li>
@@ -83,7 +83,7 @@ export function PublicFooter() {
             <h3 className="text-xs font-bold text-[#8C6D2D] dark:text-[#C6A96B] uppercase tracking-wider mb-4">
               ความปลอดภัย & กฎหมาย
             </h3>
-            <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400 font-sarabun">
               <li>
                 <Link to="/security" className="hover:text-slate-900 dark:hover:text-[#F8F6F1] transition-colors">
                   ความปลอดภัย & สิทธิผู้ใช้
@@ -112,7 +112,7 @@ export function PublicFooter() {
             <h3 className="text-xs font-bold text-[#8C6D2D] dark:text-[#C6A96B] uppercase tracking-wider mb-4">
               ช่วยเหลือ & ข้อมูล
             </h3>
-            <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400 font-sarabun">
               <li>
                 <Link to="/faq" className="hover:text-slate-900 dark:hover:text-[#F8F6F1] transition-colors">
                   คำถามที่พบบ่อย (FAQ)
@@ -123,18 +123,13 @@ export function PublicFooter() {
                   ติดต่อฝ่ายบริการลูกค้า
                 </a>
               </li>
-              <li>
-                <a href="/sitemap.xml" className="hover:text-slate-900 dark:hover:text-[#F8F6F1] transition-colors" target="_blank" rel="noreferrer">
-                  แผนผังเว็บไซต์ (Sitemap)
-                </a>
-              </li>
             </ul>
           </div>
 
         </div>
 
         {/* Ethical & Legal Disclaimer Box */}
-        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-white/[0.02] mb-10 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-white/[0.02] mb-10 text-xs leading-relaxed text-slate-600 dark:text-slate-400 font-sarabun">
           <p className="font-semibold text-slate-800 dark:text-slate-300 mb-1 flex items-center gap-1.5">
             <span className="text-[#8C6D2D] dark:text-[#C6A96B]">✦</span>
             <span>ข้อตกลงและหลักจริยธรรมของระบบ (Ethical & Wisdom Transparency)</span>
@@ -145,7 +140,7 @@ export function PublicFooter() {
         </div>
 
         {/* Bottom copyright & attribution */}
-        <div className="pt-6 border-t border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 dark:text-slate-400">
+        <div className="pt-6 border-t border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 dark:text-slate-400 font-sarabun">
           <p>
             © {currentYear} PhopePhum (ภพภูมิ). All rights reserved. สงวนลิขสิทธิ์ตามกฎหมาย
           </p>

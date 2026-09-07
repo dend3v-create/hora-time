@@ -9,29 +9,32 @@ import { PublicLayout } from "~/components/public/PublicLayout";
 import { AstralIcon } from "~/components/ui/AstralIcon";
 
 export const meta: MetaFunction = () => [
-  { title: "ภพภูมิ (PhopePhum) — ผู้ช่วยชีวิต AI & ดูดวงออนไลน์ ศาสตร์โหราศาสตร์ไทยแท้" },
+  { title: "ภพภูมิ (PHOPEPHUM OS) — Data Science ของชีวิต | AI-Powered Life Guidance Platform" },
   {
     name: "description",
-    content: "ภพภูมิ (PhopePhum) ผู้ช่วยชีวิต AI และที่ปรึกษาจังหวะกาลเวลาส่วนตัว ผสานศาสตร์โหราศาสตร์ไทยแท้ เลข 7 ตัว 9 ฐาน และยามอัฏฐกาล กับปัญญาประดิษฐ์ AI เพื่อการตัดสินใจอย่างมีสติ เริ่มต้นใช้งานฟรี ไม่ต้องใช้บัตรเครดิต",
+    content:
+      "ระบบปฏิบัติการ PhoPePhum OS เปลี่ยนศาสตร์เร้นลับให้เป็น Data Science ของชีวิต ผสานคัมภีร์สุริยยาตร์ วิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน กาลชะตา Real-time และ KARNCHATA ENGINE V2.0 ถอดรหัสศักยภาพและกำหนดจังหวะเวลา (Timing) ที่ใช่ที่สุดในการลงมือทำ",
   },
   { property: "og:type", content: "website" },
   { property: "og:url", content: "https://phopephum.com" },
-  { property: "og:title", content: "ภพภูมิ (PhopePhum) — ที่ปรึกษาชีวิต AI & เช็คฤกษ์ยาม โหราศาสตร์ไทย" },
+  { property: "og:title", content: "PHOPEPHUM OS — Data Science ของชีวิต | ทุกคำถามของชีวิต... มีแนวทางเสมอ" },
   {
     property: "og:description",
-    content: "รู้จังหวะกาลเวลา ชนะทุกการตัดสินใจ อ่านพลังงาน 4 มิติชีวิต เช็คฤกษ์ยาม และปรึกษา Wisdom AI เฉพาะตน เริ่มฟรี",
+    content:
+      "ชีวิตที่ดีขึ้น เริ่มได้จากการรู้จักตัวเอง สัมผัสประสบการณ์ AI Guidance Platform ที่ผสานภูมิปัญญาโหราศาสตร์ไทยโบราณกับ AI Matching แม่นยำระดับนาทีด้วย KARNCHATA ENGINE V2.0 เริ่มต้นใช้งานฟรี",
   },
   { property: "og:image", content: "https://phopephum.com/favicon.svg" },
   { name: "twitter:card", content: "summary_large_image" },
-  { name: "twitter:title", content: "ภพภูมิ (PhopePhum) — AI ดูดวง & ที่ปรึกษาชีวิตส่วนตัว" },
+  { name: "twitter:title", content: "ภพภูมิ (PHOPEPHUM OS) — AI-Powered Life Guidance Platform" },
   {
     name: "twitter:description",
-    content: "ถอดรหัสชะตาชีวิตและกาลเวลาด้วยปฏิทินไทยแท้ 100 ปี และ Wisdom AI ส่วนตัว",
+    content:
+      "เปลี่ยนมุมมองจากการทำนาย สู่ Data Science ของชีวิต ด้วยระบบคิดเชิงระบบ (System Thinking) และหลักการ CAP Theory: Confident, Action, Proactive",
   },
   {
     name: "keywords",
     content:
-      "ดูดวง AI, ดูดวงออนไลน์, โหราศาสตร์ไทย, เลข 7 ตัว 9 ฐาน, AI ดูดวง, ผู้ช่วยชีวิต AI, ยามอัฏฐกาล, เช็คฤกษ์ยาม, ภพภูมิ, PhopePhum",
+      "ภพภูมิ, PhoPePhum OS, Data Science ของชีวิต, KARNCHATA ENGINE, เลข 7 ตัว 9 ฐาน, คัมภีร์สุริยยาตร์, ยามอัฏฐกาล, ยามพรายกระซิบ, ราหูค้นทรัพย์, ผังดวงจักรพรรดิ, AI ดูดวง, โหราศาสตร์ไทย, นักพยากรณ์บำบัด, CAP Theory",
   },
 ];
 
@@ -58,102 +61,124 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 
 export default function Index() {
   const { isLoggedIn } = useLoaderData<typeof loader>();
-  const [activeFeatureTab, setActiveFeatureTab] = useState<"yam" | "horoscope" | "chat" | "dimensions">("yam");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  const useCases = [
+  // ── Pain Points vs Solution ──
+  const painPoints = [
     {
-      title: "ผู้บริหาร & คนทำงาน",
-      role: "วางแผนกลยุทธ์ & ตัดสินใจ",
-      desc: "รู้จังหวะเวลาทอง (Golden Window) สำหรับการเจรจาธุรกิจ พรีเซนต์โปรเจกต์ นัดหมายสำคัญ หรือเปลี่ยนสายงานอย่างมั่นใจ",
-      icon: "career" as const,
-      color: "from-amber-500/20 to-amber-700/5",
+      problem: "ทำไมลงแรงไปตั้งมากมาย แต่ผลลัพธ์กลับไม่เป็นอย่างที่คิด?",
+      rootCause: "ขาดการจับจังหวะเวลา (Timing Mismatch)",
+      solution: "ระบบกาลชะตา Real-time ชี้ชัดช่วงเวลาที่ดวงจรหนุนดาวอุตสาหะ ลงแรงแล้วเกิดผลสัมฤทธิ์สูงสุดทันที",
+      icon: "⚡",
     },
     {
-      title: "ผู้ประกอบการ & เจ้าของธุรกิจ",
-      role: "จับทิศทางตลาด & ฤกษ์มงคล",
-      desc: "เลือกช่วงเวลาที่ส่งเสริมการเปิดตัวผลิตภัณฑ์ การลงนามสัญญา หรือยิงแคมเปญการตลาดเพื่อผลลัพธ์ที่ดีที่สุด",
-      icon: "finance" as const,
-      color: "from-emerald-500/20 to-emerald-700/5",
+      problem: "ต้องตัดสินใจเรื่องสำคัญ แต่ไม่มั่นใจว่า 'เวลานี้' เหมาะสมหรือไม่?",
+      rootCause: "ขาดข้อมูลรอบด้านและสถิติอ้างอิง",
+      solution: "ผังดวงจักรพรรดิซ้อนทับวัยจร ปีจร และทักษาจร ให้คุณเห็นมิติเวลารอบด้าน ตัดสินใจด้วยตรรกะ ไม่ใช่ความเสี่ยง",
+      icon: "🎯",
     },
     {
-      title: "ผู้ต้องการพัฒนาตนเอง",
-      role: "เข้าใจรหัสชีวิต & คลายจุดติดขัด",
-      desc: "ถอดรหัสจุดแข็ง ธาตุเจ้าเรือน และบททดสอบชีวิตในแต่ละช่วงอายุ พร้อมคำแนะนำจาก Wisdom AI ตลอด 24 ชม.",
-      icon: "spark" as const,
-      color: "from-blue-500/20 to-blue-700/5",
-    },
-    {
-      title: "โหราจารย์ & นักพยากรณ์",
-      role: "เครื่องมือวิชาชีพระดับสูง",
-      desc: "คำนวณผังดวง ๗ ตัว ๙ ฐาน, ยามอัฏฐกาล, มหาทักษา, มหาภูติ และกาลชะตาระดับนาที แม่นยำตามคัมภีร์สุริยยาตร์แท้",
-      icon: "horanu" as const,
-      color: "from-purple-500/20 to-purple-700/5",
+      problem: "รู้สึกว่าตัวเองมีของ แต่หาจุดเด่นหรือเส้นทางที่ใช่ไม่เจอ?",
+      rootCause: "ไม่เคยถอดรหัสโครงสร้างจิตและศักยภาพเดิม",
+      solution: "วิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน อ่านลึกถึงรหัสกรรม พรสวรรค์ที่ซ่อนเร้น และราหูค้นทรัพย์เพื่อชี้เป้าขุมพลังในตัวคุณ",
+      icon: "💎",
     },
   ];
 
-  const whatYouGet = [
+  // ── 4 มิติแห่งชีวิต (4 Core Life Dimensions) ──
+  const lifeDimensions = [
     {
-      title: "ภาพรวมพลังงานวันนี้ (Daily Matrix)",
-      desc: "ประเมินระดับพลังงาน 4 มิติ: การงาน การเงิน ความสัมพันธ์ สุขภาพ แบบ Real-time",
-      icon: "balance" as const,
+      id: "career",
+      title: "การงาน",
+      english: "CAREER",
+      subtitle: "เส้นทาง · ศักยภาพ · จังหวะทอง",
+      highlight: "ลงแรงถูกเวลา",
+      desc: "ค้นหาศักยภาพที่แท้จริงในรหัสกำเนิด รู้จังหวะเวลาทอง (Golden Window) สำหรับการเจรจา พรีเซนต์ เลื่อนตำแหน่ง หรือเปลี่ยนสายงานอย่างแม่นยำ",
+      icon: (
+        <svg className="w-6 h-6 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <circle cx="12" cy="7" r="4" />
+          <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
+        </svg>
+      ),
     },
     {
-      title: "หน้าต่างเวลาทอง (Golden Window)",
-      desc: "ระบบตรวจจับยามที่เกื้อหนุน พร้อมบอกช่วงเวลาที่ควรระวังเพื่อหลีกเลี่ยงข้อผิดพลาด",
-      icon: "sandglass" as const,
+      id: "finance",
+      title: "การเงิน",
+      english: "FINANCE",
+      subtitle: "ราหูค้นทรัพย์ · โชคลาภ · สภาพคล่อง",
+      highlight: "ชี้เป้าขุมทรัพย์",
+      desc: "ถอดรหัสธาตุเจ้าเรือนการเงิน จับกระแสรอบวัฏจักรโชคลาภ และใช้เครื่องมือราหูค้นทรัพย์เพื่อหาทิศทางความมั่งคั่งและช่วงเวลาที่ควรขยับขยาย",
+      icon: (
+        <svg className="w-6 h-6 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <circle cx="8" cy="8" r="6" />
+          <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
+          <path d="M7 6h2v4H7z" />
+        </svg>
+      ),
     },
     {
-      title: "ผังดวงเลข ๗ ตัว ๙ ฐาน & จักรพรรดิ",
-      desc: "คำนวณด้วยปฏิทินจันทรคติไทย 100 ปีแท้ ละเอียดถึงตำแหน่งดาวจรและวัยจร",
-      icon: "timeline" as const,
+      id: "love",
+      title: "ความรัก",
+      english: "LOVE",
+      subtitle: "เคมีสัมพันธ์ · ความเข้าใจ · ลดแรงปะทะ",
+      highlight: "เข้าใจไร้ข้อกังขา",
+      desc: "ถอดรหัสดาวคู่ครอง พื้นฐานอารมณ์ และเคมีความสัมพันธ์ สร้างความเข้าใจลึกซึ้ง รู้จังหวะถอยและจังหวะประสานใจเพื่อความผูกพันที่มั่นคง",
+      icon: (
+        <svg className="w-6 h-6 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+        </svg>
+      ),
     },
     {
-      title: "Wisdom AI ที่ปรึกษาชีวิตส่วนตัว",
-      desc: "สนทนาและขอคำชี้แนะได้ตลอด 24 ชั่วโมง โดย AI ที่เข้าใจพื้นดวงชะตาเฉพาะตนของคุณ",
-      icon: "wisdom" as const,
-    },
-    {
-      title: "ละอองทรายกาลเวลาฟรีทุกวัน (Sands)",
-      desc: "รับทรายกาลเวลาฟรีทุกวันเพื่อปลดล็อกรายงานวิเคราะห์เชิงลึก ไม่จำเป็นต้องจ่ายรายเดือน",
-      icon: "sandglass" as const,
+      id: "guidance",
+      title: "การตัดสินใจ",
+      english: "GUIDANCE",
+      subtitle: "เข็มทิศชีวิต · กลยุทธ์ · ทางเลือก",
+      highlight: "คุมเกมด้วยสติ",
+      desc: "เมื่อชีวิตมาถึงทางแยกสำคัญ มีข้อมูลสถิติและตรรกะแห่งกาลเวลานำทาง ไม่ตกเป็นทาสของความกลัวหรือความโลภ มองเห็นทางเลือกที่ชัดเจนและสงบนิ่ง",
+      icon: (
+        <svg className="w-6 h-6 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <circle cx="12" cy="12" r="10" />
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor" fillOpacity="0.2" />
+        </svg>
+      ),
     },
   ];
 
+  // ── FAQs ──
   const faqs = [
     {
-      q: "ภพภูมิ (PhopePhum) ใช้งานฟรีได้จริงไหม?",
-      a: "ใช้งานฟรีได้จริง 100% ตลอดชีพ สมาชิกเริ่มต้นสามารถดูภาพรวมพลังงานประจำวัน เช็คข้อมูลชาตาพื้นฐาน รับทรายกาลเวลาฟรีทุกวัน และปรึกษา Wisdom AI ได้โดยไม่ต้องผูกบัตรเครดิต",
+      q: "PhoPePhum OS คืออะไร และแตกต่างจากการดูดวงทั่วไปอย่างไร?",
+      a: "PhoPePhum OS คือ AI-Powered Life Guidance Platform ที่เปลี่ยนศาสตร์เร้นลับให้เป็น 'Data Science ของชีวิต' ความแม่นยำเกิดจากการนำตรรกะคณิตศาสตร์ของโหราศาสตร์โบราณ (คัมภีร์สุริยยาตร์ และวิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน) มาทำงานร่วมกับกาลชะตา Real-time และใช้ KARNCHATA ENGINE V2.0 ในการ Matching ดวงเดิมเข้ากับดวงจรเฉพาะตัวบุคคล จึงไม่ใช่การทายเหมาโหล แต่เป็นแผนที่ชีวิตที่มีตรรกะอ้างอิงได้ชัดเจน",
     },
     {
-      q: "ภพภูมิต่างจากแอปดูดวงหรือ AI ทั่วไปอย่างไร?",
-      a: "แอปดูดวงทั่วไปมักใช้การสุ่มคำทำนายกว้างๆ ขณะที่ AI ทั่วไปไม่เข้าใจกฎเกณฑ์ดาราศาสตร์ไทย ภพภูมิได้รวม 'ระบบคำนวณปฏิทินจันทรคติไทยแท้ 100 ปี' เข้ากับ Wisdom AI ทำให้บทวิเคราะห์มีความจำเพาะเจาะจงกับวันเวลาตกฟากของคุณอย่างแท้จริง และชี้แนะเพื่อการมีสติ ไม่ใช่งมงาย",
+      q: "ระบบประมวลผลกาลชะตา Real-time มีประโยชน์อย่างไร?",
+      a: "ในโหราศาสตร์โบราณ พลังงานของดวงดาวและยามมีการเปลี่ยนผ่านระดับย่อย (อันตรยาม/ลิปดา) การคำนวณแบบ Real-time ทำให้ระบบรู้ว่า 'ณ เวลานี้' ดาวดวงไหนกำลังส่งอิทธิพลต่อดวงกำเนิดของคุณ ช่วยชี้เป้าหน้าต่างเวลาทอง (Golden Window) เช่น ช่วงเวลาที่ควรเจรจา หรือช่วงที่ควรพักเพื่อหลีกเลี่ยงความขัดแย้ง",
     },
     {
-      q: "ถ้าไม่ทราบเวลาเกิดที่แน่นอน ยังสามารถใช้งานได้หรือไม่?",
-      a: "สามารถใช้งานได้ครับ ระบบรองรับการคำนวณทั้งแบบระบุเวลาเกิดชัดเจน (ความแม่นยำระดับนาทีและยาม) และแบบระบุเพียงวันเดือนปีเกิด ซึ่งระบบจะวิเคราะห์แกนหลักของผังเลข ๗ ตัวและมหาทักษาให้อย่างสมบูรณ์",
+      q: "ระบบ Multi-select Overlay Filter บนผังดวงจักรพรรดิ ช่วยอะไรได้บ้าง?",
+      a: "ปกติการดูดวงแบบลึกซึ้งต้องเปิดตำราหลายเล่ม แต่ระบบของ PhoPePhum อนุญาตให้ซ้อนทับเลเยอร์ของ วัยจร ปีจร เดือนจร ลัคนาเกิด ลัคนาจร และทักษาจร ลงบนหน้าจอเดียว ทำให้เห็นจุดตัดของพลังงานชีวิตในทุกมิติเวลาแบบทะลุปรุโปร่งในคลิกเดียว",
     },
     {
-      q: "ข้อมูลวันเดือนปีเกิดของฉันจะถูกเปิดเผยหรือไม่?",
-      a: "ข้อมูลส่วนตัวของคุณได้รับการปกป้องอย่างสูงสุดตามมาตรฐาน PDPA ด้วยระบบ Row Level Security (RLS) ของ Supabase ข้อมูลจะไม่มีการเผยแพร่สู่สาธารณะ และไม่ถูกนำไปเทรนโมเดล AI สาธารณะเด็ดขาด",
+      q: "หลักการ CAP Theory ที่แพลตฟอร์มใช้คืออะไร?",
+      a: "CAP Theory คือหัวใจของการนำผลวิเคราะห์ไปใช้งานจริง: 1) Confident — มั่นใจในทุกก้าวด้วยฐานข้อมูลสถิติที่เสถียร 2) Action — รู้จังหวะเวลาที่ควรลงมือทำเพื่อสร้างผลลัพธ์ก้าวกระโดด และ 3) Proactive — คุมเกมชีวิตล่วงหน้าด้วยการวางแผนป้องกันความเสี่ยงและเปลี่ยนความไม่แน่นอนให้เป็นความได้เปรียบ",
     },
     {
-      q: "ละอองทรายกาลเวลา (Sands of Time) คืออะไร?",
-      a: "คือหน่วยคะแนนพลังงานที่ใช้ในการสร้างรายงานวิเคราะห์ชีวิตเชิงลึก (Life Reports) หรือขอคำแนะนำพิเศษ สมาชิกได้รับแจกฟรีทุกวัน และสามารถเลือกเติมเพิ่มได้ตามการใช้งานจริง (เริ่มต้น 50 เม็ด = ฿59) โดยไม่ต้องมีสัญญาผูกมัดรายเดือน",
+      q: "หากไม่ทราบเวลาตกฟากที่แน่นอน ยังสามารถใช้งานได้หรือไม่?",
+      a: "ใช้งานได้สมบูรณ์ครับ ระบบรองรับทั้งผู้ที่ทราบเวลาเกิดระดับนาที (คำนวณยามตกฟากและลัคนาจรเต็มรูปแบบ) และผู้ที่ทราบเพียงวันเดือนปีเกิด ซึ่งระบบจะถอดรหัสแกนหลักของวิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน และวัยจรหลักให้อย่างเที่ยงตรง",
     },
     {
-      q: "หากต้องการใช้สำหรับลูกค้าหรือคนในครอบครัว ต้องทำอย่างไร?",
-      a: "คุณสามารถอัปเกรดเป็นแพ็กเกจ Pro Master (฿289/เดือน) เพื่อบันทึกดวงคนอื่นได้ 15 รายชื่อ หรือแพ็กเกจ Imperial Emperor (฿789 ตลอดชีพ) เพื่อบันทึกดวงและดูประวัติดวงชะตาได้ไม่จำกัดจำนวน",
+      q: "ข้อมูลส่วนบุคคลและวันเกิดปลอดภัยหรือไม่?",
+      a: "ปลอดภัยสูงสุดตามมาตรฐาน PDPA ข้อมูลทั้งหมดถูกจัดเก็บด้วยมาตรฐานความปลอดภัยระดับสูง เข้ารหัสความปลอดภัยระดับธนาคาร ไม่มีการส่งต่อ ไม่ขายข้อมูล และไม่ถูกนำไปใช้เทรน AI สาธารณะอย่างเด็ดขาด",
     },
   ];
 
   return (
     <PublicLayout isLoggedIn={isLoggedIn}>
-      
       {/* ── JSON-LD Structured Data for SEO ── */}
       <script
         type="application/ld+json"
@@ -165,13 +190,13 @@ export default function Index() {
                 "@type": "WebSite",
                 "@id": "https://phopephum.com/#website",
                 "url": "https://phopephum.com",
-                "name": "ภพภูมิ — PhopePhum",
-                "description": "ที่ปรึกษาชีวิตและจังหวะกาลเวลาส่วนตัวขับเคลื่อนด้วย AI และโหราศาสตร์ไทยแท้",
+                "name": "PHOPEPHUM OS — Data Science ของชีวิต",
+                "description": "AI-Powered Life Guidance Platform ที่ปรึกษาชีวิตและกาลเวลาส่วนบุคคล",
                 "inLanguage": "th",
               },
               {
                 "@type": "SoftwareApplication",
-                "name": "PhopePhum",
+                "name": "PHOPEPHUM OS",
                 "operatingSystem": "Web, iOS, Android",
                 "applicationCategory": "LifestyleApplication",
                 "offers": {
@@ -197,121 +222,367 @@ export default function Index() {
       />
 
       {/* ──────────────────────────────────────────────────────────────────────────
-          1. HERO SECTION (Trust & Value Prop)
+          1. HERO SECTION: Data Science of Life & Cosmic Horizon
       ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative pt-12 pb-20 sm:pt-20 sm:pb-28 text-center px-4 sm:px-6 max-w-5xl mx-auto">
+      <section className="relative pt-8 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         
-        {/* Sacred Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-600/30 dark:border-[#C6A96B]/30 bg-amber-50/80 dark:bg-[#C6A96B]/10 text-[#8C6D2D] dark:text-[#D9BC82] text-xs font-semibold uppercase tracking-wider mb-6 animate-fade-up">
-          <AstralIcon name="portal" size="sm" />
-          <span>Living Wisdom Operating System • ระบบปฏิบัติการปัญญาและกาลเวลาชีวิต</span>
-        </div>
+        {/* Subtle Ambient Cosmic & Sunrise Horizon Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] sm:w-[1000px] h-[550px] bg-gradient-to-b from-[#D4AF37]/20 via-[#0A2240]/40 to-transparent blur-3xl pointer-events-none -z-10" />
 
-        {/* Main Punchy Heading */}
-        <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-slate-900 dark:text-[#F8F6F1] mb-6 leading-tight animate-fade-up">
-          รู้จังหวะกาลเวลา<br />
-          <span className="bg-gradient-to-r from-[#8C6D2D] via-[#C6A96B] to-[#D9BC82] bg-clip-text text-transparent">
-            ชนะทุกการตัดสินใจ
-          </span>
-        </h1>
-
-        {/* Subtitle & Value Clarity */}
-        <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10 animate-fade-up">
-          ที่ปรึกษาชีวิตและจังหวะเวลาส่วนตัว ผสานศาสตร์ปฏิทินจันทรคติไทยแท้ 100 ปี กับ Wisdom AI อัจฉริยะ ช่วยให้คุณเลือกก้าวเดินถูกจังหวะกาลเวลา ในการงาน การเงิน ความรัก และทิศทางชีวิต
-        </p>
-
-        {/* Primary & Secondary Dual CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 animate-fade-up">
-          <Link
-            to={isLoggedIn ? "/dashboard" : "/register"}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl font-bold text-base bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-xl shadow-[#C6A96B]/30 hover:shadow-2xl hover:scale-102 active:scale-98 transition-all"
-          >
-            <span>{isLoggedIn ? "เข้าสู่แดชบอร์ดของคุณ" : "เริ่มต้นใช้งานฟรี (ไม่ต้องใช้บัตรเครดิต)"}</span>
-            <span className="text-lg">→</span>
-          </Link>
-
-          <Link
-            to="/pricing"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl font-semibold text-base border border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
-          >
-            <span>ดูตัวอย่างแพ็กเกจ & ราคา</span>
-          </Link>
-        </div>
-
-        {/* Micro-Trust Guarantees */}
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-slate-700 dark:text-slate-400">
-          <span className="flex items-center gap-1.5">
-            <span className="text-emerald-500 font-bold">✓</span> สมัครฟรีใน 1 นาที
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="text-emerald-500 font-bold">✓</span> ไม่ต้องกรอกข้อมูลบัตรเครดิต
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="text-emerald-500 font-bold">✓</span> ข้อมูลปลอดภัยตามมาตรฐาน PDPA
-          </span>
-        </div>
-
-      </section>
-
-      {/* ──────────────────────────────────────────────────────────────────────────
-          2. SOCIAL PROOF & STATS STRIP
-      ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 border-y border-slate-200/80 dark:border-white/10 bg-slate-100/70 dark:bg-white/[0.02] py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div>
-            <p className="font-display text-2xl sm:text-3xl font-bold text-[#8C6D2D] dark:text-[#C6A96B]">100 ปี</p>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">ปฏิทินจันทรคติไทยแท้</p>
+        <div className="flex flex-col items-center justify-center text-center mb-10 animate-fade-up">
+          
+          {/* Primary Brand Identity Lockup */}
+          <div className="flex items-center gap-3.5 sm:gap-4 mb-4">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#D4AF37] via-[#F6D88C] to-[#C6A96B] p-0.5 shadow-lg shadow-[#D4AF37]/25 flex items-center justify-center">
+              <div className="w-full h-full rounded-[14px] bg-[#07172A] flex items-center justify-center">
+                <span className="font-playfair text-[#D4AF37] text-2xl sm:text-3xl font-bold tracking-tight">P</span>
+              </div>
+            </div>
+            <div className="text-left">
+              <h2 className="font-playfair text-2xl sm:text-4xl font-bold tracking-wider text-slate-900 dark:text-[#F8F6F1] leading-none">
+                PHOPEPHUM OS
+              </h2>
+              <p className="text-xs sm:text-sm font-sarabun text-[#8C6D2D] dark:text-[#C6A96B] font-medium tracking-wide mt-1">
+                ภพภูมิ · ปัญญาและกาลเวลาชีวิต
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="font-display text-2xl sm:text-3xl font-bold text-[#8C6D2D] dark:text-[#C6A96B]">16 ยาม</p>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">ยามอัฏฐกาลตามแดดจริง</p>
-          </div>
-          <div>
-            <p className="font-display text-2xl sm:text-3xl font-bold text-[#8C6D2D] dark:text-[#C6A96B]">24/7</p>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">Wisdom AI ให้คำปรึกษา</p>
-          </div>
-          <div>
-            <p className="font-display text-2xl sm:text-3xl font-bold text-[#8C6D2D] dark:text-[#C6A96B]">100%</p>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">ความเป็นส่วนตัวของข้อมูล</p>
-          </div>
-        </div>
-      </section>
 
-      {/* ──────────────────────────────────────────────────────────────────────────
-          3. USE CASES (ภพภูมิ เหมาะกับใคร)
-      ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 py-20 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#8C6D2D] dark:text-[#C6A96B] mb-3">
-            TAILORED FOR REAL LIFE
+          <p className="text-[11px] sm:text-xs tracking-[0.25em] font-playfair uppercase text-slate-500 dark:text-slate-400 font-semibold mb-6">
+            AI-POWERED LIFE GUIDANCE PLATFORM
           </p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-4">
-            ออกแบบมาเพื่อจังหวะชีวิตจริงของคุณ
+
+          {/* Main Statement Heading */}
+          <h1 className="font-playfair text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-[#F8F6F1] max-w-4xl leading-[1.15] mb-6">
+            ทุกคำถามของชีวิต...<br />
+            <span className="bg-gradient-to-r from-[#D4AF37] via-[#F6D88C] to-[#E8C46A] bg-clip-text text-transparent drop-shadow-sm">
+              มีแนวทางเสมอ
+            </span>
+          </h1>
+
+          {/* Value Subtitle */}
+          <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed font-sarabun mb-8">
+            ชีวิตที่ดีขึ้น เริ่มได้จากการรู้จักตัวเอง สัมผัสประสบการณ์ใหม่ของ <strong className="text-slate-900 dark:text-[#F6D88C] font-semibold">"Data Science แห่งชีวิต"</strong> ด้วยแพลตฟอร์ม AI ที่ผสานภูมิปัญญาโหราศาสตร์ไทยโบราณ เพื่อปลดล็อกศักยภาพและค้นหา <strong className="text-slate-900 dark:text-[#F6D88C] font-semibold">"จังหวะเวลาที่ใช่ที่สุด"</strong> สำหรับคุณ
+          </p>
+
+          {/* Primary Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-8">
+            <Link
+              to={isLoggedIn ? "/dashboard" : "/register"}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-base bg-gradient-to-r from-[#D4AF37] via-[#F6D88C] to-[#D4AF37] text-[#07172A] shadow-xl shadow-[#D4AF37]/30 hover:shadow-2xl hover:scale-102 active:scale-98 transition-all duration-200"
+            >
+              <span>{isLoggedIn ? "เข้าสู่แดชบอร์ด PhoPePhum OS" : "เริ่มต้นค้นหาตัวเอง... ใช้งานฟรี"}</span>
+              <span className="text-lg">→</span>
+            </Link>
+
+            <Link
+              to="/features"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl font-semibold text-base border border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
+            >
+              <span>สำรวจฟีเจอร์ทั้งหมด</span>
+            </Link>
+          </div>
+
+          {/* Micro Trust Indicators */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400 font-sarabun">
+            <span className="flex items-center gap-1.5">
+              <span className="text-emerald-500 font-bold">✓</span> สมัครฟรีใน 1 นาที ไม่ต้องใช้บัตรเครดิต
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-emerald-500 font-bold">✓</span> ปลอดภัยตามมาตรฐาน PDPA
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-[#D4AF37] font-bold">✦</span> ไม่ใช่งมงาย แต่คือตรรกะ สถิติ และกาลเวลา
+            </span>
+          </div>
+
+        </div>
+
+        {/* ── Visual Centerpiece Showcase (Sunrise Mountain & Celestial AI Engine) ── */}
+        <div className="relative mt-8 rounded-3xl border border-[#D4AF37]/30 bg-gradient-to-b from-[#07172A] via-[#0B1728] to-[#0F172A] p-6 sm:p-10 shadow-2xl overflow-hidden">
+          
+          {/* Sunrise Glow & Horizon Backdrop */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#D4AF37]/25 via-[#07172A]/70 to-[#07172A] pointer-events-none" />
+          
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left: Core Engine Summary */}
+            <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#F6D88C]">
+                <AstralIcon name="horanu" size="sm" />
+                <span>PhoPePhum OS: AI-Powered Life Guidance Platform</span>
+              </div>
+
+              <h3 className="font-playfair text-2xl sm:text-3xl lg:text-4xl font-bold text-[#F8F6F1] leading-snug">
+                เปลี่ยนศาสตร์เร้นลับโบราณ<br />
+                <span className="bg-gradient-to-r from-[#D4AF37] to-[#F6D88C] bg-clip-text text-transparent">
+                  สู่ "Data Science ของชีวิต" ที่พิสูจน์ได้
+                </span>
+              </h3>
+
+              <p className="text-sm sm:text-base text-slate-300 font-sarabun leading-relaxed">
+                ความแม่นยำของระบบเกิดจากการนำตรรกะคณิตศาสตร์ของโหราศาสตร์โบราณ (คัมภีร์สุริยยาตร์ และวิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน) มาทำงานร่วมกับกลไกประมวลผลเวลาแบบ Real-time และใช้เทคโนโลยี AI ในการ Matching ข้อมูลที่ซ้อนทับกันหลายมิติ เพื่อถอดรหัสศักยภาพและกำหนดจังหวะเวลา (Timing) ที่เหมาะสมที่สุดสำหรับการลงมือทำของแต่ละบุคคล
+              </p>
+
+              {/* 2 Wisdom Pillars */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-left">
+                <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#D4AF37]/40 transition-colors">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2 h-2 rounded-full bg-[#D4AF37]"></span>
+                    <h4 className="font-playfair font-bold text-xs text-[#F6D88C]">คัมภีร์สุริยยาตร์</h4>
+                  </div>
+                  <p className="text-xs font-semibold text-slate-200 mb-1">รากฐานแห่งวัฏจักรและเวลา</p>
+                  <p className="text-[11px] text-slate-400 font-sarabun leading-relaxed">
+                    คำนวณและวางผังดวงดาวพระเคราะห์แท้จริง ณ เวลาตกฟาก เสมือน Snapshot โครงสร้างพลังงานในเวลานั้น ตัดรอบ 06:00 น. แม่นยำระดับนาที
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#D4AF37]/40 transition-colors">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2 h-2 rounded-full bg-[#D4AF37]"></span>
+                    <h4 className="font-playfair font-bold text-xs text-[#F6D88C]">วิชาเลข ๗ ตัว ๙ ฐาน</h4>
+                  </div>
+                  <p className="text-xs font-semibold text-slate-200 mb-1">ถอดรหัสศักยภาพและจิตใต้สำนึก</p>
+                  <p className="text-[11px] text-slate-400 font-sarabun leading-relaxed">
+                    วิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน จัดเรียงรหัสชีวิต อ่านโครงสร้างกรรม พรสวรรค์ และจุดที่ต้องปลดล็อกเพื่อเปลี่ยนชะตาด้วยเหตุและผล
+                  </p>
+                </div>
+              </div>
+
+              {/* Link to Knowledge Base */}
+              <div className="flex items-center justify-end -mt-1">
+                <Link
+                  to="/how-it-works"
+                  className="text-[11px] font-semibold text-[#F6D88C] hover:text-[#D4AF37] inline-flex items-center gap-1 transition-colors"
+                >
+                  <span>ศึกษาหลักวิชาและโครงสร้างคณิตศาสตร์เพิ่มเติมในคลังความรู้</span>
+                  <span>→</span>
+                </Link>
+              </div>
+
+              {/* Live Status */}
+              <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full border border-[#D4AF37] flex items-center justify-center bg-[#07172A] text-[#D4AF37] font-playfair font-bold text-xs shadow-md shadow-[#D4AF37]/20">
+                    LIVE
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs font-bold text-[#F6D88C]">กาลชะตา Real-time Transit</p>
+                    <p className="text-[10px] text-slate-400">อัปเดตกระแสพลังงานดวงดาวแบบ Real-time</p>
+                  </div>
+                </div>
+                <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+                  ● Engine Active
+                </span>
+              </div>
+
+            </div>
+
+            {/* Right: Phone Mockup / OS Interface Preview */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-[340px] rounded-[38px] border-4 border-slate-700/80 bg-[#07172A] p-4 shadow-2xl shadow-black/80 relative">
+                
+                {/* Notch */}
+                <div className="w-24 h-3.5 bg-slate-800 rounded-full mx-auto mb-4" />
+
+                {/* App Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3 text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-md bg-[#D4AF37] flex items-center justify-center text-[#07172A] font-bold font-playfair text-[10px]">
+                      P
+                    </div>
+                    <span className="font-playfair font-bold text-[#F8F6F1]">PHOPEPHUM OS</span>
+                  </div>
+                  <span className="text-[10px] text-emerald-400 flex items-center gap-1 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Live Real-time
+                  </span>
+                </div>
+
+                {/* OS Live Card */}
+                <div className="p-3 rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.02] border border-[#D4AF37]/30 mb-3 text-center">
+                  <p className="text-[10px] text-[#F6D88C] uppercase tracking-wider font-playfair">KARNCHATA ENGINE V2.0</p>
+                  <p className="text-xs font-bold text-[#F8F6F1] mt-0.5">ดวงเดิม ⟷ กาลชะตาจร</p>
+                  <p className="text-[10px] text-slate-300 mt-1">
+                    อุตสาหะเดิม + อุตสาหะจร = <span className="text-[#F6D88C] font-semibold">จังหวะทองลงมือทำ</span>
+                  </p>
+                </div>
+
+                {/* 3 Core Quick Access Modules */}
+                <div className="space-y-2 mb-4">
+                  <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#D4AF37] text-xs">👑</span>
+                      <div>
+                        <p className="text-xs font-semibold text-[#F8F6F1]">ผังดวงจักรพรรดิ 35 ภพเรือน</p>
+                        <p className="text-[10px] text-slate-400">Multi-select Overlay Filter</p>
+                      </div>
+                    </div>
+                    <span className="text-slate-500 text-xs">›</span>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#D4AF37] text-xs">⏳</span>
+                      <div>
+                        <p className="text-xs font-semibold text-[#F8F6F1]">ยามอัฏฐกาลเต็มผัง (16 ยาม)</p>
+                        <p className="text-[10px] text-slate-400">ยามพรายกระซิบ & ราหูค้นทรัพย์</p>
+                      </div>
+                    </div>
+                    <span className="text-slate-500 text-xs">›</span>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#D4AF37] text-xs">📜</span>
+                      <div>
+                        <p className="text-xs font-semibold text-[#F8F6F1]">AI Life Report ฉบับเต็ม</p>
+                        <p className="text-[10px] text-slate-400">Actionable Plan สังเคราะห์เฉพาะตัว</p>
+                      </div>
+                    </div>
+                    <span className="text-slate-500 text-xs">›</span>
+                  </div>
+                </div>
+
+                {/* Mobile CTA */}
+                <Link
+                  to={isLoggedIn ? "/dashboard" : "/register"}
+                  className="w-full py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-[#D4AF37] to-[#F6D88C] text-[#07172A] block text-center shadow-md hover:brightness-105 transition-all"
+                >
+                  เปิดใช้งาน PhoPePhum ฟรี →
+                </Link>
+
+              </div>
+            </div>
+
+          </div>
+
+          {/* 4 Pillars Footer Strip */}
+          <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div className="p-2">
+              <p className="text-xs font-bold text-[#F6D88C]">ภูมิปัญญาโบราณ</p>
+              <p className="text-[10px] text-slate-400 font-playfair tracking-wider">ANCIENT WISDOM</p>
+            </div>
+            <div className="p-2">
+              <p className="text-xs font-bold text-[#F6D88C]">สมองกล AI ประมวลผล</p>
+              <p className="text-[10px] text-slate-400 font-playfair tracking-wider">AI MATCHING ENGINE</p>
+            </div>
+            <div className="p-2">
+              <p className="text-xs font-bold text-[#F6D88C]">Data Science ของชีวิต</p>
+              <p className="text-[10px] text-slate-400 font-playfair tracking-wider">LOGICAL TIMING</p>
+            </div>
+            <div className="p-2">
+              <p className="text-xs font-bold text-[#F6D88C]">ทุกเส้นทาง... มีความหมาย</p>
+              <p className="text-[10px] text-slate-400 font-playfair tracking-wider">ALL PATHS MATTER</p>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ──────────────────────────────────────────────────────────────────────────
+          2. PROBLEM & SOLUTION: Pain Points vs. Data Science Approach
+      ────────────────────────────────────────────────────────────────────────── */}
+      <section className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/25 mb-3">
+            PAIN POINTS & THE SOLUTION
+          </div>
+          <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-4">
+            คำตอบที่ดี ไม่ใช่การคาดเดา<br />
+            <span className="text-[#8C6D2D] dark:text-[#F6D88C]">แต่คือการเข้าใจด้วยตรรกะและสถิติ</span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-base">
-            ไม่ว่างมงาย ไม่เพ้อฝัน แต่คือเครื่องมือนำทางชีวิตที่ทำให้คุณตัดสินใจในเวลาที่เหมาะสมที่สุด
+          <p className="text-slate-600 dark:text-slate-300 font-sarabun text-base sm:text-lg leading-relaxed">
+            ก้าวข้ามความคลุมเครือของการทำนายทั่วไป สู่ความกระจ่างแจ้งในการวางแผนชีวิตที่แม่นยำ
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          {painPoints.map((item, idx) => (
+            <div
+              key={idx}
+              className="p-6 rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-xl hover:border-[#D4AF37]/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-xl mb-4">
+                  {item.icon}
+                </div>
+                <h3 className="font-sarabun font-bold text-base sm:text-lg text-slate-900 dark:text-[#F8F6F1] mb-2 leading-snug">
+                  {item.problem}
+                </h3>
+                <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mb-3 font-sarabun">
+                  ต้นตอ: {item.rootCause}
+                </p>
+                <div className="pt-3 border-t border-slate-100 dark:border-white/5">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 font-sarabun leading-relaxed">
+                    <strong className="text-emerald-600 dark:text-emerald-400">ทางออกด้วย PhoPePhum:</strong> {item.solution}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Highlight Banner */}
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#D4AF37]/15 via-[#07172A]/80 to-[#D4AF37]/15 border border-[#D4AF37]/35 text-center max-w-4xl mx-auto">
+          <p className="font-playfair text-lg sm:text-xl font-bold text-slate-900 dark:text-[#F8F6F1]">
+            "PhoPePhum ไม่ใช่แค่การดูดวง แต่คือ AI-Powered Life Guidance Platform"
+          </p>
+          <p className="text-sm text-slate-600 dark:text-slate-300 font-sarabun mt-2 max-w-2xl mx-auto leading-relaxed">
+            ที่ใช้วิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน และคัมภีร์สุริยยาตร์ มาทำงานร่วมกับ AI เพื่อถอดรหัสโครงสร้างชีวิตคุณอย่างเป็นเหตุเป็นผล ให้คุณก้าวเดินต่อไปได้อย่างสง่างามและไร้แรงเสียดทาน
+          </p>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────────────────────────────────────────────
+          5. CORE 4 LIFE DIMENSIONS (4 มิติสำคัญของชีวิต)
+      ────────────────────────────────────────────────────────────────────────── */}
+      <section className="relative z-10 py-16 sm:py-24 bg-slate-50/70 dark:bg-white/[0.01] border-y border-slate-200/80 dark:border-white/10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/25 mb-3">
+            CORE LIFE DIMENSIONS
+          </div>
+          <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-4">
+            ครอบคลุม 4 มิติสำคัญของชีวิต
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 font-sarabun text-base sm:text-lg">
+            ไม่ตัดสินโชคชะตา แต่ให้ความกระจ่างแจ้งในทุกการตัดสินใจ เพื่อให้คุณบริหารชีวิตได้อย่างมั่นใจ
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {useCases.map((uc, i) => (
+          {lifeDimensions.map((item) => (
             <div
-              key={i}
-              className="p-6 rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-white/[0.03] backdrop-blur-xl shadow-sm hover:shadow-md hover:border-[#C6A96B]/40 transition-all flex flex-col justify-between"
+              key={item.id}
+              className="group p-6 rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-xl hover:border-[#D4AF37]/50 hover:shadow-xl hover:shadow-[#D4AF37]/10 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center mb-5 text-[#8C6D2D] dark:text-[#C6A96B]">
-                  <AstralIcon name={uc.icon} size="md" />
+                <div className="w-14 h-14 rounded-2xl bg-[#07172A] border border-[#D4AF37]/40 flex items-center justify-center mb-6 shadow-md shadow-[#D4AF37]/15 group-hover:scale-110 transition-transform">
+                  {item.icon}
                 </div>
-                <h3 className="font-display font-bold text-lg text-slate-900 dark:text-[#F8F6F1] mb-1">
-                  {uc.title}
-                </h3>
-                <p className="text-xs font-semibold text-[#8C6D2D] dark:text-[#C6A96B] mb-3">
-                  {uc.role}
+
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="font-playfair font-bold text-xl text-slate-900 dark:text-[#F8F6F1]">
+                    {item.title}
+                  </h3>
+                  <span className="text-[10px] font-playfair font-semibold tracking-wider text-slate-400">
+                    {item.english}
+                  </span>
+                </div>
+
+                <p className="text-xs font-bold text-[#8C6D2D] dark:text-[#F6D88C] mb-3 font-sarabun">
+                  {item.subtitle}
                 </p>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {uc.desc}
+
+                <p className="text-sm text-slate-600 dark:text-slate-400 font-sarabun leading-relaxed mb-6">
+                  {item.desc}
                 </p>
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <span className="font-semibold text-slate-700 dark:text-slate-300 font-sarabun">{item.highlight}</span>
+                <span className="text-[#D4AF37] font-bold group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
           ))}
@@ -319,365 +590,41 @@ export default function Index() {
       </section>
 
       {/* ──────────────────────────────────────────────────────────────────────────
-          4. WHAT YOU GET (สิ่งที่คุณจะได้รับทันที)
+          6. PRICING & CANONICAL VALUE
       ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 py-16 bg-slate-50/80 dark:bg-white/[0.01] border-y border-slate-200/70 dark:border-white/5 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-4">
-              สิ่งที่คุณจะได้รับเมื่อเริ่มต้นใช้งาน
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-              ฟังก์ชันครบครันที่ออกแบบให้ใช้งานง่ายบนมือถือ พร้อมส่งมอบปัญญาและความกระจ่างแจ้งในทุกๆ วัน
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {whatYouGet.map((item, idx) => (
-              <div
-                key={idx}
-                className="p-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#0A1628]/60 backdrop-blur-md flex items-start gap-4"
-              >
-                <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-white/5 border border-amber-200 dark:border-white/10 text-[#8C6D2D] dark:text-[#C6A96B] shrink-0">
-                  <AstralIcon name={item.icon} size="md" />
-                </div>
-                <div>
-                  <h3 className="font-display font-bold text-base text-slate-900 dark:text-[#F8F6F1] mb-1.5">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ──────────────────────────────────────────────────────────────────────────
-          5. HOW IT WORKS (3 ขั้นตอนง่ายๆ)
-      ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 py-20 px-4 sm:px-6 max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#8C6D2D] dark:text-[#C6A96B] mb-3">
-            EASY 3-STEP JOURNEY
-          </p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-4">
-            เริ่มต้นชีวิตที่รู้จังหวะใน 3 ขั้นตอน
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-            ไม่ซับซ้อน ไม่ต้องมีพื้นฐานโหราศาสตร์ ระบบจะจัดการคำนวณเบื้องหลังให้ทั้งหมด
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          
-          <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] text-center relative">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C6A96B] to-[#D9BC82] text-[#020617] font-bold font-display text-lg flex items-center justify-center mx-auto mb-4 shadow-md shadow-[#C6A96B]/20">
-              1
-            </div>
-            <h3 className="font-display font-bold text-lg text-slate-900 dark:text-[#F8F6F1] mb-2">
-              สมัครสมาชิกฟรี 1 นาที
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              กรอกชื่อและอีเมล หรือเข้าสู่ระบบด้วย Google ได้ทันทีโดยไม่ต้องใช้บัตรเครดิต
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] text-center relative">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C6A96B] to-[#D9BC82] text-[#020617] font-bold font-display text-lg flex items-center justify-center mx-auto mb-4 shadow-md shadow-[#C6A96B]/20">
-              2
-            </div>
-            <h3 className="font-display font-bold text-lg text-slate-900 dark:text-[#F8F6F1] mb-2">
-              กรอกวันเวลาตกฟาก
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              ระบุวันเดือนปีเกิด และเวลาเกิด (หากมี) เพื่อให้ระบบถอดรหัสชะตาตามปฏิทินไทย 100 ปีแท้
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] text-center relative">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C6A96B] to-[#D9BC82] text-[#020617] font-bold font-display text-lg flex items-center justify-center mx-auto mb-4 shadow-md shadow-[#C6A96B]/20">
-              3
-            </div>
-            <h3 className="font-display font-bold text-lg text-slate-900 dark:text-[#F8F6F1] mb-2">
-              รับคำแนะนำ & เช็คฤกษ์ทันที
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              เปิดดูหน้าต่างเวลาทองรายวัน ปรึกษา Wisdom AI และวางแผนการตัดสินใจด้วยความมั่นใจ
-            </p>
-          </div>
-
-        </div>
-
-        <div className="mt-12 text-center">
-          <Link
-            to={isLoggedIn ? "/dashboard" : "/register"}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-lg shadow-[#C6A96B]/25 hover:scale-102 transition-all"
-          >
-            <span>ทดลองเริ่มต้นก้าวแรกได้ฟรี</span>
-            <span>→</span>
-          </Link>
-        </div>
-      </section>
-
-      {/* ──────────────────────────────────────────────────────────────────────────
-          6. FEATURE SHOWCASE (Interactive Tabs Preview)
-      ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 py-20 bg-slate-100/70 dark:bg-white/[0.02] border-y border-slate-200/80 dark:border-white/10 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-4">
-              สัมผัสประสบการณ์ภายในระบบจริง
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-              อินเทอร์เฟซระดับพรีเมียม สบายตาทั้งโหมดสว่างและโหมดมืด ออกแบบให้เข้าใจง่ายในพริบตา
-            </p>
-          </div>
-
-          {/* Feature Tab Buttons */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            <button
-              type="button"
-              onClick={() => setActiveFeatureTab("yam")}
-              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                activeFeatureTab === "yam"
-                  ? "bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-md shadow-[#C6A96B]/20"
-                  : "bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50"
-              }`}
-            >
-              ยามสด & หน้าต่างเวลาทอง
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFeatureTab("dimensions")}
-              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                activeFeatureTab === "dimensions"
-                  ? "bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-md shadow-[#C6A96B]/20"
-                  : "bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50"
-              }`}
-            >
-              4 มิติพลังงานชีวิต
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFeatureTab("horoscope")}
-              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                activeFeatureTab === "horoscope"
-                  ? "bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-md shadow-[#C6A96B]/20"
-                  : "bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50"
-              }`}
-            >
-              ผังดวงเลข ๗ ตัว ๙ ฐาน
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFeatureTab("chat")}
-              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                activeFeatureTab === "chat"
-                  ? "bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-md shadow-[#C6A96B]/20"
-                  : "bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50"
-              }`}
-            >
-              Wisdom AI Chat
-            </button>
-          </div>
-
-          {/* Interactive Feature Mockup Display */}
-          <div className="p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#071120]/80 backdrop-blur-2xl shadow-xl max-w-4xl mx-auto">
-            
-            {activeFeatureTab === "yam" && (
-              <div className="space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-white/10 pb-5">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-2xl bg-amber-500/10 text-[#8C6D2D] dark:text-[#C6A96B]">
-                      <AstralIcon name="sandglass" size="lg" />
-                    </div>
-                    <div>
-                      <h3 className="font-display font-bold text-xl text-slate-900 dark:text-[#F8F6F1]">
-                        ยามอัฏฐกาลสด ณ ปัจจุบัน
-                      </h3>
-                      <p className="text-xs text-slate-700 dark:text-slate-400">คำนวณตามพระอาทิตย์ขึ้น-ตกจริงระดับพิกัดท้องถิ่น</p>
-                    </div>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                    <span>ช่วงเวลายามศุภโชค (เกื้อหนุน)</span>
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02]">
-                    <p className="text-xs text-slate-700 dark:text-slate-400 mb-1">กิจกรรมที่ส่งเสริมสูงสุด</p>
-                    <p className="text-sm font-semibold text-slate-900 dark:text-[#F8F6F1]">
-                      การเจรจาต่อรอง การเสนอราคา การลงนามสัญญา และการเริ่มงานใหม่
-                    </p>
-                  </div>
-                  <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02]">
-                    <p className="text-xs text-slate-700 dark:text-slate-400 mb-1">ข้อควรระวังในเวลานี้</p>
-                    <p className="text-sm font-semibold text-slate-900 dark:text-[#F8F6F1]">
-                      หลีกเลี่ยงการใช้อารมณ์โต้แย้ง หรือการตัดสินใจลงทุนแบบกะทันหัน
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeFeatureTab === "dimensions" && (
-              <div className="space-y-4">
-                <h3 className="font-display font-bold text-xl text-slate-900 dark:text-[#F8F6F1] mb-2">
-                  ดัชนีพลังงาน 4 มิติชีวิตประจำวัน
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] text-center">
-                    <AstralIcon name="career" size="md" className="mx-auto mb-2 text-blue-500" />
-                    <p className="text-xs text-slate-700 dark:text-slate-400">การงาน (Career)</p>
-                    <p className="text-lg font-bold text-slate-900 dark:text-[#F8F6F1] mt-1">88% (ดีเยี่ยม)</p>
-                  </div>
-                  <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] text-center">
-                    <AstralIcon name="finance" size="md" className="mx-auto mb-2 text-amber-500" />
-                    <p className="text-xs text-slate-700 dark:text-slate-400">การเงิน (Finance)</p>
-                    <p className="text-lg font-bold text-slate-900 dark:text-[#F8F6F1] mt-1">75% (มั่นคง)</p>
-                  </div>
-                  <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] text-center">
-                    <AstralIcon name="relationship" size="md" className="mx-auto mb-2 text-rose-500" />
-                    <p className="text-xs text-slate-700 dark:text-slate-400">ความสัมพันธ์</p>
-                    <p className="text-lg font-bold text-slate-900 dark:text-[#F8F6F1] mt-1">82% (ราบรื่น)</p>
-                  </div>
-                  <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] text-center">
-                    <AstralIcon name="wellness" size="md" className="mx-auto mb-2 text-emerald-500" />
-                    <p className="text-xs text-slate-700 dark:text-slate-400">สุขภาพ (Wellness)</p>
-                    <p className="text-lg font-bold text-slate-900 dark:text-[#F8F6F1] mt-1">90% (สมดุล)</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeFeatureTab === "horoscope" && (
-              <div className="space-y-4">
-                <h3 className="font-display font-bold text-xl text-slate-900 dark:text-[#F8F6F1]">
-                  ผังดวงเลข ๗ ตัว ๙ ฐาน & จักรพรรดิ
-                </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  คำนวณตามสูตรคัมภีร์ดึกดำบรรพ์ พร้อมถอดรหัสวัยจร ปีจร เดือนจร เพื่อวางแผนชีวิตระยะยาว
-                </p>
-                <div className="p-4 rounded-2xl border border-[#C6A96B]/30 bg-[#C6A96B]/5 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <AstralIcon name="timeline" size="md" />
-                    <div>
-                      <p className="text-xs text-slate-700 dark:text-slate-400">วัยจรปัจจุบัน</p>
-                      <p className="font-bold text-sm text-slate-900 dark:text-[#F8F6F1]">ดาวพฤหัสบดี (๕) เสวยอายุ — ช่วงเวลาแห่งปัญญาและการขยับขยาย</p>
-                    </div>
-                  </div>
-                  <span className="text-xs font-bold text-[#8C6D2D] dark:text-[#C6A96B]">ความแม่นยำสูง</span>
-                </div>
-              </div>
-            )}
-
-            {activeFeatureTab === "chat" && (
-              <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm">
-                  <p className="text-xs font-bold text-[#8C6D2D] dark:text-[#C6A96B] mb-1">คำถามของคุณ</p>
-                  <p className="text-slate-800 dark:text-slate-200">"ช่วงสัปดาห์นี้ เหมาะกับการเปิดตัวโครงการใหม่หรือยื่นขอเงินกู้หรือไม่?"</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-sm">
-                  <p className="text-xs font-bold text-amber-700 dark:text-[#D9BC82] mb-1 flex items-center gap-1.5">
-                    <AstralIcon name="wisdom" size="sm" />
-                    <span>Wisdom AI วิเคราะห์จากชะตาและกาลเวลา</span>
-                  </p>
-                  <p className="text-slate-800 dark:text-slate-300 leading-relaxed text-xs sm:text-sm">
-                    "ตามผังชะตา ดาวพฤหัสบดีกำลังส่งพลังเกื้อหนุนในเรือนลาภะ แนะนำให้ดำเนินเรื่องในวันพุธหรือวันพฤหัสบดีช่วงยามศุภโชค (10:30 - 12:00 น.) จะได้รับความเมตตาและผ่านการพิจารณาได้ราบรื่นที่สุด..."
-                  </p>
-                </div>
-              </div>
-            )}
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* ──────────────────────────────────────────────────────────────────────────
-          7. WISDOM × AI (ไม่ใช่งมงาย แต่คือสติและกลยุทธ์)
-      ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 py-20 px-4 sm:px-6 max-w-5xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 p-2 rounded-2xl bg-amber-500/10 text-[#8C6D2D] dark:text-[#C6A96B] mb-6">
-          <AstralIcon name="spark" size="md" />
-          <span className="font-bold text-xs uppercase tracking-wider">THE PHILOSOPHY OF PHOPEPHUM</span>
-        </div>
-
-        <h2 className="font-display text-3xl sm:text-5xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-6 leading-tight">
-          ไม่ใช่การงมงายในโชคชะตา<br />
-          แต่คือการ "รู้จังหวะ" เพื่อลงมือทำอย่างมีสติ
-        </h2>
-
-        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto mb-10">
-          ศาสตร์กาลเวลาโบราณคือการอ่าน "คลื่นพลังงานธรรมชาติ" เช่นเดียวกับการที่ชาวประมงต้องอ่านกระแสน้ำและทิศทางลมก่อนออกเรือ ภพภูมินำพลังของ AI มาเป็นเครื่องมือถอดรหัสคลื่นพลังงานเหล่านี้ ให้คุณเตรียมความพร้อม ไม่ประมาท และเลือกเวลาลงมือทำที่ให้ผลสัมฤทธิ์สูงสุด
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
-          <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.02]">
-            <h3 className="font-display font-bold text-base text-slate-900 dark:text-[#F8F6F1] mb-2">
-              1. สติและความตระหนักรู้
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              ช่วยให้คุณมองเห็นอารมณ์และจุดเปราะบางล่วงหน้า ไม่ตกเป็นทาสของความกลัวหรือความโลภ
-            </p>
-          </div>
-          <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.02]">
-            <h3 className="font-display font-bold text-base text-slate-900 dark:text-[#F8F6F1] mb-2">
-              2. จังหวะเวลาที่เกื้อหนุน
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              ทำงานชิ้นสำคัญในเวลาที่พลังงานส่งเสริม และใช้เวลาที่พลังงานตึงเครียดในการพักผ่อนหรือทบทวน
-            </p>
-          </div>
-          <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.02]">
-            <h3 className="font-display font-bold text-base text-slate-900 dark:text-[#F8F6F1] mb-2">
-              3. ทางออกที่ลงมือทำได้จริง
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              Wisdom AI เปลี่ยนข้อคิดโบราณเป็นแผนการลงมือทำเชิงปฏิบัติที่เข้ากับยุคปัจจุบัน
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ──────────────────────────────────────────────────────────────────────────
-          8. CANONICAL PRICING & VALUE COMPARISON
-      ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 py-20 bg-slate-50/90 dark:bg-white/[0.01] border-y border-slate-200/80 dark:border-white/10 px-4 sm:px-6">
+      <section className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="max-w-6xl mx-auto">
           
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#8C6D2D] dark:text-[#C6A96B] mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/25 mb-3">
               TRANSPARENT & FAIR PRICING
-            </p>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-4">
+            </div>
+            <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-4">
               แผนการใช้งานที่โปร่งใส ชัดเจน
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-              เริ่มต้นได้ฟรีตลอดชีพ หรือยกระดับสู่เครื่องมือมืออาชีพตามความต้องการของคุณ
+            <p className="text-slate-600 dark:text-slate-400 font-sarabun text-base">
+              เริ่มต้นใช้งานฟรี หรือยกระดับสู่เครื่องมือวิเคราะห์เชิงกลยุทธ์ระดับมืออาชีพ
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            {/* Free */}
-            <div className="p-6 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#071120]/80 backdrop-blur-xl flex flex-col justify-between">
+            {/* 1. Free */}
+            <div className="p-6 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#07172A]/80 backdrop-blur-xl flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider">เริ่มต้นทดลอง</span>
-                <h3 className="font-display font-bold text-2xl text-slate-900 dark:text-[#F8F6F1] mt-1 mb-2">ฟรีตลอดชีพ</h3>
+                <span className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">เริ่มทดลอง</span>
+                <h3 className="font-playfair font-bold text-2xl text-slate-900 dark:text-[#F8F6F1] mt-1 mb-1">Free</h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-sarabun mb-3 min-h-[32px]">
+                  สัมผัสพลังงานชีวิตและกาลชะตาเบื้องต้น
+                </p>
                 <div className="mb-6">
-                  <span className="font-display text-4xl font-bold text-slate-900 dark:text-[#F8F6F1]">฿0</span>
-                  <span className="text-xs text-slate-700 dark:text-slate-400 ml-1">/ ตลอดชีพ</span>
+                  <span className="font-playfair text-4xl font-bold text-slate-900 dark:text-[#F8F6F1]">฿0</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400 ml-1">/ เดือน</span>
                 </div>
-                <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 mb-6">
-                  <li className="flex items-center gap-2"><span>✓</span> Dashboard พลังงานวันนี้</li>
-                  <li className="flex items-center gap-2"><span>✓</span> ข้อมูลชาตาส่วนตัวเบื้องต้น</li>
-                  <li className="flex items-center gap-2"><span>✓</span> Wisdom AI (3 ครั้ง/เดือน)</li>
+                <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 font-sarabun mb-6">
+                  <li className="flex items-center gap-2"><span>✓</span> Dashboard สถิติพลังงานวันนี้</li>
+                  <li className="flex items-center gap-2"><span>✓</span> ผังดวงวิชาเลข ๗ ตัว ๙ ฐานเบื้องต้น</li>
+                  <li className="flex items-center gap-2"><span>✓</span> กาลชะตาวันนี้ & ยามปัจจุบัน</li>
                   <li className="flex items-center gap-2"><span>✓</span> รับทรายกาลเวลาฟรีทุกวัน</li>
                 </ul>
               </div>
@@ -689,20 +636,22 @@ export default function Index() {
               </Link>
             </div>
 
-            {/* Basic */}
-            <div className="p-6 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#071120]/80 backdrop-blur-xl flex flex-col justify-between">
+            {/* 2. Premium */}
+            <div className="p-6 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#07172A]/80 backdrop-blur-xl flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider">ยกระดับชีวิต</span>
-                <h3 className="font-display font-bold text-2xl text-slate-900 dark:text-[#F8F6F1] mt-1 mb-2">Basic Sage</h3>
+                <span className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">ยกระดับชีวิต</span>
+                <h3 className="font-playfair font-bold text-2xl text-slate-900 dark:text-[#F8F6F1] mt-1 mb-1">Premium</h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-sarabun mb-3 min-h-[32px]">
+                  ยกระดับการวางแผนชีวิตและการเงินส่วนบุคคล
+                </p>
                 <div className="mb-6">
-                  <span className="font-display text-4xl font-bold text-slate-900 dark:text-[#F8F6F1]">฿89</span>
-                  <span className="text-xs text-slate-700 dark:text-slate-400 ml-1">/ เดือน</span>
+                  <span className="font-playfair text-4xl font-bold text-slate-900 dark:text-[#F8F6F1]">฿89</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400 ml-1">/ เดือน</span>
                 </div>
-                <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 mb-6">
-                  <li className="flex items-center gap-2"><span>✓</span> ยามอัฏฐกาล & ราหู วันนี้</li>
-                  <li className="flex items-center gap-2"><span>✓</span> ผัง 7 ตัว 9 ฐาน (ตนเอง)</li>
-                  <li className="flex items-center gap-2"><span>✓</span> ปฏิทินพลังงานรายวัน</li>
-                  <li className="flex items-center gap-2"><span>✓</span> Wisdom AI (10 ครั้ง/เดือน)</li>
+                <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 font-sarabun mb-6">
+                  <li className="flex items-center gap-2"><span>✓</span> ยามอัฏฐกาลเต็มผัง & ราหู วันนี้</li>
+                  <li className="flex items-center gap-2"><span>✓</span> ผังวิชาเลข ๗ ตัว ๙ ฐาน 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน (ตนเอง)</li>
+                  <li className="flex items-center gap-2"><span>✓</span> ปฏิทินจันทรคติไทย 100 ปีแท้</li>
                   <li className="flex items-center gap-2"><span>✓</span> บันทึกดวงตนเอง + 3 คน</li>
                 </ul>
               </div>
@@ -710,60 +659,66 @@ export default function Index() {
                 to="/pricing"
                 className="w-full text-center py-3 rounded-xl font-bold text-xs bg-slate-900 text-white dark:bg-white/10 dark:text-white hover:bg-slate-800 transition-colors"
               >
-                เลือกแผน Basic
+                เลือกแผน Premium
               </Link>
             </div>
 
-            {/* Pro Master */}
-            <div className="p-6 rounded-3xl border-2 border-[#C6A96B] bg-white dark:bg-[#0A182E]/90 backdrop-blur-xl flex flex-col justify-between relative shadow-xl shadow-[#C6A96B]/15">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617]">
+            {/* 3. Professional */}
+            <div className="p-6 rounded-3xl border-2 border-[#D4AF37] bg-white dark:bg-[#0A182E]/90 backdrop-blur-xl flex flex-col justify-between relative shadow-xl shadow-[#D4AF37]/15">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#F6D88C] text-[#07172A]">
                 แนะนำยอดนิยม
               </div>
               <div>
-                <span className="text-xs font-bold text-[#8C6D2D] dark:text-[#C6A96B] uppercase tracking-wider">มืออาชีพ</span>
-                <h3 className="font-display font-bold text-2xl text-slate-900 dark:text-[#F8F6F1] mt-1 mb-2">Pro Master</h3>
+                <span className="text-xs font-bold text-[#8C6D2D] dark:text-[#F6D88C] uppercase tracking-wider">มืออาชีพ</span>
+                <h3 className="font-playfair font-bold text-2xl text-slate-900 dark:text-[#F8F6F1] mt-1 mb-1">Professional</h3>
+                <p className="text-[11px] text-slate-600 dark:text-[#F6D88C]/80 font-sarabun mb-3 min-h-[32px] leading-relaxed">
+                  วางแผนงานเฉพาะวิชาชีพ สามารถใช้งานระบบแบบ Custom มากขึ้น
+                </p>
                 <div className="mb-6">
-                  <span className="font-display text-4xl font-bold text-slate-900 dark:text-[#F8F6F1]">฿289</span>
-                  <span className="text-xs text-slate-700 dark:text-slate-400 ml-1">/ เดือน</span>
+                  <span className="font-playfair text-4xl font-bold text-slate-900 dark:text-[#F8F6F1]">฿289</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400 ml-1">/ เดือน</span>
                 </div>
-                <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 mb-6">
-                  <li className="flex items-center gap-2"><span className="text-[#8C6D2D] dark:text-[#C6A96B]">✓</span> ยามล่วงหน้า 7 วัน</li>
-                  <li className="flex items-center gap-2"><span className="text-[#8C6D2D] dark:text-[#C6A96B]">✓</span> ระบบวิเคราะห์จรสมบูรณ์</li>
-                  <li className="flex items-center gap-2"><span className="text-[#8C6D2D] dark:text-[#C6A96B]">✓</span> Wisdom AI ไม่จำกัด</li>
-                  <li className="flex items-center gap-2"><span className="text-[#8C6D2D] dark:text-[#C6A96B]">✓</span> บันทึกดวงคนอื่น 15 คน</li>
-                  <li className="flex items-center gap-2"><span className="text-[#8C6D2D] dark:text-[#C6A96B]">✓</span> รับ Sands +150 เม็ด/เดือน</li>
+                <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 font-sarabun mb-6">
+                  <li className="flex items-center gap-2"><span className="text-[#D4AF37]">✓</span> KARNCHATA ENGINE V2.0 เต็มระบบ</li>
+                  <li className="flex items-center gap-2"><span className="text-[#D4AF37]">✓</span> Multi-select Overlay Filter ผังจักรพรรดิ</li>
+                  <li className="flex items-center gap-2"><span className="text-[#D4AF37]">✓</span> วางแผนงานเฉพาะวิชาชีพ & Customization</li>
+                  <li className="flex items-center gap-2"><span className="text-[#D4AF37]">✓</span> ยามพรายกระซิบ 12 ภพ & ราหูค้นทรัพย์</li>
+                  <li className="flex items-center gap-2"><span className="text-[#D4AF37]">✓</span> บันทึกดวง 15 คน + Sands 150 เม็ด/เดือน</li>
                 </ul>
               </div>
               <Link
                 to="/pricing"
-                className="w-full text-center py-3 rounded-xl font-bold text-xs bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-md shadow-[#C6A96B]/20 hover:scale-102 transition-all"
+                className="w-full text-center py-3 rounded-xl font-bold text-xs bg-gradient-to-r from-[#D4AF37] to-[#F6D88C] text-[#07172A] shadow-md shadow-[#D4AF37]/25 hover:scale-102 transition-all font-bold"
               >
-                เลือกแผน Pro Master
+                เลือกแผน Professional
               </Link>
             </div>
 
-            {/* Imperial */}
-            <div className="p-6 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#071120]/80 backdrop-blur-xl flex flex-col justify-between">
+            {/* 4. Master */}
+            <div className="p-6 rounded-3xl border border-purple-500/30 dark:border-purple-500/20 bg-white dark:bg-[#07172A]/80 backdrop-blur-xl flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">สัจจะสูงสุด</span>
-                <h3 className="font-display font-bold text-2xl text-slate-900 dark:text-[#F8F6F1] mt-1 mb-2">Imperial</h3>
+                <span className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">โหราจารย์</span>
+                <h3 className="font-playfair font-bold text-2xl text-slate-900 dark:text-[#F8F6F1] mt-1 mb-1">Master</h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-sarabun mb-3 min-h-[32px] leading-relaxed">
+                  ปลดล็อคเครื่องมือสำหรับนักพยากรณ์ เข้าถึงหลักวิชาและหลักการโหราศาสตร์เพื่อใช้ในการพยากรณ์ได้อย่างลึกซึ้งมากขึ้น
+                </p>
                 <div className="mb-6">
-                  <span className="font-display text-4xl font-bold text-slate-900 dark:text-[#F8F6F1]">฿789</span>
-                  <span className="text-xs text-slate-700 dark:text-slate-400 ml-1">/ ตลอดชีพ</span>
+                  <span className="font-playfair text-4xl font-bold text-slate-900 dark:text-[#F8F6F1]">฿789</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400 ml-1">/ เดือน</span>
                 </div>
-                <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 mb-6">
-                  <li className="flex items-center gap-2"><span>✓</span> ทุกฟีเจอร์ไม่จำกัดตลอดชีพ</li>
-                  <li className="flex items-center gap-2"><span>✓</span> ปฏิทิน 100 ปี & ดวงสมพงษ์</li>
-                  <li className="flex items-center gap-2"><span>✓</span> ส่งออกรายงาน PDF พรีเมียม</li>
-                  <li className="flex items-center gap-2"><span>✓</span> บันทึกดวงไม่จำกัดจำนวน</li>
-                  <li className="flex items-center gap-2"><span>✓</span> รับ Sands +500 เม็ดโบนัส</li>
+                <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 font-sarabun mb-6">
+                  <li className="flex items-center gap-2"><span>✓</span> ปลดล็อคเครื่องมือสำหรับนักพยากรณ์ครบวงจร</li>
+                  <li className="flex items-center gap-2"><span>✓</span> เข้าถึงหลักวิชาและหลักการโหราศาสตร์เชิงลึก</li>
+                  <li className="flex items-center gap-2"><span>✓</span> ผังดวงจักรพรรดิ 35 ภพเรือน ฐานกำลังพระเคราะห์ 19 ฐาน + สุริยยาตร์แท้</li>
+                  <li className="flex items-center gap-2"><span>✓</span> ส่งออกรายงาน AI Life Report พรีเมียม</li>
+                  <li className="flex items-center gap-2"><span>✓</span> บันทึกดวงไม่จำกัด + Sands 500 เม็ด/เดือน</li>
                 </ul>
               </div>
               <Link
                 to="/pricing"
                 className="w-full text-center py-3 rounded-xl font-bold text-xs bg-slate-900 text-white dark:bg-white/10 dark:text-white hover:bg-slate-800 transition-colors"
               >
-                เลือกแผน Imperial
+                เลือกแผน Master
               </Link>
             </div>
 
@@ -779,104 +734,18 @@ export default function Index() {
       </section>
 
       {/* ──────────────────────────────────────────────────────────────────────────
-          9. SANDS OF TIME (Micro-Economy)
+          7. FAQ ACCORDION SECTION
       ────────────────────────────────────────────────────────────────────────── */}
-      <section id="sands" className="relative z-10 py-16 px-4 sm:px-6 max-w-5xl mx-auto">
-        <div className="p-8 sm:p-12 rounded-3xl border border-amber-500/30 bg-amber-500/[0.03] dark:bg-amber-500/[0.02] backdrop-blur-xl">
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-2 text-[#8C6D2D] dark:text-[#C6A96B] font-bold text-xs uppercase tracking-wider mb-2">
-              <AstralIcon name="sandglass" size="sm" />
-              <span>SANDS OF TIME MICRO-ECONOMY</span>
-            </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-3">
-              เศรษฐกิจละอองทรายกาลเวลา — จ่ายตามจริง ไม่ผูกมัด
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-              หากคุณไม่ต้องการจ่ายค่าสมาชิกรายเดือน คุณสามารถใช้ "ละอองทรายกาลเวลา" เพื่อปลดล็อกรายงานวิเคราะห์ชีวิตเชิงลึกเป็นครั้งคราวได้ตามสะดวก โดยสมาชิกทุกคนจะได้รับทรายแจกฟรีทุกวันเมื่อเข้าใช้งาน
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-            <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5">
-              <p className="text-xs text-slate-700 dark:text-slate-400 font-medium">ชุดเริ่มต้น</p>
-              <p className="text-xl font-bold text-slate-900 dark:text-[#F8F6F1] mt-1">50 เม็ด</p>
-              <p className="text-xs text-[#8C6D2D] dark:text-[#C6A96B] font-bold mt-1">฿59</p>
-            </div>
-            <div className="p-4 rounded-2xl border-2 border-[#C6A96B] bg-white/90 dark:bg-[#0A182E] relative">
-              <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase bg-[#C6A96B] text-[#020617]">ยอดนิยม</span>
-              <p className="text-xs text-slate-700 dark:text-slate-400 font-medium">ชุดสุดคุ้ม</p>
-              <p className="text-xl font-bold text-slate-900 dark:text-[#F8F6F1] mt-1">150 เม็ด</p>
-              <p className="text-xs text-[#8C6D2D] dark:text-[#C6A96B] font-bold mt-1">฿149</p>
-            </div>
-            <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5">
-              <p className="text-xs text-slate-700 dark:text-slate-400 font-medium">ชุดจุใจ (ประหยัด 32%)</p>
-              <p className="text-xl font-bold text-slate-900 dark:text-[#F8F6F1] mt-1">500 เม็ด</p>
-              <p className="text-xs text-[#8C6D2D] dark:text-[#C6A96B] font-bold mt-1">฿399</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ──────────────────────────────────────────────────────────────────────────
-          10. SECURITY, PRIVACY & COMPLIANCE
-      ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 py-16 bg-slate-50 dark:bg-white/[0.01] border-y border-slate-200/80 dark:border-white/10 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10">
-          <div className="p-6 rounded-3xl bg-slate-900 text-white dark:bg-white/5 border border-slate-800 dark:border-white/10 shrink-0 text-center w-full md:w-72">
-            <div className="w-16 h-16 rounded-2xl bg-amber-500/10 text-[#C6A96B] flex items-center justify-center mx-auto mb-4">
-              <AstralIcon name="balance" size="lg" />
-            </div>
-            <h3 className="font-display font-bold text-lg mb-1">PDPA Compliant</h3>
-            <p className="text-xs text-slate-400">มาตรฐานคุ้มครองข้อมูลส่วนบุคคลและธุรกรรมปลอดภัย 100%</p>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-[#F8F6F1]">
-              ความปลอดภัยและความเป็นส่วนตัวคือหัวใจของเรา
-            </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              เราเข้าใจดีว่าข้อมูลวันเกิดและเวลาตกฟากเป็นเรื่องส่วนตัวอย่างยิ่ง สถาปัตยกรรมของ PhopePhum จึงถูกออกแบบด้วยแนวคิด Zero-Knowledge Personal Privacy:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600 dark:text-slate-400">
-              <div className="flex items-center gap-2">
-                <span className="text-emerald-500 font-bold">✓</span>
-                <span>ข้อมูลตกฟากถูกล็อกด้วย Supabase RLS</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-emerald-500 font-bold">✓</span>
-                <span>ไม่มีการขายข้อมูลส่วนบุคคลให้บุคคลที่สาม</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-emerald-500 font-bold">✓</span>
-                <span>เข้ารหัสการเชื่อมต่อด้วย Bank-Grade SSL</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-emerald-500 font-bold">✓</span>
-                <span>ไม่นำข้อมูลของคุณไปเทรน AI สาธารณะ</span>
-              </div>
-            </div>
-            <div className="pt-2">
-              <Link to="/security" className="text-xs font-bold text-[#8C6D2D] dark:text-[#C6A96B] hover:underline">
-                อ่านมาตรฐานความปลอดภัยและสิทธิในข้อมูลของคุณ →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ──────────────────────────────────────────────────────────────────────────
-          11. FAQ ACCORDION SECTION
-      ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 py-20 px-4 sm:px-6 max-w-4xl mx-auto">
+      <section className="relative z-10 py-16 sm:py-24 bg-slate-100/60 dark:bg-[#07172A]/90 border-y border-slate-200/80 dark:border-white/10 px-4 sm:px-6 max-w-4xl mx-auto">
         <div className="text-center mb-14">
-          <p className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#8C6D2D] dark:text-[#C6A96B] mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/25 mb-3">
             FREQUENTLY ASKED QUESTIONS
-          </p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-3">
-            คำถามที่พบบ่อย
+          </div>
+          <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-slate-900 dark:text-[#F8F6F1] mb-3">
+            คำถามที่พบบ่อยเกี่ยวกับ PhoPePhum OS
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm">
-            คำตอบชัดเจนในทุกข้อสงสัยเกี่ยวกับการใช้งานและการบริการ
+          <p className="text-slate-600 dark:text-slate-400 font-sarabun text-sm sm:text-base">
+            คำตอบชัดเจนในทุกมิติด้านตรรกะ สถิติ ความเป็นส่วนตัว และความคุ้มค่า
           </p>
         </div>
 
@@ -891,15 +760,15 @@ export default function Index() {
                 <button
                   type="button"
                   onClick={() => toggleFaq(index)}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base text-slate-900 dark:text-[#F8F6F1] hover:text-[#8C6D2D] dark:hover:text-[#C6A96B] transition-colors"
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-playfair font-bold text-base text-slate-900 dark:text-[#F8F6F1] hover:text-[#D4AF37] transition-colors"
                 >
-                  <span>{faq.q}</span>
-                  <span className={`text-xl transition-transform duration-200 ${isOpen ? "rotate-45" : ""}`}>
+                  <span className="font-sarabun font-semibold">{faq.q}</span>
+                  <span className={`text-xl transition-transform duration-200 text-[#D4AF37] ${isOpen ? "rotate-45" : ""}`}>
                     +
                   </span>
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-3 animate-in fade-in duration-200">
+                  <div className="px-6 pb-5 text-sm text-slate-600 dark:text-slate-300 font-sarabun leading-relaxed border-t border-slate-100 dark:border-white/5 pt-3 animate-in fade-in duration-200">
                     {faq.a}
                   </div>
                 )}
@@ -907,43 +776,49 @@ export default function Index() {
             );
           })}
         </div>
-
-        <div className="mt-8 text-center">
-          <Link to="/faq" className="text-xs sm:text-sm font-semibold text-[#8C6D2D] dark:text-[#C6A96B] hover:underline">
-            ดูคำถามและคำตอบทั้งหมดในศูนย์ช่วยเหลือ (FAQ Hub) →
-          </Link>
-        </div>
       </section>
 
       {/* ──────────────────────────────────────────────────────────────────────────
-          12. FINAL CALL-TO-ACTION (Conversion Anchor)
+          8. SOCIAL PROOF & FINAL CALL-TO-ACTION (ปิดการขายอย่างสง่างาม)
       ────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative z-10 py-20 px-4 sm:px-6 max-w-5xl mx-auto text-center">
-        <div className="p-10 sm:p-16 rounded-3xl bg-gradient-to-b from-slate-900 to-[#0B1528] text-white border border-[#C6A96B]/30 shadow-2xl relative overflow-hidden">
+      <section className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-5xl mx-auto text-center">
+        <div className="p-10 sm:p-16 rounded-3xl bg-gradient-to-b from-[#07172A] via-[#0A1A2E] to-[#0F172A] text-white border border-[#D4AF37]/35 shadow-2xl relative overflow-hidden">
           
-          {/* Subtle glow */}
-          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#C6A96B]/20 rounded-full blur-3xl pointer-events-none" />
+          {/* Ambient Glow */}
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#D4AF37]/25 rounded-full blur-3xl pointer-events-none" />
 
-          <h2 className="font-display text-3xl sm:text-5xl font-bold mb-4 relative z-10 text-[#F8F6F1] leading-tight">
-            พร้อมเริ่มต้นชีวิตที่ก้าวถูกจังหวะแล้วหรือยัง?
-          </h2>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#F6D88C] bg-[#D4AF37]/15 border border-[#D4AF37]/30 mb-6 relative z-10">
+            ALL PATHS MATTER
+          </div>
 
-          <p className="text-slate-300 text-sm sm:text-lg max-w-2xl mx-auto mb-8 relative z-10 leading-relaxed">
-            สัมผัสประสบการณ์แห่งปัญญาและกาลเวลาชีวิตที่จะเปลี่ยนทุกการตัดสินใจของคุณให้แม่นยำและมั่นใจยิ่งขึ้น
+          <blockquote className="font-playfair text-2xl sm:text-4xl font-bold mb-4 relative z-10 text-[#F8F6F1] leading-snug max-w-3xl mx-auto">
+            "ทุกเส้นทาง... มีความหมาย (All Paths Matter)<br />
+            <span className="text-[#F6D88C]">ให้ PhoPePhum OS เป็นที่ปรึกษาชีวิตส่วนตัวของคุณ"</span>
+          </blockquote>
+
+          <p className="text-slate-300 text-sm sm:text-base font-sarabun max-w-2xl mx-auto mb-8 relative z-10 leading-relaxed">
+            เปลี่ยนความไม่แน่นอนเป็นความมั่นใจ ลงมือทำถูกจังหวะเวลาเพื่อความสำเร็จที่ไร้แรงเสียดทาน
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10 mb-6">
             <Link
-              to={isLoggedIn ? "/dashboard" : "/register"}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-2xl font-bold text-base bg-gradient-to-r from-[#C6A96B] to-[#D9BC82] text-[#020617] shadow-xl shadow-[#C6A96B]/30 hover:scale-105 active:scale-95 transition-all"
+              to={isLoggedIn ? "/dashboard/horoscope" : "/register"}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold text-base bg-gradient-to-r from-[#D4AF37] via-[#F6D88C] to-[#D4AF37] text-[#07172A] shadow-xl shadow-[#D4AF37]/30 hover:scale-105 active:scale-95 transition-all"
             >
-              <span>{isLoggedIn ? "ไปที่ Dashboard ของคุณ" : "เริ่มต้นใช้งานฟรีทันที"}</span>
+              <span>สร้างผังดวงจักรพรรดิของคุณตอนนี้</span>
               <span>→</span>
+            </Link>
+
+            <Link
+              to={isLoggedIn ? "/dashboard/reports/new" : "/register"}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-semibold text-base border border-[#D4AF37]/40 text-[#F6D88C] hover:bg-[#D4AF37]/10 transition-all"
+            >
+              <span>ดูรายงานวิเคราะห์เชิงลึกด้วย AI</span>
             </Link>
           </div>
 
-          <p className="text-xs text-slate-400 relative z-10">
-            ไม่ต้องกรอกบัตรเครดิต • สมัครใน 1 นาที • เริ่มต้นฟรีตลอดชีพ
+          <p className="text-xs text-slate-400 relative z-10 font-sarabun">
+            ไม่ต้องกรอกบัตรเครดิต • ข้อมูลปลอดภัยด้วยมาตรฐาน PDPA • เริ่มต้นใช้งานฟรี
           </p>
 
         </div>
